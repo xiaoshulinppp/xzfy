@@ -1,0 +1,75 @@
+<@ww.hidden name="'infoId'"/>
+
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabMainTop">
+	  <tr>
+	  	<td>姓名</td>
+	  	<td>
+	  		<@ww.textfield name="'app.appName'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>性别</td>
+	  	<td>
+	  		
+	  		
+	  			<label><input name="app.sexy" type="radio" value="1" checked="checked" />男 </label> 
+				<label><input name="app.sexy" type="radio" value="2"
+				<#if app.sexy?has_content && app.sexy == "2">
+					checked="checked"
+				</#if>
+				 />女 </label>
+	  		 
+		</td>
+	  </tr>
+<#--	  <tr>
+	  	<td>出生年月</td>
+	  	<td>
+	  		<input type="text" name="app.dateOfBirth" />
+		</td>
+	  </tr>
+	  --> 
+	  <tr>
+	  	<td>身份证</td>
+	  	<td>
+	  		<@ww.textfield name="'app.appId'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>邮箱</td>
+	  	<td>
+	  		<@ww.textfield name="'app.email'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>手机号码</td>
+	  	<td>
+	  		<@ww.textfield name="'app.mobile'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>固定号码</td>
+	  	<td>
+	  		<@ww.textfield name="'app.telephone'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>邮编</td>
+	  	<td>
+	  		<@ww.textfield name="'app.postCode'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>通邮地址</td>
+	  	<td>
+	  		<@ww.textfield name="'app.mailAddress'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	  <tr>
+	  	<td>现住址</td>
+	  	<td>
+	  		<@ww.textfield name="'app.address'" cssClass="'inputTextNormal'" />
+		</td>
+	  </tr>
+	</table>
+	<input type="submit" value="完成" />
+	<input type="button" name="backBtn" value="取消" onClick="history.back()" />

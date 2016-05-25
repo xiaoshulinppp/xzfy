@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="Field" 
+    table="t_field"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="field_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="field_name"
+		not-null="true"
+    />
+
+	<property
+        name="showName"
+        type="java.lang.String"
+        column="field_showname"
+        not-null="true"
+    />
+	<property
+        name="showType"
+        type="java.lang.String"
+        column="field_showtype"
+	    />
+	<property
+        name="type"
+        type="java.lang.String"
+        column="field_type"
+		    />
+	<property
+        name="length"
+        type="java.lang.Integer"
+        column="field_length"
+    />
+	<property
+        name="keyColumn"
+        column="field_iskey"
+	 />
+	<property
+        name="defaultValue"
+        type="java.lang.String"
+        column="field_defaultvalue"
+    />
+	<property
+        name="order"
+        type="java.lang.Integer"
+        column="field_order"
+	/>
+	<property
+        name="mustWrite"
+        column="field_isnull"
+	 />
+	<property
+        name="fromDict"
+        column="field_fromdict"
+    />
+	<property
+        name="dictId"
+        column="field_dictid"
+    />
+	<property
+        name="action"
+        type="java.lang.String"
+        column="field_action"
+    />
+	<property
+        name="showValue"
+        type="java.lang.String"
+        column="field_showvalue"
+    />
+
+
+	<many-to-one name="table"  column = "field_mappingtable" not-null="true"/>
+</class>
+	<query name="findFieldsByTable"><![CDATA[
+		from Field f where f.table.id = ? order by f.order
+	]]></query>
+	<query name="findFieldsByTableName"><![CDATA[
+		from Field f where f.table.name = ? order by f.order
+	]]></query>
+	<query name="findFieldByName"><![CDATA[
+		from Field f where f.name = ? and f.table.name = ?
+	]]></query>	
+</hibernate-mapping>

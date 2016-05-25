@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="Post" 
+    table="t_ptree"
+    dynamic-update="true"
+	dynamic-insert="true"
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="ptree_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="positionCaseId"
+        type="java.lang.Integer"
+        column="p_id"
+    />
+    <property
+        name="parent"
+        type="java.lang.Integer"
+        column="ptree_fid"
+    />
+    <property
+        name="name"
+        type="java.lang.String"
+        column="ptree_name"
+    />
+    <property
+        name="maxlevel"
+        type="java.lang.Integer"
+        column="ptree_max"
+    />
+    <property
+        name="minlevel"
+        type="java.lang.Integer"
+        column="ptree_min"
+    />
+    <property
+        name="enable"
+        type="java.lang.Integer"
+        column="ptree_enable"
+    />
+</class>
+</hibernate-mapping>

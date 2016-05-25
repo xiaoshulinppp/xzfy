@@ -1,0 +1,53 @@
+package ${plugin.parameter.acitionPackageName};
+#set( $objectName = "$table.getVariableName()")
+#set( $className = "${table.destinationClassName}")
+#set ($keyColumn = $table.pkColumn) 
+#set ($keyvar = ${keyColumn.variableName}) 
+#set ($keyCVar = ${keyColumn.capitalisedVariableName})
+
+import com.taiji.core.util.PaginationSupport;
+import com.taiji.core.webwork.action.ProtectedListAction;
+import  ${plugin.parameter.domainPackageName}.*;
+import  ${plugin.parameter.servicePackageName}.*;
+
+public class List${className}QueryAction extends ProtectedListAction{
+	private Integer $keyvar;
+	private static final String TABLE_NAME = "${table.sqlName}";
+	
+	#foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getQualifiedDestinationClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+		#if($relationshipRole.targetMany)
+			private I${relationName}Service service;
+	    #end
+	    #if($relationshipRole.targetMany)
+			public void set${relationName}Service(I${relationName}Service service){
+				this.service = service;
+			}
+			public I${relationName}Service get${relationName}Service(){
+				return this.service;
+			}
+	    #end
+	   #end
+	#end
+	public void set${keyCVar}(Integer id){
+		this.$keyvar = id;
+	}
+	public Integer get${keyCVar}(){
+		return $keyvar;
+	}
+	public String getTableName() {
+		return TABLE_NAME;
+	}
+	public Class getPersistentClass() {
+		return ${className}.class;
+	}
+	public PaginationSupport getInitResult() {
+	    return service.get${className}List(id,getPageNum());
+	}
+	
+}

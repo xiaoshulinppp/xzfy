@@ -1,0 +1,80 @@
+<@ww.hidden name="'infoId'" />
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" class="tabout" >
+	<tr class="trcolor">
+		<td align="center" colspan="2" class="tdlistCenter">
+			法人或其他组织资料填写
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*法人或其他组织全称
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.appName'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*法定代表人
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.deputyName'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*法定代表人身份证
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.appId'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*邮箱
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.email'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*手机号码
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.mobile'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			固定号码
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.telephone'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			邮编
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.postCode'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			*通邮地址
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.mailAddress'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	<tr class="trcolor">
+		<td align="center" class="tdlistCenter">
+			现地址
+		</td>
+		<td align="center" class="tdlistCenter">
+			<@ww.textfield name="'app.address'" cssClass="'inputTextNormal'" />
+		</td>
+	</tr>
+	

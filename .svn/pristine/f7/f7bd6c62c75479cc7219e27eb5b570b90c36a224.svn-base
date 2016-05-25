@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!-- Copyright (c) 2002 by ObjectLearn. All Rights Reserved. -->
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>sessionFactoryBeanName</param-name>
+			<param-value>sessionFactory</param-value>
+		</init-param>
+		<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value>           
+		</init-param>
+		<init-param>
+			<param-name>flushMode</param-name>
+			<param-value>AUTO</param-value>        
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- OScache 缓存 start -->
+	
+		<!-- OScache 首页缓存 start -->
+		
+	<filter>
+		<filter-name>CacheFilter</filter-name>
+		<filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
+		<init-param>
+			<param-name>time</param-name>
+			<param-value>10000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>scope</param-name>
+			<param-value>application</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>/login/login.ftl</url-pattern>
+	</filter-mapping>
+	
+	<!-- OScache 首页缓存 end -->
+	<!--
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>/xzfy/gotoIndex.action</url-pattern>
+	</filter-mapping>	
+	-->
+	<!-- OScache 缓存 end -->
+
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>com.taiji.core.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>defaultEncoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>opensession</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>fieldPermFilter</filter-name>
+		<filter-class>com.taiji.core.webwork.filter.FieldPermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CacheFilterByIndex</filter-name>
+		<filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
+		<init-param>
+			<param-name>time</param-name>
+			<param-value>100000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>scope</param-name>
+			<param-value>application</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>opensession</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>fieldPermFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilterByIndex</filter-name>
+		<url-pattern>/login.action</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>com.taiji.core.webwork.listener.AutoLoadWebWorkConfigurationListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.taiji.core.webwork.listener.LoadFieldPermissionListener</listener-class>
+		</listener>
+	<servlet>
+		<servlet-name>webwork</servlet-name>
+		<servlet-class>com.opensymphony.webwork.dispatcher.ServletDispatcher</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>freemarker</servlet-name>
+		<servlet-class>com.opensymphony.webwork.views.freemarker.FreemarkerServlet</servlet-class>
+		<init-param>
+			<param-name>default_encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>formlayoutserver</servlet-name>
+		<servlet-class>com.iscp.sys.formLayout.FormLayoutServer</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>coderserver</servlet-name>
+		<servlet-class>com.iscp.sys.coderServer.CoderServer</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>dbagency</servlet-name>
+		<servlet-class>dbagency.DBAgency</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ServletParam</servlet-name>
+		<servlet-class>ServletParam</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ServletPane</servlet-name>
+		<servlet-class>ServletPane</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+		<!--<init-param>-->
+		<!--<param-name>axis2.xml.path</param-name>-->
+		<!--<param-value>/WEB-INF/conf/axis2.xml</param-value>-->
+		<!--<param-name>axis2.xml.url</param-name>-->
+		<!--<param-value>http://localhot/myrepo/axis2.xml</param-value>-->
+		<!--<param-name>axis2.repository.path</param-name>-->
+		<!--<param-value>/WEB-INF</param-value>-->
+		<!--<param-name>axis2.repository.url</param-name>-->
+		<!--<param-value>http://localhot/myrepo</param-value>-->
+		<!--</init-param>-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!--CXF WebServices设置 -->
+	<servlet>
+		<servlet-name>CXFServices</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet
+		</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<filter>
+		<filter-name>lazyLoadingFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<!--解决Hibernate延迟加载出现的问题，仍需要放到struts2过滤器mapping之前-->
+	<filter-mapping>
+		<filter-name>lazyLoadingFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>webwork</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>freemarker</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>formlayoutserver</servlet-name>
+		<url-pattern>/formlayoutserver</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>coderserver</servlet-name>
+		<url-pattern>/coderserver</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>dbagency</servlet-name>
+		<url-pattern>/dbagency</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>ServletParam</servlet-name>
+		<url-pattern>/servlet/ServletParam</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletPane</servlet-name>
+		<url-pattern>/servlet/ServletPane</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CXFServices</servlet-name>
+		<url-pattern>/fyservices/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>

@@ -1,0 +1,464 @@
+package ${plugin.parameter.serviceImplPackageName};
+
+import com.taiji.core.util.PaginationSupport;
+import com.taiji.core.util.CommonTool;
+import com.taiji.core.service.ICoreService;
+import com.taiji.core.service.impl.CoreServiceImpl;
+import com.taiji.user.domain.User;
+import  ${plugin.parameter.domainPackageName}.*;
+import  ${plugin.parameter.servicePackageName}.*;
+import com.taiji.system.service.*;
+import java.lang.reflect.InvocationTargetException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import org.apache.commons.beanutils.BeanUtils;
+
+#set( $classname = "${table.destinationClassName}${plugin.hibernateService.serviceSuffix}")
+#set( $domainname = "${table.destinationClassName}")
+#set ($daoname= "${table.destinationClassName}${plugin.hibernateDAO.daoSuffix}")
+#set( $suffix="Impl" )
+
+#set( $serviceImplname = "$classname$suffix")
+#set ($keyColumn = $table.pkColumn) 
+#set ($keyvar = ${keyColumn.variableName}) 
+#set ($keyCVar = ${keyColumn.capitalisedVariableName})
+#set( $objectName = "$table.getVariableName()")
+
+public class $serviceImplname extends CoreServiceImpl implements I$classname {
+
+public void save($domainname  obj,User user) {
+	${table.destinationClassName}Check check=new ${table.destinationClassName}Check();
+	
+	check.setProposer(user.getId());
+	
+	Integer check_reject=new Integer(0);
+	check.setReject(check_reject);
+	
+	Integer check_state=new Integer(0);	
+	check.setState(check_state);
+	
+	Integer end=new Integer(0);
+	check.setEndFlag(end);
+	
+	Date date =new Date();
+	SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");	
+	String dateString = formatter.format(date);
+	check.setApplyTime(dateString);
+		
+	check.set${table.destinationClassName}(obj);
+	obj.set${table.destinationClassName}Check(check);    
+	super.save(obj);
+
+}
+public void saveSubmit(${table.destinationClassName} obj,User user,String abbr){
+	${table.destinationClassName}History history=new ${table.destinationClassName}History();
+	
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #if($one2one)     
+   	${relationName}History ${relationObjectName}History=new ${relationName}History();
+	${relationName} ${relationObjectName}=obj.get${relationName}();
+	   
+       #end	
+       
+	#if($relationshipRole.targetMany)
+	Set h${relationObjectName} = new LinkedHashSet();
+	Set ${relationObjectName}s = (Set)obj.get${relationName}s();	
+	#end
+       #end	
+    #end	 
+	obj.setSubmitflag(new Integer(1));
+    CommonTool.copyBean(history,obj);
+    history.set${keyCVar}(null);
+    history.set${table.destinationClassName}(obj);
+
+   
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if($one2one)     
+ 
+	  CommonTool.copyBean(${relationObjectName}History,${relationObjectName});
+	  ${relationObjectName}History.set${keyCVarTarget}(null);
+	  history.set${relationName}History(${relationObjectName}History);
+	  ${relationObjectName}History.set${table.destinationClassName}History(history);
+	   #end	
+
+
+        #if($relationshipRole.targetMany)
+	Iterator iter${relationName} = ${relationObjectName}s.iterator();
+	while(iter${relationName}.hasNext()) {
+	${relationName} ${relationObjectName}=new ${relationName}();
+	${relationObjectName}=(${relationName})iter${relationName}.next();
+	${relationName}History history2=new ${relationName}History();
+	CommonTool.copyBean(history2,${relationObjectName});
+	history2.setId(null);
+	history2.set${table.destinationClassName}History(history);
+	h${relationObjectName}.add(history2);
+	}
+	history.set${relationName}Historys(h${relationObjectName});	
+	#end
+       #end	
+    #end	
+
+	${table.destinationClassName}Check check = obj.get${table.destinationClassName}Check();
+	Integer check_state=new Integer(1);	
+	check.setState(check_state);
+	check.setReject(new Integer(0));
+
+	check.setReporter(user.getId());
+	Integer nextPositionId = check.getNextPosition();
+	String parents=PostTree.getPostTree(abbr,this).getTreeNode(nextPositionId).getParentNodesSqlExp();
+	check.setParents(parents);
+	Integer currentId=treegetPostTreeNode(user.getId(),abbr).getId();
+	check.setPositionid(currentId);
+
+	check.setCheckTime("");
+	check.set${table.destinationClassName}(obj);			
+	
+	${table.destinationClassName}CheckHistory checkHistory=new ${table.destinationClassName}CheckHistory();
+	CommonTool.copyBean(checkHistory,check);
+	checkHistory.setId(null);	
+	
+	String parent="A"+currentId+"B"+parents;
+	checkHistory.setParents(parent);
+	checkHistory.set${table.destinationClassName}History(history);
+	history.set${table.destinationClassName}CheckHistory(checkHistory);
+	
+	super.save(history);   
+}
+public void saveCheck(${table.destinationClassName} obj,${table.destinationClassName}Check check,User user,String abbr){
+
+	${table.destinationClassName}History history=new ${table.destinationClassName}History();
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #if($one2one)     
+   	${relationName}History ${relationObjectName}History=new ${relationName}History();
+	${relationName} ${relationObjectName}=obj.get${relationName}();
+	   #end	
+	#if($relationshipRole.targetMany)
+	Set h${relationObjectName} = new LinkedHashSet();
+	Set ${relationObjectName}s = (Set)obj.get${relationName}s();	
+	#end
+       #end	
+    #end
+        obj.setSubmitflag(new Integer(1));
+	history.set${table.destinationClassName}(obj);
+	${table.destinationClassName}Check page_check = obj.get${table.destinationClassName}Check();
+	
+    check.setReporter(user.getId());
+	
+	Integer nextPositionId = page_check.getNextPosition();
+	check.setNextPosition(nextPositionId);
+	String parents="";
+    if(nextPositionId.intValue()==0){
+       parents="A0B";
+    }else{
+     parents=PostTree.getPostTree(abbr,this).getTreeNode(nextPositionId).getParentNodesSqlExp();	
+    }
+	check.setParents(parents);
+
+	if(nextPositionId.equals(new Integer(0))){
+	      check.setEndFlag(new Integer(1));
+	}
+
+	check.setReject(page_check.getReject());
+
+	if(check.getReject().equals(new Integer(1))){
+		${table.destinationClassName}Check check_return=new ${table.destinationClassName}Check();
+		check_return.setApplyTime(check.getApplyTime());
+		check_return.setEndFlag(new Integer(0));
+		check_return.setProposer(check.getProposer());
+		check_return.setState(new Integer(0));
+		check_return.setReject(new Integer(1));
+		${table.destinationClassName} info = new ${table.destinationClassName}();
+       	CommonTool.copyBean(info,obj);
+		info.set${keyCVar}(null);
+		
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if($one2one)     
+        ${relationName} ${relationObjectName}d =new ${relationName}();
+        ${relationName} ${relationObjectName}dr=obj.get${relationName}();
+        CommonTool.copyBean(${relationObjectName}d,${relationObjectName}dr);
+        ${relationObjectName}d.set${keyCVarTarget}(null);
+        ${relationObjectName}d.set${table.destinationClassName}(info);
+        info.set${relationName}(${relationObjectName}d);   
+	 CommonTool. copyBean(${relationObjectName}History,${relationObjectName});
+	  ${relationObjectName}History.set${keyCVarTarget}(null);
+	  history.set${relationName}History(${relationObjectName}History);
+	  ${relationObjectName}History.set${table.destinationClassName}History(history);
+	  #end
+	#if($relationshipRole.targetMany)
+	Set ${relationObjectName}Return=new LinkedHashSet();
+	Iterator ${relationObjectName}iter = ${relationObjectName}s.iterator();
+	while(${relationObjectName}iter.hasNext()) {
+	${relationName} obj${relationName}=(${relationName})${relationObjectName}iter.next();
+        ${relationName} in${relationName}=new ${relationName}();
+        CommonTool.copyBean(in${relationName},obj${relationName});
+        in${relationName}.setId(null);
+	in${relationName}.set${table.destinationClassName}(info);
+        ${relationObjectName}Return.add(in${relationName});
+	}
+	info.set${relationName}s(${relationObjectName}Return);
+       #end	
+    #end
+    #end	   
+        Set historySet = new LinkedHashSet();
+		info.set${table.destinationClassName}History(historySet);
+		info.set${table.destinationClassName}Check(check_return);
+		check_return.set${table.destinationClassName}(info);
+		super.save(info);				
+	}
+
+	check.setState(page_check.getState());
+
+	if(page_check.getAdvice()!=null)
+       check.setAdvice(page_check.getAdvice());
+	Date date =new Date();
+	SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");	
+	String dateString = formatter.format(date);
+	check.setCheckTime(dateString);
+	   
+	${table.destinationClassName}CheckHistory checkHistory = new ${table.destinationClassName}CheckHistory();
+
+	
+	
+    obj.set${table.destinationClassName}Check(check);
+	check.set${table.destinationClassName}(obj);
+	Integer currentId=treegetPostTreeNode(user.getId(),abbr).getId();
+	check.setPositionid(currentId);
+	CommonTool.copyBean(checkHistory,check);
+	checkHistory.setId(null);
+	String parent="A"+currentId.intValue()+"B"+parents;
+	checkHistory.setParents(parent);
+	history.set${table.destinationClassName}CheckHistory(checkHistory);
+	checkHistory.set${table.destinationClassName}History(history);
+
+	
+    CommonTool.copyBean(history,obj);
+	history.set${keyCVar}(null);
+	history.set${table.destinationClassName}(obj);
+	#foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if($one2one)     
+
+	  CommonTool.copyBean(${relationObjectName}History,${relationObjectName});
+	  ${relationObjectName}History.set${keyCVarTarget}(null);
+	  history.set${relationName}History(${relationObjectName}History);
+	  ${relationObjectName}History.set${table.destinationClassName}History(history);
+	   #end	
+
+        #if($relationshipRole.targetMany)
+	Iterator iter${relationName} = ${relationObjectName}s.iterator();
+	while(iter${relationName}.hasNext()) {
+	${relationName} obj${relationName}=new ${relationName}();
+	obj${relationName}=(${relationName})iter${relationName}.next();
+	${relationName}History his${relationName}=new ${relationName}History();
+	CommonTool.copyBean(his${relationName},obj${relationName});
+	his${relationName}.setId(null);
+	his${relationName}.set${table.destinationClassName}History(history);
+	h${relationObjectName}.add(his${relationName});
+	}
+	history.set${relationName}Historys(h${relationObjectName});
+       #end	
+       #end	
+    #end
+	
+
+	super.save(history);	
+	if(check.getEndFlag().equals(new Integer(1))){
+		${table.destinationClassName} temp${table.destinationClassName} = check.get${table.destinationClassName}();
+		Integer objId = temp${table.destinationClassName}.get${keyCVar}();
+		String hql = "select historyCheck from ${table.destinationClassName} ${table.getVariableName()} ,${table.destinationClassName}History th,${table.destinationClassName}CheckHistory historyCheck ";
+		hql += " where ${table.getVariableName()}.id = th.${table.getVariableName()}.id and historyCheck.${table.getVariableName()}History.id = th.id and ${table.getVariableName()}.id="+objId;
+		List hcList = find(hql);
+		
+		Iterator iter = hcList.iterator();
+		while(iter.hasNext()) {
+			${table.destinationClassName}CheckHistory ${table.getVariableName()}h = (${table.destinationClassName}CheckHistory)iter.next();
+			${table.getVariableName()}h.setEndFlag(new Integer(1));
+			super.update(${table.getVariableName()}h);
+		}
+		
+	}  
+}
+public void update($domainname  obj) {
+
+	${table.destinationClassName}Check check=obj.get${table.destinationClassName}Check();
+	
+	Date date =new Date();
+	SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");	
+	String dateString = formatter.format(date);	
+	check.setApplyTime(dateString);
+	
+	obj.set${table.destinationClassName}Check(check);
+	check.set${table.destinationClassName}(obj);
+	
+	super.update(obj);
+}
+
+public PostTree treegetPostTree(String abbr){
+	PostTree pt = PostTree.getPostTree(abbr,this);
+	return pt;
+}
+	
+public PostTreeNode treegetPostTreeNode(Integer id,String abbr){
+	PostTreeNode ptn = PostTree.getUserTreeNode(id,abbr,this);
+	return ptn;
+}
+	
+public PostTreeNode treegetCurrentPosition(User currentUser,String addr){
+	PostTreeNode ptn = PostTree.getUserTreeNode(currentUser.getId(),addr,this);
+	return ptn;
+}
+public PostTreeNode[] treegetPositionList(User currentUser,String addr){
+	PostTreeNode ptn = PostTree.getUserTreeNode(currentUser.getId(),addr,this);
+	return ptn.getNextPostTreeNodes();
+}
+
+public ${table.destinationClassName} setCheck(${table.destinationClassName} obj,${table.destinationClassName}Check check){
+   	${table.destinationClassName}Check temp_check = obj.get${table.destinationClassName}Check();
+	temp_check.setNextPosition(check.getNextPosition());
+	obj.set${table.destinationClassName}Check(temp_check);
+	return obj;
+}
+public PaginationSupport getList(${table.destinationClassName}QueryTerm queryTerm,int pageNum,int pageSize){
+		List list1=new ArrayList();
+		List list2=new ArrayList();
+		List list3=new ArrayList();
+		if(queryTerm.getIsBlak()){
+			String hql="select max(history.${table.getVariableName()}CheckHistory.checkTime),history.${table.getVariableName()}.${keyvar} from ${table.destinationClassName}History as history where history.${table.getVariableName()}CheckHistory.endFlag = "+new Integer(queryTerm.getIsFinished())+" and history.${table.getVariableName()}CheckHistory.parents like '%A"+queryTerm.getStationId()+"B%'";
+			if(queryTerm.getReferrerId()!=0){
+				hql+=" and history.${table.getVariableName()}CheckHistory.proposer = "+new Integer(queryTerm.getReferrerId());
+			}
+			if((queryTerm.getBeginDate()!=null&&!queryTerm.getBeginDate().equals(""))&&(queryTerm.getEndDate()!=null&&!queryTerm.getEndDate().equals(""))){
+				hql+=" and history.${table.getVariableName()}CheckHistory.applyTime >= '"+queryTerm.getBeginDate()+"' and history.${table.getVariableName()}CheckHistory.applyTime <= '"+queryTerm.getEndDate()+"'";
+			}
+			hql+=" group by history.${table.getVariableName()}.${keyvar}";
+			list2=find(hql);
+		}else{
+			String hql="select history.${table.getVariableName()}.${keyvar} from ${table.destinationClassName}History as history where history.${table.getVariableName()}CheckHistory.parents like '%A"+queryTerm.getStationId()+"B%'";
+			if(queryTerm.getReferrerId()!=-1){
+				hql+=" and history.${table.getVariableName()}CheckHistory.proposer = "+new Integer(queryTerm.getReferrerId());
+			}
+			if((queryTerm.getBeginDate()!=null&&!queryTerm.getBeginDate().equals(""))&&(queryTerm.getEndDate()!=null&&!queryTerm.getEndDate().equals(""))){
+				hql+=" and history.${table.getVariableName()}CheckHistory.applyTime >= '"+queryTerm.getBeginDate()+"' and history.${table.getVariableName()}CheckHistory.applyTime <= '"+queryTerm.getEndDate()+"'";
+			}
+			hql+=" group by history.${table.getVariableName()}.${keyvar}";
+			list1=find(hql);
+			if(list1.size()!=0){
+				for(int i=0;i<list1.size();i++){
+					Integer infoid=(Integer) list1.get(i);
+					list3=find("select max(history.${table.getVariableName()}CheckHistory.checkTime),history.${table.getVariableName()}.${keyvar} from ${table.destinationClassName}History as history where history.${table.getVariableName()}.${keyvar} = "+infoid+" and history.${table.getVariableName()}CheckHistory.endFlag = "+new Integer(queryTerm.getIsFinished())+" group by history.${table.getVariableName()}.${keyvar}");
+					if(list3.size()!=0){
+						list2.add(list3.get(0));
+					}
+				}
+			}
+		}
+		
+		List list=new  ArrayList();
+		PaginationSupport ps=new PaginationSupport();
+		if(list2.size()!=0){
+			for(int i=0;i<list2.size();i++){
+				Object[] row=(Object[])list2.get(i);
+				String maxtime=(String)row[0];
+				Integer infoid=(Integer)row[1];
+		    	list3=find("from ${table.destinationClassName}History history where history.${table.getVariableName()}.${keyvar} = "+infoid+" and history.${table.getVariableName()}CheckHistory.checkTime = '"+maxtime+"'");
+		    	list.add(list3.get(0));
+			}
+			ps = new PaginationSupport(list,list.size(),(pageNum-1)*pageSize,pageSize);
+		}
+		return ps;
+	}
+	
+	public PaginationSupport getHistoryList(Integer id,boolean isBalk,Integer stationId,int pageNum){
+		List list= find("from ${table.destinationClassName}History history where history.${keyvar} = "+id);
+		Integer infoid =((${table.destinationClassName}History)list.get(0)).get${table.destinationClassName}().get${keyCVar}();
+		if(isBalk){
+			return find("from ${table.destinationClassName}History history where history.${table.getVariableName()}.${keyvar} = "+infoid+" and history.${table.getVariableName()}CheckHistory.parents like '%A"+stationId+"B%' order by history.${table.getVariableName()}CheckHistory.id asc",pageNum);
+		}else{
+			return find("from ${table.destinationClassName}History history where history.${table.getVariableName()}.${keyvar} = "+infoid+" order by history.${table.getVariableName()}CheckHistory.id asc",pageNum);
+		}
+	}
+	
+	public ${table.destinationClassName}History get${table.destinationClassName}History (Integer infoid){
+		${table.destinationClassName}History info=null;
+		List list=find("from ${table.destinationClassName}History history where history.${keyvar} = "+infoid);
+		if(list.size()!=0){
+			info=(${table.destinationClassName}History) list.get(0);
+		}
+		return info;
+	}
+   public PostTreeNode treegetCurrentPosition(Integer id,String addr){
+	  PostTreeNode ptn = PostTree.getUserTreeNode(id,addr,this);
+	  return ptn;
+}
+
+#foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+		#if($relationshipRole.targetMany)
+			public PaginationSupport get${relationName}List(Integer id,int pageNum){
+				return find("from ${relationName}History ${relationObjectName} where ${relationObjectName}.${objectName}History.id = "+id,pageNum);
+			}
+			public ${relationName}History get${relationName}History(Integer infoid){
+				${relationName}History info=null;
+				List list=find("from ${relationName}History ${relationObjectName} where ${relationObjectName}.id = "+infoid);
+				if(list.size()!=0){
+					info=(${relationName}History) list.get(0);
+				}
+				return info;
+			}
+	    #end
+	   #end
+	#end
+	public Class getPersistentClass() {
+		 return ${table.destinationClassName}.class;
+	}
+}

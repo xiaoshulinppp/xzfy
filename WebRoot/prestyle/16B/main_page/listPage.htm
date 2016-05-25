@@ -1,0 +1,241 @@
+﻿<!--************************************************************ -->
+<!--* 文件创建日期：2008-01-28                                 * -->
+<!--* 功能描述：列表页面模板                                   * -->
+<!--* 文件修改日期：			                               * -->
+<!--************************************************************ -->
+<!--JSP初始化设置-->
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>信息系统构架平台V2.0</title>
+<link href="../css/16B/style.css" rel="stylesheet" type="text/css">
+<script type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+</head>
+<!--javascript脚本添加位置。-->
+<SCRIPT language=JavaScript src="../js/16B/showSearch.js"></SCRIPT>
+<!--javascript脚本添加位置结束。-->
+<body>
+<form name="form1" action="">
+<!--您的位置表格开始-->
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="yourPlace" >
+  <tr>
+    <td height="20">您的位置：信息系统构架平台</td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabtitle">
+  <tr>
+    <td>本步骤的标题</td>
+    <td class="searchTltBar" onClick="showSearch(searchTop)" title="展开查询">&nbsp;</td>
+  </tr>
+</table>
+<!--标题表格结束-->
+<div id="searchTop" class="searchDiv" style="display:none;">
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" class="tabout">
+  <tr class="trcolor">
+    <td class="tdFormText">姓 名：</td>
+    <td class="tdFormInput"><input name="textfield2" type="text" class="inputTextNormal"></td>
+    <td class="tdFormText">姓 名：</td>
+    <td class="tdFormInput"><input name="textfield22" type="text" class="inputTextNormal"></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdFormText">年 龄：</td>
+    <td class="tdFormInput"><input name="textfield2" type="text" class="inputTextNormal"></td>
+    <td class="tdFormText">年 龄：</td>
+    <td class="tdFormInput"><input name="textfield23" type="text" class="inputTextNormal"></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdFormText">信息内容：</td>
+    <td colspan="3" class="tdFormInput"><input name="textfield3" type="text" class="inputTextNormal"></td>
+  </tr>
+</table>
+<!--底部按钮表格开始-->
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabMainBot">
+  <tr>
+    <td><input name="Button26" type="submit" class="button" value="查 询">
+        <input name="Button232" type="button" class="button" value="高级查询"></td>
+  </tr>
+</table>
+<!--底部按钮表格结束-->
+<br>
+</div>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabMainTop">
+  <tr>
+    <td> <select name="select" class="selectStyleNormal">
+      <option selected>可选择的显示信息类型</option>
+      <option>信息类型一</option>
+      <option>信息类型二</option>
+      <option>信息类型三</option>
+    </select></td>
+    <td align="right"><input name="Button52" type="button" class="buttonNormal" onClick="MM_openBrWindow('select_zd.htm','selectzd','status=yes,scrollbars=yes,resizable=yes,width=450,height=600')" value="字段选择">
+       <input name="Button" type="button" class="button" value="增 加">
+      <input name="Button2" type="button" class="button" value="删 除">
+      <input name="Button3" type="button" class="button" onClick="MM_openBrWindow('select_zd_s.htm','selectzd','status=yes,scrollbars=yes,resizable=yes,width=450,height=450')" value="选字段二">
+      <input name="Button4" type="button" class="button" value="提 交"></td>
+  </tr>
+</table>
+<!--按钮表格结束-->
+<!--主体内容、列表显示区域。注意上边的区域定义必须保持-->
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" class="tabout" >
+    <tr>
+      <th width="40" class="thListNormal">选择</th>
+      <th class="thListNormal">标题</th>
+      <th class="thListNormal">表头一</th>
+      <th class="thListNormal">表头一</th>
+      <th class="thListNormal">查看</th>
+      <th class="thListNormal">删除</th>
+      <th class="thListNormal">修改</th>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox" value="checkbox"></td>
+    <td class="tdListLeft"><a href="#" title="关于2004年工作内容的总结报告和2005年的远景规划以及卫生部项目工作安排。">关于2004年工作内容的总结报告和2005年的远景规划...</a></td>
+    <td class="tdlistCenter">123554665</td>
+    <td class="tdlistCenter">123554665</td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox2" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox3" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox4" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox5" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox6" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox7" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox8" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox9" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox10" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">v</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox11" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">v</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox12" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter"><input type="checkbox" name="checkbox13" value="checkbox"></td>
+      <td class="tdListLeft">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter">123554665</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trwhite">
+    <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdListLeft">&nbsp;</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter">&nbsp;</td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+      <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+  <tr class="trcolor">
+    <td class="tdlistCenter">&nbsp;</td>
+    <td class="tdListLeft">&nbsp;</td>
+    <td class="tdlistCenter">&nbsp;</td>
+    <td class="tdlistCenter">&nbsp;</td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/search.gif" alt="查看" width="16" height="16" border="0"></a></td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_del.gif" alt="删除" width="16" height="16" border="0"></a></td>
+    <td class="tdlistCenter"><a href="#"><img src="../images/16B/sicons/file_modf.gif" alt="修改" width="16" height="16" border="0"></a></td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabMainBot">
+  <tr>
+    <td>第1/12页    <a href="#">首页</a>      <a href="#">上一页</a>      <a href="#">下一页</a>      <a href="#">末页</a>      第
+      <input name="textfield2" type="text" class="inputTextSmall" maxlength="3">
+      页      <a href="#">GO</a></td>
+  </tr>
+</table>
+<!--主体内容、列表显示区域结束-->
+</form>
+</body>
+</html>

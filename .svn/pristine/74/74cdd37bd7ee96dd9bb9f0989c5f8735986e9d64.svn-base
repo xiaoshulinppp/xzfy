@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.taiji.zxfy.zxsq.domain">
+	<class name="AppModel" table="APP_ZXFY_APP" dynamic-update="true"
+		dynamic-insert="true">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="appName" type="java.lang.String" column="app_name" />
+		<property name="appId" type="java.lang.String" column="app_id" />
+		<property name="isDeputy" type="java.lang.String" column="isdeputy" />
+		<property name="mobile" type="java.lang.String" column="mobile" />
+		<property name="email" type="java.lang.String" column="email" />
+		<property name="address" type="java.lang.String" column="address" />
+		<property name="mailAddress" type="java.lang.String" column="mail_address" />
+		<property name="sexy" type="java.lang.String" column="sexy" />
+
+		<property name="proxyType" type="java.lang.String" column="proxytype" />
+
+		<property name="postCode" type="java.lang.String" column="postcode" />
+
+		<property name="telephone" type="java.lang.String" column="telephone" />
+
+		<property name="isLink" type="java.lang.String" column="islink" />
+
+		<property name="deputyName" type="java.lang.String" column="deputy_name" />
+
+		<property name="deputyType" type="java.lang.String" column="deputy_type" />
+
+		<property name="otherType" type="java.lang.String" column="other_type" />
+
+		<property name="sfzmType" type="java.lang.String" column="sfzm_type" />
+		
+		<property name="dateOfBirth" type="java.lang.String" column="dateOfBirth" />
+
+		<many-to-one name="infoModel" cascade="all" column="XZFY_ID"
+			class="InfoModel" />
+	</class>
+</hibernate-mapping>

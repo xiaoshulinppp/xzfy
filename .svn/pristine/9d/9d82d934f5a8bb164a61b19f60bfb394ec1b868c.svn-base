@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="DictItem" 
+    table="t_dict_item"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="dictitem_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="dictitem_name"
+		not-null="true"
+    />
+	<property
+        name="abbr"
+        type="java.lang.String"
+        column="dictitem_abbr" 
+		not-null="true"    
+    />
+    <property
+        name="value"
+        type="java.lang.String"
+        column="dictitem_value"
+	   not-null="true"
+    />
+	<property
+        name="state"
+        type="java.lang.String"
+        column="dictitem_state"
+		not-null="true"
+    />	
+	<property
+        name="seq"
+        type="java.lang.Integer"
+        column="dictitem_seq"
+		not-null="true"
+    />
+
+   <many-to-one name="dict"  column="dictitem_dictid"  not-null="true"/>	
+   <many-to-one name="parent"  column="dictitem_fid" not-null="true"/>
+   <set name="childs" inverse="true" cascade="delete" order-by=" dictitem_seq asc">
+	<key column="dictitem_fid"/>
+	<one-to-many class="DictItem"/>
+   </set>
+     
+</class>
+	<query name="findItemsByDict"><![CDATA[
+		from DictItem d where d.dict.id = ? order by d.value
+	]]></query>
+	<query name="findChildItemsByDict"><![CDATA[
+		from DictItem d where d.dict.id = ? and d.parent.id = ? order by d.value
+	]]></query>
+</hibernate-mapping>

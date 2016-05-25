@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.taiji.zxfy.zxsq.domain">
+	<class name="AppLogModel" table="APP_ZXFY_APPLOG">
+
+		<id name="id" type="java.lang.String" column="ID">
+			<generator class="increment" />
+		</id>
+		<property name="archiveId" type="java.lang.String">
+			<column name="ARCHIVEID" />
+		</property>
+		<property name="archiveType" type="java.lang.String">
+			<column name="ARCHIVETYPE" />
+		</property>
+		<property name="archiveFileName" type="java.lang.String">
+			<column name="ARCHIVEFILENAME" />
+		</property>
+		<property name="downloadTime" type="java.lang.String">
+			<column name="DOWNLOADTIME" />
+		</property>
+		<property name="xzfyId" type="java.lang.String">
+			<column name="XZFYID" />
+		</property>
+	</class>
+</hibernate-mapping>

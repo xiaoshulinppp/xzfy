@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.user.domain">
+<class 
+    name="Group" 
+    table="u_group"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="group_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="group_name"
+		not-null="true"
+    />
+	<set name="users" table="u_user_group">
+	   <key column="group_id" />
+	   <many-to-many column= "user_id" class="User"/>
+	</set>
+	<set name= "roles" table="u_group_role" >
+	  <key column= "group_id"/>
+	  <many-to-many column= "role_id" class="Role"/>
+	</set>
+</class>
+</hibernate-mapping>

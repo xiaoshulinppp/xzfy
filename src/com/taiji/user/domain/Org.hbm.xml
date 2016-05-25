@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.taiji.user.domain">
+	<class name="Org" table="u_org" dynamic-update="true"
+		dynamic-insert="true">
+		<id name="id" type="java.lang.Integer" column="org_id">
+			<generator class="increment" />
+		</id>
+		<property name="name" type="java.lang.String" column="org_name"
+			not-null="true" />
+		<property name="locbm" type="java.lang.String" column="org_locbm" />
+
+		<property name="bm" type="java.lang.String" column="org_bm" />
+		<property name="state" type="java.lang.Integer" column="org_state"
+			not-null="true" />
+		<property name="level" type="java.lang.Integer" column="org_level"
+			not-null="true" />
+		<property name="gk_dept" type="java.lang.Integer" column="GK_DEPT" />
+		<property name="departCode" type="java.lang.String" column="DEPART_CODE" />
+		<property name="epartUpCode" type="java.lang.String" column="EPART_UP_CODE" />
+		<property name="org_manage" type="java.lang.String" column="org_manage" />
+		<property name="org_fy" type="java.lang.String" column="org_fy" />
+		<property name="seq" type="java.lang.Integer" column="org_seq"
+			not-null="false" />
+		<many-to-one name="parent" column="org_parent" not-null="true" />
+
+		<property name="fyLv" type="java.lang.Integer" column="FY_LV" />
+		<property name="fyBeAppType" type="java.lang.Integer" column="FY_BEAPP_TYPE" />
+		<property name="fyParent" type="java.lang.Integer" column="FY_PARENT" />
+		<property name="fyParentName" type="java.lang.String" column="FY_PARANT_NAME" />
+		<property name="fySup" type="java.lang.Integer" column="FY_SUP" />
+		<property name="fySupName" type="java.lang.String" column="FY_SUP_NAME" />
+
+		<set name="childs" inverse="true" cascade="all-delete-orphan"
+			order-by=" org_id asc">
+			<key column="org_parent" />
+			<one-to-many class="Org" />
+		</set>
+
+		<set name="users" inverse="true" cascade="all-delete-orphan">
+			<key column="org_id" />
+			<one-to-many class="User" />
+		</set>
+		<set name="roles" inverse="true" cascade="all-delete-orphan">
+			<key column="org_id" />
+			<one-to-many class="Role" />
+		</set>
+
+
+	</class>
+	<query name="findChildOrgList"><![CDATA[
+		from Org f where f.parent.id = ? order by f.bm 
+	]]></query>
+	<query name="findChildOrgOwnList"><![CDATA[
+		from Org f where f.parent.id = ? or f.id = ? order by f.bm
+	]]></query>
+</hibernate-mapping>

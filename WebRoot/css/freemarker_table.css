@@ -1,0 +1,181 @@
+#extableContent {
+	text-align: left;
+	background-color: #fff;
+	padding: 0px;
+	margin: 0px;
+}
+
+.tableview table {
+	background: #FFFFFF;
+	margin: 0;
+}
+
+.tableview tr.filter input,#rowInput {
+	text-align: left;
+	color: #333333;
+	font-size: 12px;
+	border: 1px solid #F0F0F0;
+	background: #FCFCFC;
+	width: 100%;
+}
+
+.tableview td {
+	text-align: left;
+	border-color: #ccc;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	margin: 0;
+	padding: 4px 10px 4px 5px;
+}
+
+.tableview tr.highlight {
+	background-color: #FFFFF0;
+}
+
+.tableview tr.odd {
+	background-color: #FFFFFF;
+}
+
+.tableview tr.even {
+	background-color: #f7f7f7;
+}
+
+.tableview tr.filter td {
+	border: 0px;
+}
+
+.tableview tr td.tableHeader {
+	font: bold;
+	text-align: left;
+	color: #333333;
+	background: #F7FFEE;
+	font-size: 12px;
+	padding: 5px 0px 0px 5px;
+	border-bottom: 2px solid #90A720;
+}
+
+.tableview tr td.tableHeaderSort {
+	font: bold;
+	text-align: left;
+	color: #333333;
+	background: #EFFFDF;
+	font-size: 12px;
+	padding: 5px 0px 0px 5px;
+	border-bottom: 2px solid #90A720;
+}
+
+.rowAlternate {
+	background: #F7F7F7;
+}
+
+/* list page navigational tabs */
+#foldertab {
+	padding: 0px 0px 3px 8px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0;
+	font: bold 11px Verdana, sans-serif;
+}
+
+#foldertab li {
+	list-style: none;
+	margin: 0;
+	display: inline;
+}
+
+#foldertab li span.messageBar {
+	margin-left: 8px;
+	color: red;
+	font-weight: bold;	
+	visibility: hidden;
+}
+
+#foldertab li select {
+	margin-left: 8px;
+	font-size: 9px;
+	height: 20px;
+}
+
+#foldertab li.disable {
+	padding: 3px 0.5em;
+	margin-left: 3px;
+	color: #DFDFDF;
+	text-decoration: none;
+}
+
+#foldertab li a {
+	padding: 3px 0.5em;
+	margin-left: 3px;
+	border: 1px solid #DFDFDF;
+	border-bottom: none;
+	background: #DFDFDF;
+	text-decoration: none;
+}
+
+#foldertab li a:link {
+	color: #006699;
+}
+
+#foldertab li a:visited {
+	color: #006699;
+}
+
+#foldertab li a:hover {
+	color: #ffffff;
+	background: #90A720;
+	border-color: #90A720;
+}
+
+#foldertab li a#current {
+	background: white;
+	border-bottom: 1px solid white;
+	color: black;
+}
+
+/* alphabet list */
+ul#squaretab {
+	margin: 0px;
+	padding: 0px;
+	align: right;
+}
+
+#squaretab li {
+	display: inline;
+	list-style-type: none;
+}
+
+#squaretab a {
+	padding: 2px 6px;
+	border: 1px solid #DFDFDF;
+}
+
+#squaretab a:link,#squaretab a:visited {
+	color: #fff;
+	background-color: #DFDFDF;
+	text-decoration: none;
+}
+
+#squaretab a:hover {
+	color: #ffffff;
+	background-color: #90A720;
+	border-color: #90A720;
+	text-decoration: none;
+}
+
+#squaretab li a#current {
+	background: white;
+	color: black;
+}
+
+.pagecontent {
+	background: #FFFFFF;
+	padding: 10px;
+}
+
+.greynavbar {
+	background-color: #f0f0f0;
+	border-top: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+	margin-top: 2px;
+	height: 29px;
+}

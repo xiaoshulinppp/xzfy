@@ -1,0 +1,31 @@
+<PROPERTIES>
+USER =sa
+PASS =iscp
+SERVER =SQLServer例子(指定数据库)
+URL =jdbc:microsoft:sqlserver://192.168.3.83:1433;databaseName=iscp
+DRIVER =com.microsoft.jdbc.sqlserver.SQLServerDriver
+TIMEOUT =6
+SQLGRAMMAR =0
+</PROPERTIES>
+
+<PROPERTIES>
+USER =sa
+PASS =iscp
+SERVER =SQLServer例子(未指定数据库)
+URL =jdbc:microsoft:sqlserver://192.168.3.83:1433;
+DRIVER =com.microsoft.jdbc.sqlserver.SQLServerDriver
+TIMEOUT =6
+SQLGRAMMAR =0
+</PROPERTIES>
+
+<PROPERTIES>
+USER =iscp
+PASS =iscp
+SERVER =oracle例子
+URL =jdbc:oracle:thin:@192.168.0.73:1521:dia2
+DRIVER =oracle.jdbc.driver.OracleDriver
+TIMEOUT =6
+SQLGRAMMAR =1
+</PROPERTIES>
+
+

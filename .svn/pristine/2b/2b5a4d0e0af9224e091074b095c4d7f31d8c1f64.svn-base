@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="SearchStateCond"
+    table="t_searchstate"
+    dynamic-update="true"
+	dynamic-insert="true"
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="foreign" >
+			<param name="property">queryCond</param>
+		</generator>
+    </id>
+
+    <property
+        name="funcCode"
+        type="java.lang.Integer"
+        column="funcCode"
+    />
+    <property
+        name="showFields"
+        type="java.lang.String"
+        column="showFields"
+    />
+    <property
+        name="sortField"
+        type="java.lang.String"
+        column="sortField"
+    />
+    <property
+        name="sortType"
+        type="java.lang.Integer"
+        column="sortType"
+    />
+    <property
+        name="tableName"
+        type="java.lang.String"
+        column="tablename"
+    />
+    <property
+        name="searchHql"
+        type="java.lang.String"
+        column="searchHql"
+    />
+    <property
+        name="searchHqlShow"
+        type="java.lang.String"
+        column="searchHqlShow"
+    />
+	<one-to-one name="queryCond" class="QueryCond" constrained="true"/>
+</class>
+</hibernate-mapping>

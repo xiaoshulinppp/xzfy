@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.user.domain">
+<class 
+    name="Role" 
+    table="u_role"
+    dynamic-update="true"
+	dynamic-insert="true"
+    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="role_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="role_name"
+        not-null="true"
+    />
+
+    <property
+        name="userCount"
+        type="java.lang.Integer"
+        column="role_usercount"
+    />
+     <many-to-one
+        name="org"
+        class="Org"
+		column="org_id"
+   />
+    <many-to-one name="parent" column="role_parent"/>
+
+	<set name="childs"   inverse="true" cascade="all-delete-orphan">
+	   <key column="role_parent" />
+	   <one-to-many class="Role"/>
+	</set>
+
+	<set name= "permissions" table="u_role_permission" inverse="false" cascade="save-update">
+	  <key column= "role_id"/>
+	  <many-to-many column= "permission_id" class="Permission"/>
+	</set>
+ 	<set name= "users" table="u_user_role"  inverse="true" cascade="save-update">
+	  <key column= "role_id"/>
+	  <many-to-many column= "user_id" class="User"/>
+	</set>
+ 	<set name= "groups" table="u_group_role" >
+	  <key column= "role_id"/>
+	  <many-to-many column= "group_id" class="Group"/>
+	</set>
+
+</class>
+<query name="findAllRoleByOrg"><![CDATA[
+		from Role r where r.org.id = ? order by r.id desc
+]]></query>	
+</hibernate-mapping>

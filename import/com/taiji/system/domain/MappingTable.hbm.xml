@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="MappingTable" 
+    table="t_mappingtable"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="table_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="table_name"
+		not-null="true"
+    />
+	<property 
+		name="desc"
+		type="java.lang.String"
+		column="table_desc"
+	/>
+	<property
+        name="mappingName"
+        type="java.lang.String"
+        column="table_mappingname"
+    />
+	   <property
+        name="showName"
+        type="java.lang.String"
+        column="table_showname"
+    />
+    <property
+        name="system"
+        column="table_sys"
+		not-null="true"
+    />
+	<set name="fieldSet"  cascade="all-delete-orphan" inverse="true" order-by=" field_id asc">
+	   <key column="field_mappingtable" />
+	   <one-to-many class="Field"/>
+	</set>
+</class>
+	<query name="findMappingTableByName"><![CDATA[
+		from MappingTable  table where table.name = ?
+	]]></query>
+</hibernate-mapping>

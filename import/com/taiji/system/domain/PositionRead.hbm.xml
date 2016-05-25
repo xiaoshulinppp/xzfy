@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="PositionRead" 
+    table="t_position"
+    dynamic-update="true"
+	dynamic-insert="true"
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="position_id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="position_name"
+    />
+    <property
+        name="abbr"
+        type="java.lang.String"
+        column="position_abbr"
+    />
+    <property
+        name="checkall"
+        type="java.lang.String"
+        column="position_checklevel"
+    />
+    <property
+        name="searchall"
+        type="java.lang.String"
+        column="position_state"
+    />
+    <property
+        name="type"
+        type="java.lang.String"
+        column="position_type"
+    />
+</class>
+</hibernate-mapping>

@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.fzb.domain">
+<class 
+    name="XzfyCompany" 
+    table="xzfy_company"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="increment" />
+    </id>
+
+   <property
+        name="workName"
+        type="java.lang.String"
+        column="work_name"
+      
+    />	
+    <property
+        name="address"
+        type="java.lang.String"
+        column="address"
+
+    />	
+   <property
+        name="contact"
+        type="java.lang.String"
+        column="contact"
+ 
+    />	
+    <property
+        name="fax"
+        type="java.lang.String"
+        column="fax"
+ 
+    />
+    <property
+        name="representInLaw"
+        type="java.lang.String"
+        column="represent_in_law"
+ 
+    />
+    <property
+        name="position_Repnt"
+        type="java.lang.String"
+        column="position_repnt"
+ 
+    />
+    <property
+        name="telephone_Repnt"
+        type="java.lang.String"
+        column="telephone_repnt"
+ 
+    />
+    <property
+        name="name_LegalInstitude"
+        type="java.lang.String"
+        column="name_legal_institude"
+ 
+    />
+    <property
+        name="property_LegalInstitude"
+        type="java.lang.String"
+        column="property_legal_institude"
+ 
+    />
+    <property
+        name="quantity_Xzfy"
+        type="java.lang.String"
+        column="quantity_xzfy"
+ 
+    />
+    <property
+        name="name_Xzfy"
+        type="java.lang.String"
+        column="name_xzfy"
+ 
+    />
+    <property
+        name="staffing_Xzfy"
+        type="java.lang.String"
+        column="staffing_xzfy"
+ 
+    />
+    <property
+        name="represent_Xzfy"
+        type="java.lang.String"
+        column="represent_xzfy"
+ 
+    />
+    <property
+        name="position_Xzfy"
+        type="java.lang.String"
+        column="position_xzfy"
+ 
+    />
+    <property
+        name="phone_Xzfy"
+        type="java.lang.String"
+        column="phone_xzfy"
+ 
+    />
+    <property
+        name="mobile_Xzfy"
+        type="java.lang.String"
+        column="mobile_xzfy"
+ 
+    />
+    <property
+        name="numFull_XzfyStaff"
+        type="java.lang.String"
+        column="num_full_xzfy_staff"
+ 
+    />
+    <property
+        name="numPart_XzfyStaff"
+        type="java.lang.String"
+        column="num_part_xzfy_staff"
+ 
+    />
+    <property
+        name="quantity_Hearing"
+        type="java.lang.String"
+        column="quantity_hearing"
+ 
+    />
+    <property
+        name="quantity_Reading"
+        type="java.lang.String"
+        column="quantity_reading"
+ 
+    />
+    <property
+        name="quantity_Receiving"
+        type="java.lang.String"
+        column="quantity_receiving"
+ 
+    />
+    <property
+        name="car_Casing"
+        type="java.lang.String"
+        column="car_casing"
+ 
+    />
+    <property
+        name="quantity_Casing"
+        type="java.lang.String"
+        column="quantity_casing"
+ 
+    />
+    <property
+        name="budgetInclude"
+        type="java.lang.String"
+        column="budget_include"
+ 
+    />
+    <property
+        name="shenPiMode"
+        type="java.lang.String"
+        column="shen_pi_mode"
+ 
+    />
+    <property
+        name="placeSetUp"
+        type="java.lang.String"
+        column="place_setup"
+ 
+    />
+    <property
+        name="fullNameRect"
+        type="java.lang.String"
+        column="full_name_rect"
+ 
+    />
+    <property
+        name="detailAddressRect"
+        type="java.lang.String"
+        column="detail_address_rect"
+ 
+    />
+    <property
+        name="foreignPhoneRect"
+        type="java.lang.String"
+        column="foreign_phone_rect"
+ 
+    />
+    <property
+        name="corpCode"
+        type="java.lang.String"
+        column="corp_code"
+ 
+    />	    
+    <property
+        name="caseNum"
+        type="java.lang.String"
+        column="case_num"
+ 
+    />
+    
+    <!-- 2015新增字段 -->
+    
+    <property
+        name="yingSuNum"
+        type="java.lang.String"
+        column="yingSuNum"
+ 
+    />
+    
+    <property
+        name="countOfFyCertAll"
+        type="java.lang.String"
+        column="countOfFyCertAll"
+ 
+    />
+    
+    <property
+        name="countOfFyCertFull"
+        type="java.lang.String"
+        column="countOfFyCertFull"
+ 
+    />
+    
+    <property
+        name="countOfFyCertPart"
+        type="java.lang.String"
+        column="countOfFyCertPart"
+ 
+    />
+    
+    <property
+        name="countOfAdminAided"
+        type="java.lang.String"
+        column="countOfAdminAided"
+ 
+    />
+    
+    <property
+        name="ysFirmExistsOrNot"
+        type="java.lang.String"
+        column="ysFirmExistsOrNot"
+ 
+    />
+    
+    <property
+        name="ysFirmName"
+        type="java.lang.String"
+        column="ysFirmName"
+ 
+    />
+    
+    <property
+        name="staffAuthorized"
+        type="java.lang.String"
+        column="staffAuthorized"
+ 
+    />
+    
+    <property
+        name="ysCountFull"
+        type="java.lang.String"
+        column="ysCountFull"
+ 
+    />
+    
+    <property
+        name="ysCountPart"
+        type="java.lang.String"
+        column="ysCountPart"
+ 
+    />
+    
+    <property
+        name="updateDateFlag"
+        type="java.lang.String"
+        column="updateDateFlag"
+ 
+    />
+</class>
+</hibernate-mapping>

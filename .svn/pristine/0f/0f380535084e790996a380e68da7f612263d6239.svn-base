@@ -1,0 +1,12 @@
+<?xml version="1.0"?><!DOCTYPE hibernate-mapping PUBLIC	"-//Hibernate/Hibernate Mapping DTD 2.0//EN"	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.iscp.sys.formLayout.msg">
+<class name="MsgTable" table="t_mappingtable">
+	<id name="id" type="integer" column="table_id">
+		<generator class="increment"/>
+	</id>
+	<property name="name" type="java.lang.String" column="table_name" length="50"/>
+	<property name="logTable" type="java.lang.String" column="table_mappingname" length="50"/>
+	<property name="desc" type="java.lang.String" column="table_desc" length="50"/>
+	<property name="showName" type="java.lang.String" column="table_showName" length="50"/>
+</class>
+</hibernate-mapping>

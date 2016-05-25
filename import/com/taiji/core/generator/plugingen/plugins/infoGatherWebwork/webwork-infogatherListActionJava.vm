@@ -1,0 +1,190 @@
+package ${plugin.parameter.acitionPackageName};
+#set( $objectName = "$table.getVariableName()")
+#set( $tableName ="$table.getName()")
+#set( $className = "${table.destinationClassName}")
+#set ($keyColumn = $table.pkColumn) 
+#set ($keyvar = ${keyColumn.variableName}) 
+#set ($keyCVar = ${keyColumn.capitalisedVariableName})
+#set( $gatherabbr = "${plugin.gatherAbbr}" )
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork.ActionContext;
+import com.taiji.core.util.Constants;
+import com.taiji.core.util.PaginationSupport;
+import com.taiji.core.webwork.action.ProtectedListAction;
+import com.taiji.system.service.PostTree;
+import com.taiji.system.service.PostTreeNode;
+import com.taiji.user.domain.User;
+import  ${plugin.parameter.domainPackageName}.*;
+import  ${plugin.parameter.servicePackageName}.*;
+import com.taiji.user.service.*;
+
+public class List${className}Action extends ProtectedListAction {
+
+    private static final String TABLE_NAME = "${tableName}";
+	private I${className}Service service;
+	private ${className}Check ${objectName}Check;
+	private ${className}CheckHistory ${objectName}CheckHistory;
+	private ${className} $objectName;
+	private ${className}History ${objectName}History;
+	private Integer ${objectName}Id;
+    private String abbr="$gatherabbr";
+    private String opName;
+  	private IUserService userService;
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #if($one2one)     
+    private ${relationName} ${relationObjectName};	
+	   #end	
+       #end	
+    #end   
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #if($one2one)     
+   
+    public ${relationName} get${relationName}(){
+		return ${relationObjectName};
+	}
+	
+    public void set${relationName}(${relationName} ${relationObjectName}){
+		this.${relationObjectName} = ${relationObjectName};
+	}
+	   #end	
+       #end	
+    #end 
+	  
+	public I${className}Service get${className}Service(){
+		return service;
+	}
+
+	public void setOpName(String opName){
+	    this.opName = opName;
+	}
+	public  String getOpName() {
+	    return opName;
+	}
+	public void set${className}Service(I${className}Service service){
+		this.service = service;
+	}
+	
+	public void set${className}Id(Integer ${objectName}id) {
+		this.${objectName}Id = ${objectName}id;	
+		${objectName} =(${className}) service.getEntityObjectById(${objectName}id);
+	}
+	
+	public Integer get${className}Id() {
+		return ${objectName}Id;
+	}
+	public ${className}Check get${className}Check(){
+		return ${objectName}Check;
+	}
+	public void set${className}Check(${className}Check ${objectName}Check){
+		this.${objectName}Check = ${objectName}Check;
+	}
+
+	public ${className} get${className}(){
+		return ${objectName};
+	}
+	public void set${className}Testinfo(${className} ${objectName}){
+		this.${objectName}=${objectName};
+	}
+
+	public ${className}History get${className}History(){
+		return this.${objectName}History;
+	}
+	public void set${className}History(${className}History ${objectName}History){
+		this.${objectName}History = ${objectName}History;
+	}
+
+	public ${className}CheckHistory get${className}CheckHistory(){
+		return ${objectName}CheckHistory;
+	}
+	public void set${className}CheckHistory(${className}CheckHistory ${objectName}CheckHistory){
+		this.${objectName}CheckHistory = ${objectName}CheckHistory;
+	}
+	
+
+
+    public Map getPositionMap() {
+    	Map m = new LinkedHashMap();
+		User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+	
+		PostTreeNode[] pt = service.treegetPositionList(currentUser,abbr);
+		int num=pt.length;
+		
+		for(int i=0;i<num;i++)
+		{
+			m.put(new Integer(pt[i].getId().intValue()),pt[i].getName());
+		}
+    	return m;
+    }
+    
+	public String listc() throws Exception {
+		
+		User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+		
+		PostTreeNode ptn = service.treegetCurrentPosition(currentUser,abbr);
+		if(ptn==null) {
+		List result = null;
+		wrapResult(TABLE_NAME,result,${className}.class.getName());	
+			}
+			else {
+		String hql="select info from ${className}Check check,${className} info where check.nextPosition="+new Integer(ptn.getId().intValue())+" and info.${keyvar} = check.${objectName}.${keyvar}";
+		listResult = service.find(hql,getPageNum());
+		wrapResult(TABLE_NAME,listResult,${className}.class.getName());
+		}
+		return SUCCESS;
+	}
+
+	public String listn() throws Exception {
+		
+		User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);	
+		String hql="select info from ${className}Check check,${className} info where check.state=0 and info.${keyvar} = check.${objectName}.${keyvar} and check.proposer="+currentUser.getId().intValue();
+		listResult = service.find(hql,getPageNum());
+		wrapResult(TABLE_NAME,listResult,${className}.class.getName());
+	        if(ActionContext.getContext().getSession().get("${objectName}Id")!=null)
+		ActionContext.getContext().getSession().remove("${objectName}Id");
+		return SUCCESS;
+	}
+
+	public String listac() throws Exception {
+		
+	User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+
+	PostTreeNode ptn = service.treegetCurrentPosition(currentUser,abbr);
+		if(ptn==null) {
+		List result = null;
+		wrapResult(TABLE_NAME,result,${className}.class.getName());	
+			}
+	     else {
+	String hql="select info from ${className}Check check,${className} info where check.parents like '%A"+new Integer(ptn.getId().intValue())+"B%' and info.${keyvar} = check.${objectName}.${keyvar} and check.proposer<>'"+currentUser.getId().intValue()+"'";
+	listResult = service.find(hql,getPageNum());
+	wrapResult(TABLE_NAME,listResult,${className}.class.getName());
+	}
+		
+	return SUCCESS;
+}
+	
+	public String getTableName() {
+		return TABLE_NAME;
+	}
+	public Class getPersistentClass() {
+		return ${className}.class;
+	}
+	public PaginationSupport getInitResult() {
+	    return null;
+	}
+}

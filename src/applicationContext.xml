@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="  
+        	http://www.springframework.org/schema/beans   
+        	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+        	http://cxf.apache.org/jaxws  
+        	http://cxf.apache.org/schemas/jaxws.xsd">
+	<!-- Import apache CXF bean definition 固定 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@192.168.1.172:1521:orcl</value>
+		</property>
+		<property name="username">
+			<value>xzfy</value>
+		</property>
+		<property name="password">
+			<value>xzfy</value>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		<property name="lobHandler">
+			<ref bean="oracleLobHandler" />
+		</property>
+
+
+	</bean>
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor">
+			<ref bean="nativeJdbcExtractor" />
+		</property>
+	</bean>
+	<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor" />
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+
+	</bean>
+	<bean id="myTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref local="myTransactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<!-- <prop key="list*">
+					PROPAGATION_REQUIRED,-orderException,readOnly
+				</prop>
+				<prop key="get*">
+					PROPAGATION_REQUIRED,readOnly
+				</prop> -->
+				<prop key="save*">
+					PROPAGATION_REQUIRED
+				</prop>
+				<prop key="update*">
+					PROPAGATION_REQUIRED
+				</prop>
+				<prop key="delete*">
+					PROPAGATION_REQUIRED
+				</prop>
+				<prop key="remove*">
+					PROPAGATION_REQUIRED
+				</prop>
+				<prop key="batch*">
+					PROPAGATION_REQUIRED
+				</prop>
+				<prop key="*">
+					PROPAGATION_REQUIRED
+				</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="recordpermInterceptor" class="com.taiji.core.service.RecordPermissionInterceptor">
+		<property name="securityService">
+			<ref local="securityService" />
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<value>*Service</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>baseTransactionProxy</value>
+				<value>recordpermInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor" ref="baseTransactionProxy" />
+	</bean>
+	<bean id="entityDAO" class="com.taiji.core.dao.impl.HibernateDAOImpl"
+		autowire="byName" />
+	<bean id="coreService" class="com.taiji.core.service.impl.CoreServiceImpl"
+		autowire="byName" />
+	<bean id="userService" class="com.taiji.user.service.impl.UserServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="webUserService" class="com.taiji.user.service.impl.WebUserServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="webSimpleUserService"
+		class="com.taiji.user.service.impl.WebSimpleUserServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="orgService" class="com.taiji.user.service.impl.OrgServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="webOrgService" class="com.taiji.user.service.impl.WebOrgServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="roleService" class="com.taiji.user.service.impl.RoleServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="permissionService"
+		class="com.taiji.user.service.impl.PermissionServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="funcPermService" class="com.taiji.user.service.impl.FuncPermServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="operationService" class="com.taiji.user.service.impl.OperationServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="functionService"
+		class="com.taiji.system.service.impl.FunctionServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="mappingTableService"
+		class="com.taiji.system.service.impl.MappingTableServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="fieldService" class="com.taiji.system.service.impl.FieldServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="dictionaryService"
+		class="com.taiji.system.service.impl.DictionaryServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="securityService" class="com.taiji.core.security.impl.SecurityServiceImpl"
+		autowire="byName" />
+	<bean id="postAssignService"
+		class="com.taiji.system.service.impl.PostAssignServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="positionService"
+		class="com.taiji.system.service.impl.PositionServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="ptreeService" class="com.taiji.system.service.impl.PtreeServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="searchstateService"
+		class="com.taiji.system.service.impl.SearchstateServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="exportExcelFileService"
+		class="com.taiji.system.service.impl.ExportExcelFileServiceDefaultImpl"
+		autowire="byName" />
+	<bean id="logService" class="com.taiji.system.service.impl.LogServiceImpl"
+		autowire="byName" />
+	<bean id="appLogService" class="com.taiji.system.service.impl.AppLogServiceImpl"
+		autowire="byName" />
+
+	<!-- WebIscp -->
+	<bean id="wtTemplateService"
+		class="com.taiji.webTemplate.service.impl.WtTemplateServiceImpl"
+		autowire="byName" />
+	<bean id="wtClassifyService"
+		class="com.taiji.webTemplate.service.impl.WtClassifyServiceImpl"
+		autowire="byName" />
+	<!-- Template -->
+	<bean id="articleService" class="com.taiji.website.service.impl.ArticleServiceImpl"
+		autowire="byName" />
+	<bean id="zxbzService" class="com.taiji.zxfy.zxbz.service.impl.ZxbzServiceImpl"
+		autowire="byName" />
+	<bean id="zxcxService" class="com.taiji.zxfy.zxcx.service.impl.ZxcxServiceImpl"
+		autowire="byName" />
+	<bean id="zxyjService" class="com.taiji.zxfy.zxyj.service.impl.ZxyjServiceImpl"
+		autowire="byName" />
+
+
+<!-- 新增连个bean -->
+	 <bean id="xzfyService" class="com.taiji.fzb.service.impl.XzfyServiceImpl"
+		autowire="byName" />
+     <bean id="recordService" class="com.taiji.fzb.service.impl.RecordServiceImpl"
+		autowire="byName" />
+
+
+
+	<!-- 在线复议 -在线申请 -->
+	<bean id="zxsqService" class="com.taiji.zxfy.zxsq.service.impl.ZxsqServiceImpl"
+		autowire="byName" />
+	
+	
+	
+	
+		
+	<!-- services服务端接口配置 -->
+	<bean id="caseServicesBean"
+		class="com.unionfly.completesyn.services.impl.CaseInfoServicesImpl" />
+	<bean id="servicesBean"
+		class="com.dataSync.service.impl.ServicesImpl" />
+	<!-- CXF 配置WebServices的服务名及访问地址 -->
+	<jaxws:server id="services" address="/Services"
+		serviceClass="com.dataSync.service.Services">
+		<jaxws:serviceBean>
+			<ref bean="servicesBean" />
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+			<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackRef">
+							<ref bean="serverPasswordCallback" />
+						</entry>
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
+	</jaxws:server>
+	<bean id="serverPasswordCallback"
+		class="com.unionfly.completesyn.security.ServerPasswordCallback" />
+</beans>

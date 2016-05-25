@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.fzb.domain">
+<class 
+    name="XzfyAgent" 
+    table="xzfy_agent"
+    dynamic-update="true"
+	dynamic-insert="true"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="increment" />
+    </id>
+
+   <property
+        name="agent_name"
+        type="java.lang.String"
+        column="agent_name"
+    />	
+
+    <property
+        name="agent_id"
+        type="java.lang.String"
+        column="agent_id"
+    />
+
+   <property
+        name="mobile"
+        type="java.lang.String"
+        column="mobile"
+    />	
+    
+    <property
+        name="email"
+        type="java.lang.String"
+        column="email"
+    />
+
+   <property
+        name="mail_address"
+        type="java.lang.String"
+        column="mail_address"
+    />	
+
+    <property
+        name="proxytype"
+        type="java.lang.String"
+        column="proxytype"
+    />
+    
+        <property
+        name="telephone"
+        type="java.lang.String"
+        column="telephone"
+    />
+    
+     <property
+        name="work_address"
+        type="java.lang.String"
+        column="work_address"
+    />
+    
+     <property
+        name="cer_no"
+        type="java.lang.String"
+        column="cer_no"
+    />
+    
+         <property
+        name="postcode"
+        type="java.lang.String"
+        column="postcode"
+    />
+
+    <many-to-one name="xzfyInfo" cascade="all"
+			column="xzfy_id" class="XzfyInfo"  />
+			
+</class>
+</hibernate-mapping>

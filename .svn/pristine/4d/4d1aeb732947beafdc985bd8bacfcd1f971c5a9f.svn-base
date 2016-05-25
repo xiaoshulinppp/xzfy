@@ -1,0 +1,1670 @@
+package com.taiji.core.generator.configen;
+
+import com.taiji.core.generator.formgen.ParseTemplate;
+import com.taiji.core.generator.formgen.component.RelationshipObject;
+import com.taiji.core.generator.plugingen.DbNameConverter;
+import com.taiji.core.generator.plugingen.Util;
+import com.taiji.core.generator.plugingen.FileProducerByFreemarker;
+import com.iscp.sys.formLayout.msg.RelModel;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Properties;
+import com.taiji.core.util.FileOperator;
+import com.taiji.core.util.ApplicationPath;
+
+import org.hibernate.tool.hbm2ddl.*;
+import org.hibernate.cfg.Configuration;
+/*
+ * 
+ * @author zhangxl
+ *
+ * 编译生成的业务类文件，并且更新所有的配置文件
+ * 
+ */
+public class PresentCodeGen {
+	private static String ACTIONPATH = "com/taiji/info/webwork/action";
+	private static String DOMAINPATH = "com/taiji/info/domain";
+	private static String SERVICEPATH = "com/taiji/info/service";
+	private static String WEBINFOPATH= "pages/info";
+	private static String javaCodePath=System.getProperty("file.separator")+"java";
+	private static String webCodePath=System.getProperty("file.separator")+"web";
+	private final String CHECK_POST = "Check";
+	private String _className;
+	private String _objectName;
+	private String _tableName;
+	private File _templateFile;
+	private String _templateString;
+	private String _appPath;
+	private Map context = new HashMap();
+	private String _destRootDir;
+	private boolean _genAll;
+	private boolean _infogather;
+	private String _tableNameKey;
+    private List RelationshipList;
+    private String pathKey;
+    private String genFlag;
+    
+	public PresentCodeGen(String tableName,File file) {
+		_templateFile = file;
+		_tableName = tableName;
+		_className = getClassName(tableName);
+		_objectName = getObjectName(tableName);
+		_appPath = ApplicationPath.getAppliactionPath();				
+	
+	}
+	public PresentCodeGen(String tableName,String templateString) {
+		_templateString = templateString;
+		_tableName = tableName;
+		_className = getClassName(tableName);
+		_objectName = getObjectName(tableName);
+		_appPath = ApplicationPath.getAppliactionPath();
+	
+	}
+	public PresentCodeGen(String tableName,List relationList,boolean genAll)throws IOException {
+		_tableName = tableName;
+		_className = getClassName(tableName);
+		_objectName = getObjectName(tableName);
+		switchInfoGatherName(relationList);
+		_appPath = ApplicationPath.getAppliactionPath();
+		_genAll = genAll;
+	   
+	}
+	public PresentCodeGen(String tableName,List relationList)throws IOException {
+	_tableName = tableName;
+	_className = getClassName(tableName);
+	_objectName = getObjectName(tableName);
+	 switchInfoGatherName(relationList);
+	_appPath = ApplicationPath.getAppliactionPath();
+	_genAll = true;
+	
+   }
+	public void setTableNameKey(String key) {
+		this._tableNameKey = key;
+	}
+	public void setGenAll(boolean genAll) {
+		_genAll = genAll;
+	}
+	public void setPathKey(String pathKey) {
+		this.pathKey = pathKey;
+	}
+    public void setInfoGather(boolean infogather) {
+    	_infogather = infogather;
+    	if(_infogather){
+			ACTIONPATH = "com/taiji/infogather/webwork/action";
+			DOMAINPATH = "com/taiji/infogather/domain";
+			SERVICEPATH = "com/taiji/infogather/service";
+			WEBINFOPATH= "pages/infogather"; 	
+    	}
+    }
+	public void setDestRootDir(String dir) {
+		_destRootDir = dir;
+	}
+	public void setGenFlag(String flag){
+		this.genFlag = flag;
+	}
+	public String getDestRootDir() {
+		return _destRootDir;
+	}
+	public String getHtml() {
+		ParseTemplate parse = new ParseTemplate(_templateFile);
+		return parse.getHtml();
+	}
+	/**
+	 * 创建业务详细页面，此模板页面是按照表单设计器设计的表单的样式生成的
+	 **/
+	public void generatePropertyFile() throws IOException{
+	
+		String template = generateTemplate();
+        String webpath="pages/"+getWebPath();
+        if(_infogather){
+        	webpath="pages/infogather";
+        }
+		String destDir = ApplicationPath.getRootPath()+System.getProperty("file.separator")+webpath;
+		String fileName = _objectName+"Property.ftl";
+		String pathName = destDir+System.getProperty("file.separator")+fileName;
+		File dir = new File(destDir);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+	   
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(pathName),"utf-8");
+		template = addHeadInfo(template);
+	
+		writer.write(template);
+		writer.flush();
+		writer.close();
+
+	}
+	
+	private String getWebPath() {
+		ParseTemplate parse = null;
+		if(_templateFile!=null) {
+			parse = new ParseTemplate(_templateFile);
+		}
+		else {
+			if(_templateString!=null) {
+				parse = new ParseTemplate(_templateString);
+			}
+		}
+		return parse.getWebPath();		
+	}
+	
+	private String addHeadInfo(String template) {
+		String result;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<#assign showState = \"false\">\n");
+		buffer.append("<#if opName?has_content>\n");
+		buffer.append("<#if opName == \"view\">\n");
+		buffer.append("<#assign showState=\"true\">\n");
+		buffer.append("</#if>\n");
+		buffer.append("</#if>\n");
+		buffer.append(template);
+		return buffer.toString();
+
+	}
+	protected String generateTemplate() {
+	
+		ParseTemplate parse = null;
+		if(_templateFile!=null) {
+			parse = new ParseTemplate(_templateFile);
+		}
+		else {
+			if(_templateString!=null) {
+				parse = new ParseTemplate(_templateString);
+			}
+		}
+		return parse.generateTemplate();
+	}
+	
+	public void process() throws Exception{
+		try {
+			if(_infogather) {
+				processInfoGather();
+			}
+			compile();
+		}catch(Exception e) {
+			throw new Exception("compile error:"+e.getMessage());
+		}
+		if(_infogather) {
+			buildTable();		
+		}
+	
+		copyFileToPath();
+		FileOperator.delFolder(_destRootDir);
+		updateConfigureFile();
+		updateHibernateCfgFile();
+		updateServiceCfgFile();
+	}
+    public void processInfoGather() {//private
+    	genCheckhbm();
+    	genCheckDomain();
+    	genInfoGatherHistory();
+    	genInfoGatherRelationHistory();
+    	updateInfoGather();
+    
+    }
+    private void genCheckhbm() {
+    	
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		String checkTableName = _tableName +CHECK_POST;
+		String className = _className+"Check";
+		String fileName =  className + ".hbm.xml";
+		File file = new File(domaindestPath+fileName);
+		Properties props = new Properties();
+		Map context = new HashMap();
+		context.put("classname",className);
+		context.put("tablename",checkTableName);
+		context.put("infoClass",_className);
+		context.put("infoObject",_objectName);	
+		FileProducerByFreemarker producer = new FileProducerByFreemarker(new File(domaindestPath),fileName, "checkhbm.ftl");
+		producer.init(props);
+		producer.getCfg().setClassForTemplateLoading(getClass(),"");
+		producer.addContextMap(context);
+		producer.generate(file);
+		
+		//--------history check hbm file generate
+		checkTableName = _tableName +CHECK_POST+"History";
+		className = _className+"CheckHistory";
+		fileName =  className + ".hbm.xml";
+		file = new File(domaindestPath+fileName);
+		context.clear();
+		context.put("classname",className);
+		context.put("tablename",checkTableName);
+		context.put("infoClass",_className+"History");
+		context.put("infoObject",_objectName+"History");			
+		FileProducerByFreemarker producer_history = new FileProducerByFreemarker(new File(domaindestPath),fileName, "checkhbm.ftl");
+		producer_history.init(props);
+		producer_history.getCfg().setClassForTemplateLoading(getClass(),"");
+		producer_history.addContextMap(context);
+		producer_history.generate(file);	
+    } 
+    private void genCheckDomain() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		String checkTableName = _tableName +CHECK_POST;
+		String className = _className+"Check";
+		String fileName =  className + ".java";
+		File file = new File(domaindestPath+fileName);
+		Properties props = new Properties();
+		Map context = new HashMap();
+		context.put("classname",className);
+		context.put("tablename",checkTableName);
+		context.put("infoClass",_className);
+		context.put("infoObject",_objectName);
+			
+		FileProducerByFreemarker producer = new FileProducerByFreemarker(new File(domaindestPath),fileName, "checkpojo.ftl");
+		producer.init(props);
+		producer.getCfg().setClassForTemplateLoading(getClass(),"");
+		producer.addContextMap(context);
+		producer.generate(file);
+		
+		//--------history check hbm file generate
+		checkTableName = _tableName +CHECK_POST+"History";
+		className = _className+"CheckHistory";
+		fileName =  className + ".java";
+		file = new File(domaindestPath+fileName);
+		context.clear();
+		context.put("classname",className);
+		context.put("tablename",checkTableName);		
+		context.put("infoClass",_className+"History");
+		context.put("infoObject",_objectName+"History");	
+		
+		FileProducerByFreemarker producer_history = new FileProducerByFreemarker(new File(domaindestPath),fileName, "checkpojo.ftl");
+		producer_history.init(props);
+		producer_history.getCfg().setClassForTemplateLoading(getClass(),"");
+		producer_history.addContextMap(context);
+		producer_history.generate(file);   	
+
+    }
+    private void genInfoGatherHistory() {
+		genInfoGatherHbmHistroy();
+		genInfoGatherJavaHistory();
+    }
+    private void genInfoGatherHbmHistroy() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");   
+		String oldfilename = domaindestPath+_className+".hbm.xml";
+		String newfilename = domaindestPath+_className+"History.hbm.xml";
+		String checkHistroyTableName = _tableName +CHECK_POST+"History";
+		String checkHistroyClassName = _className+"CheckHistory";		
+		String checkHistroyObjectName = _objectName+"CheckHistory";			
+		FileOperator.copyFile(oldfilename,newfilename);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+			String flagString ="</class>";
+			String appendString =" ";
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+						
+			appendString = "<one-to-one name=\""+checkHistroyObjectName+"\" class=\""+checkHistroyClassName+"\" cascade=\"all\" property-ref=\""+_objectName+"History\"/>\n";
+			appendString += "<many-to-one name=\""+_objectName+"\" column=\"info1_infoid\" class=\""+_className+"\" />\n";
+			Iterator iter  = RelationshipList.iterator();
+				while(iter.hasNext()) {
+					RelationshipObject relation = (RelationshipObject) iter.next();
+					int type = relation.getType();
+			
+					switch(type) {
+						case 0:	content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+						        content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+							   break;
+						case 1:	content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+				                content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+						case 2:	 break;
+					}
+				} 
+
+			content = content.replaceAll(_className,_className+"History");
+			content = content.replaceAll(_tableName,_tableName+"history");
+			
+			int index = content.lastIndexOf(flagString);
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(content.substring(0,index));
+			buffer.append("\n");
+			buffer.append(appendString);
+			buffer.append("\n");
+			buffer.append(content.substring(index));
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+			writer.write(buffer.toString());
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}		   	
+
+    }
+    private void genInfoGatherJavaHistory() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");   
+		String oldfilename = domaindestPath+_className+".java";
+		String newfilename = domaindestPath+_className+"History.java";
+		String checkHistroyTableName = _tableName +CHECK_POST+"History";
+		String checkHistroyClassName = _className+"CheckHistory";		
+		String checkHistroyObjectName = _objectName+"CheckHistory";		
+					
+		FileOperator.copyFile(oldfilename,newfilename);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+			String flagString ="}";			
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+			String appendString =" private "+_className +" "+_objectName+";\n";
+			appendString +=" private "+checkHistroyClassName +" "+checkHistroyObjectName+";\n";
+			
+			appendString += "public "+_className+" get"+_className+"() {\n";
+			appendString += "    return "+_objectName+";\n";
+			appendString += "}\n";
+			
+			appendString += "public void set"+_className+"("+_className+" "+_objectName+") {\n";
+			appendString += "	this."+_objectName+" = "+_objectName+";\n";
+			appendString += "}\n";		
+			
+			appendString += "public "+checkHistroyClassName+" get"+checkHistroyClassName+"() {\n";
+			appendString += "    return "+checkHistroyObjectName+";\n";
+			appendString += "}\n";
+			
+			appendString += "public void set"+checkHistroyClassName+"("+checkHistroyClassName+" "+checkHistroyObjectName+") {\n";
+			appendString += "	this."+checkHistroyObjectName+" = "+checkHistroyObjectName+";\n";
+			appendString += "}\n";
+			Iterator iter  = RelationshipList.iterator();
+			while(iter.hasNext()) {
+						RelationshipObject relation = (RelationshipObject) iter.next();
+						int type = relation.getType();
+			
+						switch(type) {
+							case 0:	content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+									content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+								   break;
+							case 1:	content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+		                            content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+		                           break;
+							case 2:	 break;
+						}
+			}			   
+
+			content = content.replaceAll(_className,_className+"History");
+			
+			int index = content.lastIndexOf(flagString);
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(content.substring(0,index));
+			buffer.append("\n");
+			buffer.append(appendString);
+			buffer.append("\n");
+			buffer.append(content.substring(index));
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+			writer.write(buffer.toString());
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}		
+
+    }
+    private void genInfoGatherRelationHistory() {
+		Iterator iter  = RelationshipList.iterator();
+		while(iter.hasNext()) {
+			RelationshipObject relation = (RelationshipObject) iter.next();
+			int type = relation.getType();
+			
+			switch(type) {
+				case 0:genInfoGatherOne2OneRelationHbmHistroy(relation);
+				       genInfoGatherOne2OneRelationJavaHistory(relation);
+				       break;
+				case 1:genInfoGatherOne2ManyRelationHbmHistroy(relation);
+				       genInfoGatherOne2ManyRelationJavaHistory(relation);
+				       break;
+				case 2:
+				       genInfoGatherMany2ManyRelationHbmHistroy(relation);
+					   genInfoGatherMany2ManyRelationJavaHistory(relation);
+					   break;
+			}
+		}
+
+    }
+    private void genInfoGatherOne2OneRelationHbmHistroy(RelationshipObject relation) {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		
+		   
+		String oldfilename = domaindestPath+relation.getTableRelatedClassName()+".hbm.xml";
+		String newfilename = domaindestPath+relation.getTableRelatedClassName()+"History.hbm.xml";
+		
+		FileOperator.copyFile(oldfilename,newfilename);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+				   
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+			content = content.replaceAll(_className,_className+"History");
+			content = content.replaceAll(_objectName,_objectName+"History");
+			content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+			content = content.replaceAll(relation.getTableRelatedName(),relation.getTableRelatedName()+"history");	
+			BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+			writer.write(content);
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}	   	
+    }
+	private void genInfoGatherOne2OneRelationJavaHistory(RelationshipObject relation){
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		
+		   
+		String oldfilename = domaindestPath+relation.getTableRelatedClassName()+".java";
+		String newfilename = domaindestPath+relation.getTableRelatedClassName()+"History.java";
+		
+		FileOperator.copyFile(oldfilename,newfilename);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+				   
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+			content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+			content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+	
+			content = content.replaceAll(_className,_className+"History");
+			content = content.replaceAll(_objectName,_objectName+"History");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+			writer.write(content);
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}	   	
+	} 
+	private void genInfoGatherOne2ManyRelationHbmHistroy(RelationshipObject relation){
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		
+		   
+		String oldfilename = domaindestPath+relation.getTableRelatedClassName()+".hbm.xml";
+		String newfilename = domaindestPath+relation.getTableRelatedClassName()+"History.hbm.xml";
+		
+		FileOperator.copyFile(oldfilename,newfilename);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+				   
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+			content = content.replaceAll(_className,_className+"History");
+			content = content.replaceAll(_objectName,_objectName+"History");
+			content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+			content = content.replaceAll(relation.getTableRelatedName(),relation.getTableRelatedName()+"history");	
+			BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+			writer.write(content);
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private void genInfoGatherOne2ManyRelationJavaHistory(RelationshipObject relation){
+		String path = _destRootDir+javaCodePath;
+			String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		
+		   
+			String oldfilename = domaindestPath+relation.getTableRelatedClassName()+".java";
+			String newfilename = domaindestPath+relation.getTableRelatedClassName()+"History.java";
+		
+			FileOperator.copyFile(oldfilename,newfilename);
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(newfilename));
+				StringBuffer inputBuffer = new StringBuffer();
+				String content;
+				String line="";
+				   
+				while((line=reader.readLine())!=null){
+					inputBuffer.append(line);
+					inputBuffer.append("\n");
+				}
+				reader.close();
+				content = inputBuffer.toString();
+				content = content.replaceAll(relation.getTableRelatedClassName(),relation.getTableRelatedClassName()+"History");
+				content = content.replaceAll(relation.getTableRelatedObjectName(),relation.getTableRelatedObjectName()+"History");
+	
+				content = content.replaceAll(_className,_className+"History");
+				content = content.replaceAll(_objectName,_objectName+"History");
+				BufferedWriter writer = new BufferedWriter(new FileWriter(newfilename));
+				writer.write(content);
+				writer.close();
+			}catch(FileNotFoundException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}	   			
+		
+	}
+
+
+	private void genInfoGatherMany2ManyRelationHbmHistroy(RelationshipObject relation){
+		
+	}
+	private void genInfoGatherMany2ManyRelationJavaHistory(RelationshipObject relation){
+		  
+	}
+    private void updateInfoGather() {
+    	updateInfoGatherHbm();
+    	updateInfoGatherJava();
+    }
+    private void updateInfoGatherHbm() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");   
+		String filename = domaindestPath+_className+".hbm.xml";
+		String checkTableName = _tableName +CHECK_POST;
+		String checkClassName = _className+"Check";		
+		String checkObjectName = _objectName+"Check";			
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+			String flagString ="</class>";
+			String appendString =" ";
+			appendString = "<one-to-one name=\""+checkObjectName+"\" class=\""+checkClassName+"\" cascade=\"all\" property-ref=\""+_objectName+"\"/>\n";
+			appendString += "<set name=\""+_objectName+"History\" inverse=\"true\" cascade=\"save-update\">\n";
+			appendString += "	<key column=\""+_tableNameKey+"\"  />\n";
+			appendString += "	<one-to-many class=\""+_className+"History\" />\n";
+			appendString += "</set>\n";	
+
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();			
+			int index = content.lastIndexOf(flagString);
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(content.substring(0,index));
+			buffer.append("\n");
+			buffer.append(appendString);
+			buffer.append("\n");
+			buffer.append(content.substring(index));
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+			writer.write(buffer.toString());
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}		   	
+   	
+    	
+    }
+	private void updateInfoGatherJava() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");   
+		String filename = domaindestPath+_className+".java";
+		String checkTableName = _tableName +CHECK_POST;
+		String checkClassName = _className+"Check";		
+		String checkObjectName = _objectName+"Check";		
+					
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+			String flagString ="}";			
+
+			String appendString =" private Set "+_objectName+"History = new LinkedHashSet();\n";
+			appendString +=" private "+checkClassName +" "+checkObjectName+";\n";
+			
+			appendString += "public Set "+" get"+_className+"History() {\n";
+			appendString += "    return "+_objectName+"History;\n";
+			appendString += "}\n";
+			
+			appendString += "public void set"+_className+"History("+"Set "+_objectName+"History) {\n";
+			appendString += "	this."+_objectName+"History = "+_objectName+"History;\n";
+			appendString += "}\n";		
+			
+			appendString += "public "+checkClassName+" get"+checkClassName+"() {\n";
+			appendString += "    return "+checkObjectName+";\n";
+			appendString += "}\n";
+			
+			appendString += "public void set"+checkClassName+"("+checkClassName+" "+checkObjectName+") {\n";
+			appendString += "	this."+checkObjectName+" = "+checkObjectName+";\n";
+			appendString += "}\n";
+			   
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+			reader.close();
+			content = inputBuffer.toString();
+						
+			int index = content.lastIndexOf(flagString);
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(content.substring(0,index));
+			buffer.append("\n");
+			buffer.append(appendString);
+			buffer.append("\n");
+			buffer.append(content.substring(index));
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+			writer.write(buffer.toString());
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}   	
+	}
+    private void buildTable() {
+		String path = _destRootDir+javaCodePath;
+		String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");   
+		String newfileHistoryname = domaindestPath+_className+"History.hbm.xml";
+		String filename = domaindestPath+_className+".hbm.xml";
+		
+		String checkTableName = _tableName +CHECK_POST;
+		String checkClassName = _className+"Check";		
+		String checkHbmfileName =  checkClassName + ".hbm.xml";		
+		String newcheckfilename = domaindestPath+checkHbmfileName;
+		
+		String checkHistoryTableName = _tableName +CHECK_POST+"History";
+		String checkHistoryClassName = _className+"CheckHistory";		
+		String checkHIstoryHbmfileName =  checkHistoryClassName + ".hbm.xml";		
+		String newcheckhistoryfilename = domaindestPath+checkHIstoryHbmfileName;
+		
+		Configuration currentCfg  = new Configuration().configure();
+		Configuration cfg = new Configuration();
+		cfg.addFile(filename);	
+		cfg.addFile(newfileHistoryname);	
+		cfg.addFile(newcheckfilename);
+		cfg.addFile(newcheckhistoryfilename);
+		
+		Iterator iter  = RelationshipList.iterator();
+		while(iter.hasNext()) {
+			RelationshipObject relation = (RelationshipObject) iter.next();
+			String relationFile = domaindestPath+relation.getTableRelatedClassName()+".hbm.xml";
+            cfg.addFile(relationFile);
+			String relationFileHistory = domaindestPath+relation.getTableRelatedClassName()+"History.hbm.xml";
+            cfg.addFile(relationFileHistory);
+		}			
+		
+		Properties props = 	currentCfg.getProperties();
+		cfg.setProperty("hibernate.connection.driver_class",props.getProperty("hibernate.connection.driver_class"));
+		cfg.setProperty("hibernate.connection.url",props.getProperty("hibernate.connection.url"));
+		cfg.setProperty("hibernate.connection.username",props.getProperty("hibernate.connection.username"));
+		cfg.setProperty("hibernate.connection.password",props.getProperty("hibernate.connection.password"));
+		cfg.setProperty("hibernate.dialect",props.getProperty("hibernate.dialect"));   
+		SchemaExport dbExport = new SchemaExport(cfg);	
+		
+		dbExport.create(true, true);   	
+
+    }
+    private void compile() throws Exception{
+    	List source = new ArrayList();
+    	
+    	String path = _destRootDir+javaCodePath;
+    	List classpath = new ArrayList();
+		if(!_infogather){
+    	  //add Action
+		  String actiondestPath = path +System.getProperty("file.separator")+ACTIONPATH+System.getProperty("file.separator");
+		  source.add(actiondestPath+_className+"Action.java");
+		  source.add(actiondestPath+"List"+_className+"Action.java");
+		  source.add(actiondestPath+_className+"QueryAction.java");
+		  source.add(actiondestPath+_className+"QueryTermAction.java");
+		  source.add(actiondestPath+"View"+_className+"QueryAction.java");
+	
+
+		  String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		  source.add(domaindestPath+_className+".java");
+		  if(RelationshipList!=null) {
+		  
+		  Iterator iter  = RelationshipList.iterator();
+		  while(iter.hasNext()) {
+			RelationshipObject relation = (RelationshipObject) iter.next();
+			String relationName = relation.getTableRelatedClassName();
+			source.add(domaindestPath+relationName+".java");
+			if(relation.getType()!=0){
+		
+			source.add(actiondestPath+relationName+"Action.java");
+			source.add(actiondestPath+relationName+"InLineAction.java");
+			source.add(actiondestPath+"List"+relationName+"Action.java");
+			source.add(actiondestPath+"List"+relationName+"InLineAction.java");
+			source.add(actiondestPath+relationName+"QueryAction.java");
+			source.add(actiondestPath+relationName+"QueryTermAction.java");
+			source.add(actiondestPath+"View"+relationName+"QueryAction.java");
+			}
+		 }
+		  }
+		}else {
+			String actiondestPath = path +System.getProperty("file.separator")+ACTIONPATH+System.getProperty("file.separator");
+			source.add(actiondestPath+_className+"Action.java");
+			source.add(actiondestPath+"List"+_className+"Action.java");
+			source.add(actiondestPath+_className+"QueryDetailAction.java");
+			source.add(actiondestPath+"List"+_className+"QueryAction.java");
+			source.add(actiondestPath+"List"+_className+"QueryHistoryAction.java");
+			//add domain
+			//service
+			String servicedestPath = path +System.getProperty("file.separator")+SERVICEPATH+System.getProperty("file.separator");
+			source.add(servicedestPath+"I"+_className+"Service.java");
+
+			String serviceImpldestPath = path +System.getProperty("file.separator")+SERVICEPATH+System.getProperty("file.separator")+"impl"+System.getProperty("file.separator");
+			source.add(serviceImpldestPath+_className+"ServiceImpl.java");
+
+		
+
+			String domaindestPath = path +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+			source.add(domaindestPath+_className+".java");	
+			source.add(domaindestPath+_className+"History.java");	
+			source.add(domaindestPath+_className+"Check.java");
+			source.add(domaindestPath+_className+"CheckHistory.java");
+			source.add(domaindestPath+_className+"QueryTerm.java");
+			
+			Iterator iter  = RelationshipList.iterator();
+			while(iter.hasNext()) {
+				RelationshipObject relation = (RelationshipObject) iter.next();
+				String relationFile = domaindestPath+relation.getTableRelatedClassName()+".java";
+				source.add(relationFile);
+				String relationFileHistory = domaindestPath+relation.getTableRelatedClassName()+"History.java";
+				source.add(relationFileHistory);
+				if(relation.getType()==1) {
+		
+					//action
+					source.add(actiondestPath+relation.getTableRelatedClassName()+"InLineAction.java");
+					source.add(actiondestPath+"List"+relation.getTableRelatedClassName()+"InLineAction.java");
+					source.add(actiondestPath+relation.getTableRelatedClassName()+"InLineQueryDetailAction.java");
+					source.add(actiondestPath+"List"+relation.getTableRelatedClassName()+"InLineQueryAction.java");
+				
+				}
+			}
+				
+		}
+    	 String libPath = ApplicationPath.getRootPath()+ System.getProperty("file.separator")+"WEB-INF"+ System.getProperty("file.separator")+"lib"+ System.getProperty("file.separator");
+    	 File file = new File(libPath);
+    	 String[] listFile = file.list();
+    	 for(int i=0;i<listFile.length;i++) {
+    		String filename = listFile[i];
+    		if(filename.indexOf("commons")>=0 || filename.indexOf("xwork")>=0 || filename.indexOf("hibernate")>=0 ||filename.indexOf("spring")>=0 ||filename.indexOf("webwork")>=0 ||filename.indexOf("servlet")>=0||filename.indexOf("comcore")>=0)
+    		   classpath.add(libPath+listFile[i]);
+    	 }
+    	 classpath.add(_appPath);
+
+    	try {
+    		Compiler.compile(source,path,classpath);
+    	}catch(Exception e) {
+			throw new Exception("compile error:"+e.getMessage());
+    	}
+    }
+	private void copyFileToPath() {
+		String sourceJavaPath = _destRootDir+System.getProperty("file.separator")+javaCodePath;
+		String sourceWebPath=_destRootDir+System.getProperty("file.separator")+webCodePath;
+		if(_genAll) {
+			FileOperator.copyFolder(sourceJavaPath,_appPath);
+			FileOperator.copyFolder(sourceWebPath,ApplicationPath.getRootPath());
+			if(_infogather) {
+				String path = ApplicationPath.getRootPath()+System.getProperty("file.separator")+"pages/info"+System.getProperty("file.separator");
+				String webDestPath = ApplicationPath.getRootPath()+System.getProperty("file.separator")+WEBINFOPATH+System.getProperty("file.separator");
+	            String filename =_objectName+"Property.ftl";
+	            File file = new File(path+filename);
+	            File filegather = new File(webDestPath+filename);
+	            if(file.exists() && !filegather.exists())
+	            FileOperator.copyFile(path+filename,webDestPath+filename);
+				Iterator iter  = RelationshipList.iterator();			
+				while(iter.hasNext()) {
+					RelationshipObject relation = (RelationshipObject) iter.next();
+					String relationName = relation.getTableHostObjectName();
+					filename =relationName+"Property.ftl";
+		            file = new File(path+filename);
+		            filegather = new File(webDestPath+filename);
+		            if(file.exists() && !filegather.exists())
+		            FileOperator.copyFile(path+filename,webDestPath+filename);
+				}
+			}
+			return;
+		}
+		copyMainFiletoPath();
+		copyRelationFiletoPath();
+	}
+	private void copyRelationFiletoPath() {
+		Iterator iter  = RelationshipList.iterator();			
+		 while(iter.hasNext()) {
+			RelationshipObject relation = (RelationshipObject) iter.next();
+			String relationName = relation.getTableRelatedClassName();
+			copyRelationFiletoPath(relationName);
+		}
+	}
+	private void copyRelationFiletoPath(String relationName) {
+		String sourceJavaPath = _destRootDir+System.getProperty("file.separator")+javaCodePath;		
+		String domainSourcePath = sourceJavaPath +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		String domaindestPath = _appPath +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		File pojoFile = new File(domaindestPath+relationName+".java");
+		if(!pojoFile.exists()){
+			FileOperator.copyFile(domainSourcePath+relationName+".java",domaindestPath+relationName+".java");
+			FileOperator.copyFile(domainSourcePath+relationName+".class",domaindestPath+relationName+".class");			
+		}
+		File hbmFile = new File(domaindestPath+relationName+".hbm.xml");
+		if(!hbmFile.exists()){
+			FileOperator.copyFile(domainSourcePath+relationName+".hbm.xml",domaindestPath+relationName+".hbm.xml");			
+		}		
+			
+	}
+	private void copyMainFiletoPath() {
+		String sourceJavaPath = _destRootDir+System.getProperty("file.separator")+javaCodePath;
+		String sourceWebPath=_destRootDir+System.getProperty("file.separator")+webCodePath;
+		
+		String domainSourcePath = sourceJavaPath +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		String domaindestPath = _appPath +System.getProperty("file.separator")+DOMAINPATH+System.getProperty("file.separator");
+		FileOperator.copyFolder(domainSourcePath,domaindestPath);
+		
+		
+		String actionSourcePath = sourceJavaPath +System.getProperty("file.separator")+ACTIONPATH+System.getProperty("file.separator");
+		String actiondestPath = _appPath +System.getProperty("file.separator")+ACTIONPATH+System.getProperty("file.separator");
+		FileOperator.copyFolder(actionSourcePath,actiondestPath);	
+		
+		
+		String webSourcePath = sourceWebPath+System.getProperty("file.separator")+WEBINFOPATH+System.getProperty("file.separator");
+		String webDestPath = ApplicationPath.getRootPath()+System.getProperty("file.separator")+WEBINFOPATH+System.getProperty("file.separator");	
+		FileOperator.copyFolder(webSourcePath,webDestPath);	
+        if(_infogather) {
+			String path = ApplicationPath.getRootPath()+System.getProperty("file.separator")+"pages/info"+System.getProperty("file.separator");
+			String filename =_objectName+"Property.ftl";
+			File file = new File(path+filename);
+			File filegather = new File(webDestPath+filename);
+			if(file.exists() && !filegather.exists())
+			  FileOperator.copyFile(path+filename,webDestPath+filename);	
+        }
+		
+
+	}
+	
+
+	private void appendFile(String fileName,String flagString,String appendString){
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			StringBuffer inputBuffer = new StringBuffer();
+			String content;
+			String line="";
+			while((line=reader.readLine())!=null){
+				inputBuffer.append(line);
+				inputBuffer.append("\n");
+			}
+
+			reader.close();
+			content = inputBuffer.toString();
+			int index = content.lastIndexOf(flagString);
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(content.substring(0,index));
+			buffer.append(appendString);
+			buffer.append(content.substring(index));
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+			writer.write(buffer.toString());
+			writer.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+    private void updateHibernateCfgFile() {
+		String fileName = _appPath + System.getProperty("file.separator")+"hibernate.cfg.xml";
+		String cfg="";
+		Iterator iter  = RelationshipList.iterator();
+		if(!_infogather){
+			cfg= "        <mapping resource=\"com//taiji//info//domain//"+_className+".hbm.xml\"/>\n";	
+			while(iter.hasNext()) {
+				RelationshipObject relation = (RelationshipObject) iter.next();
+				String relationName = relation.getTableRelatedClassName();
+				cfg+= "        <mapping resource=\"com//taiji//info//domain//"+relationName+".hbm.xml\"/>\n";	
+			}  	
+		}	
+    	else {
+			cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+_className+".hbm.xml\"/>\n";
+			cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+_className+"History.hbm.xml\"/>\n";
+			cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+_className+"Check.hbm.xml\"/>\n";		
+			cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+_className+"CheckHistory.hbm.xml\"/>\n";		
+			
+			while(iter.hasNext()) {
+				RelationshipObject relation = (RelationshipObject) iter.next();
+				cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+relation.getTableRelatedClassName()+".hbm.xml\"/>\n";		
+				cfg+= "        <mapping resource=\"com//taiji//infogather//domain//"+relation.getTableRelatedClassName()+"History.hbm.xml\"/>\n";		
+			}			
+    	}
+        appendFile(fileName,"</session-factory>",cfg);
+    }
+	private void updateConfigureFile() {
+		String fileName = _appPath + System.getProperty("file.separator");
+		if(!_infogather) {
+			fileName +="webwork-application.xml";
+		}
+		else {
+			fileName +="webwork-infogather.xml";
+		}
+		
+		String cfg = getActionConfigure(_className);
+		if(_genAll && !_infogather) {
+			String relationClassName;		
+			Iterator iter  = RelationshipList.iterator();
+			 while(iter.hasNext()) {
+				RelationshipObject relation = (RelationshipObject) iter.next();
+				relationClassName = relation.getTableRelatedClassName(); 
+			  cfg += getActionRelationConfigure(relation);
+			}
+		}
+
+		appendFile(fileName,"</package>",cfg);
+	}
+	private String getActionRelationConfigure(RelationshipObject relation) {
+		StringBuffer buffer = new StringBuffer();
+		int type = relation.getType();
+		String relationClassName = relation.getTableRelatedClassName();
+		String relationObjectName = relation.getTableRelatedObjectName();
+		String temp;
+		if(type==3)	{
+			temp = "    <action name=\"create"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/create"+relationClassName+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "    </action>\n";
+			buffer.append(temp);
+			
+	
+				
+			temp=  "    <action name=\"doCreate"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\" method=\"save\">\n";
+			buffer.append(temp);
+			temp=  "    <interceptor-ref name=\"autowireValidation\"/>\n";
+			buffer.append(temp);
+			temp = "       <result name=\"input\">/pages/info/create"+relationClassName+".ftl</result>\n";
+			buffer.append(temp);
+			temp=  "       <result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "          <param name=\"actionName\">list"+relationClassName+"</param>\n";
+			buffer.append(temp);
+			temp=  "          <param name=\"namespace\">/info</param>\n";
+			buffer.append(temp);
+			temp = "       </result>\n";
+			buffer.append(temp);		
+			temp=  "    </action>\n";
+			buffer.append(temp);
+			
+
+
+			
+
+			temp = "    <action name=\"update"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/update"+relationClassName+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>";
+			buffer.append(temp);
+			
+
+					
+			
+			temp=  "   <action name=\"doUpdate"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\" method=\"update\">\n";
+			buffer.append(temp);
+			temp=  "   <interceptor-ref name=\"autowireValidation\"/>\n";
+			buffer.append(temp);
+			temp = "      <result name=\"input\">/pages/info/update"+relationClassName+".ftl</result>\n";
+			buffer.append(temp);
+			temp=  "      <result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "         <param name=\"actionName\">list"+relationClassName+"</param>\n";
+			buffer.append(temp);
+			temp=  "         <param name=\"namespace\">/info</param>\n";
+			buffer.append(temp);
+			temp = "      </result>\n";
+			buffer.append(temp);
+			temp=  "    </action>\n";
+			buffer.append(temp);
+
+
+
+			
+			temp=  "    <action name=\"delete"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\" method=\"delete\">\n";
+			buffer.append(temp);
+			temp=  "       <result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "          <param name=\"actionName\">list"+relationClassName+"</param>\n";
+			buffer.append(temp);
+			temp=  "          <param name=\"namespace\">/info</param>\n";
+			buffer.append(temp);
+			temp = "       </result>\n";
+			buffer.append(temp);
+			temp=  "       <result name=\"inline\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "          <param name=\"actionName\">list"+relationClassName+"InLine</param>\n";
+			buffer.append(temp);
+			temp=  "          <param name=\"namespace\">/info</param>\n";
+			buffer.append(temp);
+			temp = "       </result>\n";
+			buffer.append(temp);
+			temp=  "    </action>\n";
+			buffer.append(temp);
+			
+
+			
+
+			temp = "    <action name=\"list"+relationClassName+"\" class=\"com.taiji.info.webwork.action.List"+relationClassName+"Action\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/list"+relationClassName+"Module.ftl</result>\n";
+			buffer.append(temp);
+			temp = "    </action>\n";
+			buffer.append(temp);
+
+
+		
+			temp = "   <action name=\"view"+relationClassName+"\" class=\"com.taiji.info.webwork.action."+relationClassName+"Action\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/update"+relationClassName+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);	
+			
+
+			
+			temp = "   <action name=\""+relationClassName+"QueryTerm\" class=\"com.taiji.info.webwork.action."+relationClassName+"QueryTermAction\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/"+relationClassName+"QueryModule.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);
+
+			temp = "   <action name=\""+relationClassName+"Query\" class=\"com.taiji.info.webwork.action."+relationClassName+"QueryAction\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/list"+relationClassName+"AdvancedQueryModule.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);
+		
+			temp = "   <action name=\"view"+relationClassName+"Query\" class=\"com.taiji.info.webwork.action.View"+relationClassName+"QueryAction\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/view"+relationClassName+"QueryModule.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);	
+		
+			temp = "<action name=\""+relationClassName+"AdvancedQueryTerm\" class=\"com.taiji.info.webwork.action."+relationClassName+"QueryTermAction\" method=\"advancedSearch\">\n";
+			buffer.append(temp);	
+			temp = "	 <result name=\"success\">/pages/search/searchQuery.ftl</result>\n";
+			buffer.append(temp);	
+			temp = "  </action>\n";
+			buffer.append(temp);	
+			temp = "  <action name=\""+relationClassName+"AdvancedQuery\" class=\"com.taiji.info.webwork.action."+relationClassName+"QueryAction\" method=\"advancedSearch\">\n";
+			buffer.append(temp);	
+			temp = "	 <result name=\"success\">/pages/info/list"+relationClassName+"QueryModule.ftl</result>\n";
+			buffer.append(temp);	
+			temp = "  </action>	\n";
+			buffer.append(temp);	
+			temp = "   <action name=\"view"+relationClassName+"AdvancedQuery\" class=\"com.taiji.info.webwork.action.View"+relationClassName+"QueryAction\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/view"+relationClassName+"AdvancedQueryModule.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);	
+		}
+		if(type==1) {
+		
+			temp = "    <action name=\"create"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/create"+relationClassName+"InLine.ftl</result>\n";
+			buffer.append(temp);
+			temp = "    </action>\n";
+			buffer.append(temp);	
+			
+			
+			temp=  "    <action name=\"doCreate"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\" method=\"save\">\n";
+			buffer.append(temp);
+			temp=  "    <interceptor-ref name=\"autowireValidation\"/>\n";
+			buffer.append(temp);
+			temp = "       <result name=\"input\">/pages/info/create"+relationClassName+"InLine.ftl</result>\n";
+			buffer.append(temp);
+			temp=  "       <result name=\"success\">/common/openreload.ftl</result>\n";
+			buffer.append(temp);
+			temp=  "    </action>\n";
+			buffer.append(temp);
+			
+			
+			temp = "    <action name=\"update"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/update"+relationClassName+"InLine.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>";
+			buffer.append(temp);	
+	
+			temp = "   <action name=\"view"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\">\n";
+			buffer.append(temp);
+			temp = "      <result name=\"success\">/pages/info/update"+relationClassName+"InLine.ftl</result>\n";
+			buffer.append(temp);
+			temp = "   </action>\n";
+			buffer.append(temp);	
+			
+			temp=  "   <action name=\"doUpdate"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\" method=\"update\">\n";
+			buffer.append(temp);
+			temp=  "   <interceptor-ref name=\"autowireValidation\"/>\n";
+			buffer.append(temp);
+			temp = "      <result name=\"input\">/pages/info/update"+relationClassName+"InLine.ftl</result>\n";
+			buffer.append(temp);
+			temp=  "      <result name=\"success\">/common/openreload.ftl</result>\n";
+			buffer.append(temp);
+			temp=  "    </action>\n";
+			buffer.append(temp);
+			
+			temp=  "    <action name=\"delete"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action."+relationClassName+"InLineAction\" method=\"delete\">\n";
+			buffer.append(temp);
+			temp=  "       <result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "          <param name=\"actionName\">list"+relationClassName+"InLine</param>\n";
+			buffer.append(temp);
+			temp=  "          <param name=\"namespace\">/info</param>\n";
+			buffer.append(temp);
+			temp = "       </result>\n";
+			buffer.append(temp);
+			temp=  "    </action>\n";
+			buffer.append(temp);
+			
+			temp = "    <action name=\"list"+relationClassName+"InLine\" class=\"com.taiji.info.webwork.action.List"+relationClassName+"InLineAction\">\n";
+			buffer.append(temp);
+			temp = "       <result name=\"success\">/pages/info/list"+relationClassName+"${urlFlag}InLineModule.ftl</result>\n";
+			buffer.append(temp);
+			temp = "    </action>\n";
+			buffer.append(temp);
+		}
+		return buffer.toString();
+	}
+	private void updateServiceCfgFile() {
+	
+		if(_infogather) {
+			String fileName = _appPath + System.getProperty("file.separator")+"applicationContext.xml";	
+			String cfg = getServiceConfigure(_className,_objectName);
+			appendFile(fileName,"</beans>",cfg);		
+		}
+
+	}
+
+	private String getServiceConfigure(String className,String objectName) {
+		String folder ="infogather";
+		StringBuffer buffer = new StringBuffer();
+			
+		String temp = "    <bean id =\""+objectName+"Service\" class=\"com.taiji."+folder+".service.impl."+className+"ServiceImpl\" autowire=\"byName\"/>\n";
+		buffer.append(temp);		
+
+		return buffer.toString();
+	}
+	private String getActionConfigure(String className) {
+		StringBuffer buffer = new StringBuffer();
+		String temp = "";
+		if(!_infogather){
+		
+		temp = "    <action name=\"create"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\">\n";
+		buffer.append(temp);
+		temp = "       <result name=\"success\">/pages/info/create"+className+".ftl</result>\n";
+		buffer.append(temp);
+		temp = "    </action>\n";
+		buffer.append(temp);
+		temp=  "    <action name=\"doCreate"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\" method=\"save\">\n";
+		buffer.append(temp);
+		temp=  "    <interceptor-ref name=\"autowireValidation\"/>\n";
+		buffer.append(temp);
+		temp = "       <result name=\"input\">/pages/info/create"+className+".ftl</result>\n";
+		buffer.append(temp);
+		temp=  "       <result name=\"success\" type=\"chain\">\n";
+		buffer.append(temp);
+		temp = "          <param name=\"actionName\">list"+className+"</param>\n";
+		buffer.append(temp);
+		temp=  "          <param name=\"namespace\">/info</param>\n";
+		buffer.append(temp);
+		temp = "       </result>\n";
+		buffer.append(temp);
+
+		temp=  "    </action>\n";
+		buffer.append(temp);
+
+	    temp = "    <action name=\"update"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\">\n";
+		buffer.append(temp);
+		temp = "       <result name=\"success\">/pages/info/update"+className+".ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>";
+		buffer.append(temp);
+		temp=  "   <action name=\"doUpdate"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\" method=\"update\">\n";
+		buffer.append(temp);
+		temp=  "   <interceptor-ref name=\"autowireValidation\"/>\n";
+		buffer.append(temp);
+		temp = "      <result name=\"input\">/pages/info/update"+className+".ftl</result>\n";
+		buffer.append(temp);
+		temp=  "      <result name=\"success\" type=\"chain\">\n";
+		buffer.append(temp);
+		temp = "         <param name=\"actionName\">list"+className+"</param>\n";
+		buffer.append(temp);
+		temp=  "         <param name=\"namespace\">/info</param>\n";
+		buffer.append(temp);
+		temp = "      </result>\n";
+		buffer.append(temp);
+		temp=  "    </action>\n";
+		buffer.append(temp);
+
+		temp=  "    <action name=\"delete"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\" method=\"delete\">\n";
+		buffer.append(temp);
+		temp=  "       <result name=\"success\" type=\"chain\">\n";
+		buffer.append(temp);
+		temp = "          <param name=\"actionName\">list"+className+"</param>\n";
+		buffer.append(temp);
+		temp=  "          <param name=\"namespace\">/info</param>\n";
+		buffer.append(temp);
+		temp = "       </result>\n";
+		buffer.append(temp);
+		temp=  "    </action>\n";
+		buffer.append(temp);
+
+		temp = "    <action name=\"list"+className+"\" class=\"com.taiji.info.webwork.action.List"+className+"Action\">\n";
+		buffer.append(temp);
+		temp = "       <result name=\"success\">/pages/info/list"+className+"Module.ftl</result>\n";
+		buffer.append(temp);
+		temp = "    </action>\n";
+		buffer.append(temp);
+
+		
+		temp = "   <action name=\"view"+className+"\" class=\"com.taiji.info.webwork.action."+className+"Action\">\n";
+		buffer.append(temp);
+		temp = "      <result name=\"success\">/pages/info/update"+className+".ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>\n";
+		buffer.append(temp);
+		
+		temp = "   <action name=\""+className+"QueryTerm\" class=\"com.taiji.info.webwork.action."+className+"QueryTermAction\">\n";
+		buffer.append(temp);
+		temp = "      <result name=\"success\">/pages/info/"+className+"QueryModule.ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>\n";
+		buffer.append(temp);
+
+		temp = "   <action name=\""+className+"Query\" class=\"com.taiji.info.webwork.action."+className+"QueryAction\">\n";
+		buffer.append(temp);
+		temp = "      <result name=\"success\">/pages/info/list"+className+"QueryModule.ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>\n";
+		buffer.append(temp);
+		
+		temp = "   <action name=\"view"+className+"Query\" class=\"com.taiji.info.webwork.action.View"+className+"QueryAction\">\n";
+		buffer.append(temp);
+		temp = "      <result name=\"success\">/pages/info/view"+className+"QueryModule.ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>\n";
+		buffer.append(temp);	
+		
+		temp = "<action name=\""+className+"AdvancedQueryTerm\" class=\"com.taiji.info.webwork.action."+className+"QueryTermAction\" method=\"advancedSearch\">\n";
+		buffer.append(temp);	
+		temp = "	 <result name=\"success\">/pages/search/searchQuery.ftl</result>\n";
+		buffer.append(temp);	
+		temp = "  </action>\n";
+		buffer.append(temp);	
+		temp = "  <action name=\""+className+"AdvancedQuery\" class=\"com.taiji.info.webwork.action."+className+"QueryAction\" method=\"advancedSearch\">\n";
+		buffer.append(temp);	
+		temp = "	 <result name=\"success\">/pages/info/list"+className+"AdvancedQueryModule.ftl</result>\n";
+		buffer.append(temp);	
+		temp = "  </action>	\n";
+		buffer.append(temp);	
+		temp = "   <action name=\"view"+className+"AdvancedQuery\" class=\"com.taiji.info.webwork.action.View"+className+"QueryAction\">\n";
+		buffer.append(temp);
+		temp = "      <result name=\"success\">/pages/info/view"+className+"AdvancedQueryModule.ftl</result>\n";
+		buffer.append(temp);
+		temp = "   </action>\n";
+		buffer.append(temp);		
+		
+		}
+		else {
+			temp = "	<action name=\"to"+className+"Query\" class=\"com.taiji.infogather.webwork.action.List"+className+"QueryAction\" method=\"link\">\n"; 			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/query"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			
+			temp = "	<action name=\"do"+className+"Query\" class=\"com.taiji.infogather.webwork.action.List"+className+"QueryAction\" >\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/query"+className+"List.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			temp = "	<action name=\"historyGet"+className+"QueryDetail\" class=\"com.taiji.infogather.webwork.action.List"+className+"QueryHistoryAction\" >\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/query"+className+"HistoryList.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			temp = "	<action name=\"viewGet"+className+"QueryDetail\" class=\"com.taiji.infogather.webwork.action."+className+"QueryDetailAction\" >\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/query"+className+"Detail.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			
+			temp = "	<action name=\"doCreate"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"save\">\n"; 			buffer.append(temp);
+			temp = "		<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "			<param name=\"actionName\">listn"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "		</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+		
+			temp = "	<action name=\"doUpdate"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"update\">\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "			<param name=\"actionName\">listn"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "		</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";	
+			buffer.append(temp);
+		 
+			temp = "	<action name=\"create"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" >\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/create"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"delete"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"delete\">\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "			<param name=\"actionName\">listn"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "	   	</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+		
+			temp = "	<action name=\"view"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "		<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "			<result name=\"success\">/pages/infogather/update"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"update"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "		<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "			<result name=\"success\">/pages/infogather/update"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			temp = "	<action name=\"doSubmit"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"submit\">\n";
+			buffer.append(temp);
+			temp = "			<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "				<param name=\"actionName\">listn"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "			</result>\n";
+			buffer.append(temp);		
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"submit"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/submit"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"listn"+className+"\" class=\"com.taiji.infogather.webwork.action.List"+className+"Action\" method=\"listn\">\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/listn"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			temp = "	<action name=\"check"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"check\">\n";
+			buffer.append(temp);
+			temp = "		<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "			<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "				<param name=\"actionName\">listc"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "			</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+			
+			temp = "	<action name=\"checkAll"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"check\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "	<result name=\"success\" type=\"chain\">\n";
+			buffer.append(temp);
+			temp = "		<param name=\"actionName\">listac"+className+"</param>\n";
+			buffer.append(temp);
+			temp = "	</result>\n";
+			buffer.append(temp);
+			temp = "</action>\n";
+			buffer.append(temp);
+			temp = "<action name=\"viewc"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "	<result name=\"success\">/pages/infogather/"+className+"DetailC.ftl</result>\n";
+			buffer.append(temp);
+			temp = "</action>\n";
+			buffer.append(temp);
+			
+	
+			temp = "	<action name=\"viewac"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "		<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "			<result name=\"success\">/pages/infogather/"+className+"DetailCA.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"checkc"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/"+className+"DetailCU.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"checkac"+className+"\" class=\"com.taiji.infogather.webwork.action."+className+"Action\" method=\"detail\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/"+className+"DetailCUA.ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+	
+			temp = "	<action name=\"listc"+className+"\" class=\"com.taiji.infogather.webwork.action.List"+className+"Action\" method=\"listc\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/listc"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";
+			buffer.append(temp);
+		
+			temp = "	<action name=\"listac"+className+"\" class=\"com.taiji.infogather.webwork.action.List"+className+"Action\" method=\"listac\">\n";
+			buffer.append(temp);
+			temp = "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+			buffer.append(temp);
+			temp = "		<result name=\"success\">/pages/infogather/listac"+className+".ftl</result>\n";
+			buffer.append(temp);
+			temp = "	</action>\n";	
+			buffer.append(temp);	
+				
+			Iterator iter  = RelationshipList.iterator();			
+			 while(iter.hasNext()) {
+				RelationshipObject relation = (RelationshipObject) iter.next();
+				String relationName = relation.getTableRelatedClassName();
+				String relationObjectName = relation.getTableRelatedObjectName();
+				if(relation.getType()==1) {
+				
+				temp = "	<action name=\"doCreate"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" method=\"save\">\n";				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\">\n";
+				temp += "				/common/openreload.ftl\n";
+				temp += "				</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				temp = "		<action name=\"doUpdate"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" method=\"update\">\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\">\n";
+				temp += "				/common/openreload.ftl\n";
+				temp += "				</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				temp = "		<action name=\"delete"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\"  method=\"delete\">\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\" type=\"chain\">\n";
+				temp += "					<param name=\"actionName\">list"+relationName+"InLine</param>\n";
+				temp += "				</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				
+				temp = "		<action name=\"create"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" >\n";
+				temp += "					<result name=\"success\">/pages/infogather/create"+relationName+"InLine.ftl</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				temp = "		<action name=\"update"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" >\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "					<result name=\"success\">/pages/infogather/update"+relationName+"InLine.ftl</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				temp = "		<action name=\"view"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" >\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\">/pages/infogather/update"+relationName+"InLine.ftl</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+				temp = "		<action name=\"list"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action.List"+relationName+"InLineAction\">\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\">/pages/infogather/list"+relationName+"InLine.ftl</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+
+				temp = "<action name=\"check"+relationName+"InLine\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineAction\" >\n";
+				temp += "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "		<result name=\"success\">/pages/infogather/update"+relationName+"InLine.ftl</result>\n";
+				temp += "</action>\n";
+				buffer.append(temp);
+
+				temp = "		<action name=\""+relationName+"QueryList\" class=\"com.taiji.infogather.webwork.action.List"+relationName+"InLineQueryAction\">\n";
+				temp += "				<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "				<result name=\"success\">/pages/infogather/query"+relationName+"InLineList.ftl</result>\n";
+				temp += "		</action>\n";
+				buffer.append(temp);
+
+				temp = "<action name=\"viewGet"+relationName+"QueryDetail\" class=\"com.taiji.infogather.webwork.action."+relationName+"InLineQueryDetailAction\" >\n";
+				temp += "	<interceptor-ref name=\"autowireValidationNoSession\"/>\n";
+				temp += "		<result name=\"success\">/pages/infogather/update"+relationName+"InLine.ftl</result>\n";
+				temp += "</action>\n";
+				buffer.append(temp);	
+
+				}
+			}		
+		}
+		return buffer.toString();
+	}
+	
+	private void switchInfoGatherName(List relationList) {
+		if(relationList!=null) {		
+		
+		RelationshipList = new ArrayList();
+    	Iterator iter = relationList.iterator();
+    	while(iter.hasNext()) {
+			RelModel rel = (RelModel)iter.next();
+			RelationshipObject relation = new RelationshipObject();
+			relation.setTableHostClassName(getClassName(rel.getTable_host()));
+			relation.setTableHostObjectName(getObjectName(rel.getTable_host()));
+			relation.setTablRelatedClassName(getClassName(rel.getTable_related()));
+			relation.setTablRelatedObjectName(getObjectName(rel.getTable_related()));
+			relation.setTableHostName(rel.getTable_host());
+			relation.setTablRelatedName(rel.getTable_related());
+			
+			relation.setColumnHostClassName(getColumnClassName(rel.getColumn_host()));
+			relation.setColumnHostObjectName(getColumnObjectName(rel.getColumn_host()));
+			
+			relation.setColumnRelatedClassName(getColumnClassName(rel.getColumn_related()));
+			relation.setColumnRelatedObjectName(getColumnObjectName(rel.getColumn_related()));	
+			
+			relation.setType(rel.getType());
+			relation.setInverse(rel.getInverse());
+			if(rel.getMid_table()!=null){
+				relation.setMidTableClassName(getClassName(rel.getMid_table()));
+				relation.setMidTableObjectName(getObjectName(rel.getMid_table()));
+				relation.setMidTableName(rel.getMid_table());				
+			}
+
+			RelationshipList.add(relation);				
+			
+    	 }
+		}
+	}
+	private String getClassName(String tableName) {
+		return (Util.capitalise(DbNameConverter.getInstance().tableNameToVariableName(tableName)));
+	}
+	private String getObjectName(String tableName) {
+		return (Util.decapitalise(DbNameConverter.getInstance().tableNameToVariableName(tableName)));
+	}
+	private String getColumnClassName(String columnName) {
+		return (Util.capitalise(DbNameConverter.getInstance().columnNameToVariableName(columnName)));
+	}
+	private String getColumnObjectName(String columnName) {
+		return (Util.decapitalise(DbNameConverter.getInstance().columnNameToVariableName(columnName)));
+	}
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.taiji.webTemplate.domain.WtClassify" table="WT_CLASSIFY">
+		<id name="id" type="java.lang.Integer">
+			<column name="WT_ID" precision="22" scale="0" />
+			<generator class="increment" />
+		</id>
+		
+		<property name="name" type="java.lang.String">
+			<column name="WT_NAME" length="200" />
+		</property>
+		
+		<property name="state" type="java.lang.String">
+			<column name="WT_STATE" length="200" />
+		</property>
+		
+		<property name="seq" type="java.lang.Integer">
+			<column name="WT_SEQ" />
+		</property>
+		
+		<property name="level" type="java.lang.Integer">
+			<column name="WT_LEVEL" />
+		</property>
+		
+		<property name="templateId" type="java.lang.Integer">
+			<column name="WT_TEMPLATE_ID" />
+		</property>
+		
+		<many-to-one name="parentClassify" column="WT_PARENT_ID" not-null="true" />
+		
+		<set name="classifyChilds" inverse="true" cascade="all-delete-orphan">
+			<key column="WT_PARENT_ID" />
+			<one-to-many class="com.taiji.webTemplate.domain.WtClassify" />
+		</set>
+		
+		<set name="roles" table="WT_CLASSIFY_ROLE">
+			<key column="WT_CLASSIFY_ID" />
+			<many-to-many column="WT_ROLE_ID" class="com.taiji.user.domain.Role" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

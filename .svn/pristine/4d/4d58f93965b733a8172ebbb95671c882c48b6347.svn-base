@@ -1,0 +1,21 @@
+<!DOCTYPE xwork PUBLIC  "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="zxcx" extends="default" namespace="/zxcx">
+		<default-interceptor-ref name="autowireDefault"></default-interceptor-ref>
+		<action name="zxcxSearch"
+			class="com.taiji.zxfy.zxcx.webwork.action.ZxcxListAction" method="search">
+			<result name="success">
+				/pages/zxcx/zxcx_search.ftl
+			</result>
+		</action>
+		<action name="zxcxByCaseIndex" class="com.taiji.zxfy.zxcx.webwork.action.ZxcxListAction"
+			method="zxcxByCaseIndex">
+			<result name="success">
+				/pages/zxcx/zxcx_list.ftl
+			</result>
+			<result name="error">
+				/pages/zxcx/zxcx_search.ftl
+			</result>
+		</action>
+	</package>
+</xwork>

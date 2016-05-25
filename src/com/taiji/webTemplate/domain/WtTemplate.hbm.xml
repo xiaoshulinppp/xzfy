@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.taiji.webTemplate.domain.WtTemplate" table="WT_TEMPLATE">
+		<id name="id" type="java.lang.Integer">
+			<column name="WT_ID" precision="22" scale="0" />
+			<generator class="increment" />
+		</id>
+		
+		<property name="name" type="java.lang.String">
+			<column name="WT_NAME" length="200" />
+		</property>
+		
+		<property name="function" type="java.lang.String">
+			<column name="WT_FUNCTION" length="2000" />
+		</property>
+		
+		<property name="introduction" type="java.lang.String">
+			<column name="WT_INTRODUCTION" length="2000" />
+		</property>
+		
+		<property name="imagePath" type="java.lang.String">
+			<column name="WT_IMAGEPATH" length="2000" />
+		</property>
+		
+		<property name="realImagePath" type="java.lang.String">
+			<column name="WT_REALIMAGEPATH" length="2000" />
+		</property>
+		
+		<property name="seq" type="java.lang.Integer">
+			<column name="WT_SEQ" />
+		</property>
+	</class>
+</hibernate-mapping>

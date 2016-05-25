@@ -1,0 +1,31 @@
+<!--************************************************************ -->
+<!--* 文件创建日期：2008-01-25                                 * -->
+<!--* 功能描述：欢迎页面                                       * -->
+<!--* 文件修改日期：                                           * -->
+<!--************************************************************ -->
+<!--JSP初始化设置-->
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>信息系统构架平台V2.0</title>
+<link href="../css/16B/style.css" rel="stylesheet" type="text/css">
+<link href="../css/16B/notice_style.css" rel="stylesheet" type="text/css">
+</head>
+<!--javascript脚本添加位置。-->
+
+<!--javascript脚本添加位置结束。-->
+<body>
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="tabWelcome">
+  <tr>
+    <td valign="top" class="titleTopTd">
+	<div class="titleChn">信息门户搭建平台</div>
+	<div class="titleEng">portal construct platform V2.0beta </div>
+	</td>
+  </tr>
+  <tr>
+    <td align="center">欢迎使用太极计算机公司酷博门户搭建平台。</td>
+  </tr>
+</table>
+</body>
+</html>

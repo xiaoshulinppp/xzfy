@@ -1,0 +1,159 @@
+package ${plugin.parameter.acitionPackageName};
+#set( $objectName = "$table.getVariableName()")
+#set( $tableName ="$table.getName()")
+#set( $className = "${table.destinationClassName}")
+#set( $flag = "true" )
+
+import com.taiji.core.webwork.action.ProtectedListAction;
+import com.taiji.info.domain.*;
+import java.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.*;
+import com.opensymphony.xwork.ActionContext;
+import com.taiji.user.domain.*;
+import com.taiji.system.domain.*;
+import com.taiji.system.service.*;
+import com.taiji.core.util.*;
+
+public class ${className}QueryAction extends ProtectedListAction {
+	private static final Log log = LogFactory.getLog(${className}QueryAction.class);
+	private static final String TABLE_NAME = "${tableName}";
+	private ISearchstateService searchstateService;
+	private ${className} ${objectName};
+
+
+	public void set${className}(${className} ${objectName}) {
+	    this.${objectName}= ${objectName};
+	}
+	public ${className} get${className}() {
+	    return ${objectName};
+	}
+
+public void setSearchstateService(ISearchstateService searchstateService){
+		this.searchstateService = searchstateService;
+	}
+	public ISearchstateService getSearchstateService(){
+		return searchstateService;
+	}
+	private List showFields;
+	public void setShowFields(List showFields){
+		this.showFields = showFields;
+	}
+	public List getShowFields(){
+		return showFields;
+	}
+	private String sortField;
+	public void setSortField(String sortField){
+		this.sortField = sortField;
+	}
+	public String getSortField(){
+		return sortField;
+	}
+	private Integer sortType;
+	public void setSortType(Integer sortType){
+		this.sortType = sortType;
+	}
+	public Integer getSortType(){
+		return sortType;
+	}
+	private void initSearchStates() throws Exception{
+		if(showFields == null){
+			showFields = (List)ActionContext.getContext().getSession().get("search_showFields");
+		}
+		if(sortField == null){
+			sortField = (String)ActionContext.getContext().getSession().get("search_sortField");
+		}
+		if(sortType == null){
+			sortType = (Integer)ActionContext.getContext().getSession().get("search_sortType");
+			if(sortType == null){
+				sortType = new Integer(0);
+			}
+			else{
+				sortType = new Integer(1);
+			}
+		}
+	}
+	public String advancedSearch() throws Exception {
+		initSearchStates();
+	 if(searchhql==null){
+		searchhql = (String) ActionContext.getContext().getSession().get("searchhql");
+	 }
+	 else{
+		ActionContext.getContext().getSession().put("searchhql",searchhql);    
+		User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+		Integer userId = currentUser.getId();
+		Integer funcCode = getFuncCode();
+		if(sortField == null){
+			sortField = "id";
+		}
+		Searchstate searchstate = this.searchstateService.updateSearchstate(userId,funcCode,TABLE_NAME,showFields,sortField,sortType);
+		ActionContext.getContext().getSession().put("search_showFields",showFields);
+		ActionContext.getContext().getSession().put("search_sortField",sortField);
+		ActionContext.getContext().getSession().put("search_sortType",sortType);
+	 }
+	 DisplayInfo info = this.getDisplayInfo();
+	 if(showFields != null){
+	     Map showMap = new HashMap();
+	     showMap.put("com.taiji.info.domain.${className}",new ArrayList(showFields));
+		 info.setShowMultiList(showMap);
+	 }
+	 String queryString = "from ${className} ${objectName} where " + searchhql;
+	 if(sortField != null){
+	 	if(sortType != null && sortType.intValue() == 1){
+	 		queryString += " order by "+sortField+" desc";
+	 	}
+		else{
+			queryString += " order by "+sortField+" asc";
+		}
+	 }
+	 listResult = coreService.find(queryString,getPageNum());
+	 	wrapResult(TABLE_NAME,listResult,${className}.class.getName());		
+		return SUCCESS;
+		}
+	private String searchhql;
+	public String getSearchhql(){
+		return searchhql;
+	}
+	public void setSearchhql(String searchhql){
+		this.searchhql = searchhql;
+	}
+	public String getTableName() {
+			return TABLE_NAME;
+	}
+	public Class getPersistentClass() {
+			return ${className}.class;
+	}
+    public PaginationSupport getInitResult(){
+      Class obejctClass = null;
+		try{
+			obejctClass = Class.forName("com.taiji.info.domain."+"${className}");
+			 initSearchStates();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	 DisplayInfo info = this.getDisplayInfo();
+	 if(sortField == null){
+	 	sortField = "id";
+	 }
+	 Example example =(Example) ActionContext.getContext().getSession().get("queryExample");
+	 if(example==null){
+	    if(${objectName}!=null) {
+	     example = Example.create(${objectName}).enableLike().excludeNone();
+		 ActionContext.getContext().getSession().put("queryExample",example);    
+		}
+	 }
+	 Order order = Order.asc("sortField");
+	 if(sortType.intValue() == 1){
+		  order = Order.desc("sortField");
+	 }
+	 if(example!=null) {
+	   DetachedCriteria detachedCriteria = DetachedCriteria.forClass(obejctClass).add(example).addOrder(order);	 
+	   return coreService.findPageByCriteria(detachedCriteria,getPageNum());    
+	 }
+	 else {
+	   	String hql = "from ${className} ${objectName} ";
+	    return coreService.find(hql,getPageNum());
+	 }
+    }
+}

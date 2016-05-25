@@ -1,0 +1,16 @@
+<#-- 添加 申请人 - 公民 -->
+<html>
+<head>
+    <title>案件信息-申请人-公民资料填写</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="../${Session['_USER_STYLE_'].cssPath}/style.css" rel="stylesheet" type="text/css">
+	<#include 'commonJs.ftl'>
+</head>
+<body>
+	<form name="gmSqrSaveForm" action="../zxsq/runSqrGmSave.action?funcCode=${funcCode}"  method="post" enctype="multipart/form-data" >
+		<#include 'sqr_gm_property.ftl'>
+	</form>
+</body>
+</html>

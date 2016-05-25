@@ -1,0 +1,45 @@
+@charset "utf-8";
+body{
+	margin:0px;
+	background-color:#177fb3;
+	font-size:12px;
+	background-image:url(../../images/16AY/bg_cont_bg_main.png);
+	background-position:top right;
+	background-repeat:repeat-y;
+	vertical-align:middle;
+}
+
+table{
+	font-size:12px;
+}
+
+div{
+	font-size:12px;
+}
+.conArrowOut{
+	background-image:url(../../images/16AY/bg_cont_bg.png);
+	background-position:top right;
+	background-repeat:no-repeat;
+	width:10px;
+	height:580px;
+	margin:0px auto;
+	}
+.conArrowRight{
+	background-image:url(../../images/16AY/bg_arrow_right.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:hand;
+	width:8px;
+	margin:0px auto;
+	height:500px;
+}
+
+.conArrowLeft{
+	background-image:url(../../images/16AY/bg_arrow_left.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:hand;	
+	width:8px;
+	margin:0px auto;
+	height:500px;
+}

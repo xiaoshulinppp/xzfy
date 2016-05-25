@@ -1,0 +1,45 @@
+
+package ${plugin.parameter.servicePackageName};
+
+import  ${plugin.parameter.domainPackageName}.*;
+import com.taiji.core.util.PaginationSupport;
+import com.taiji.user.domain.User;
+import com.taiji.core.service.ICoreService;
+import com.taiji.system.service.PostTree;
+import com.taiji.system.service.PostTreeNode;
+
+import java.util.List;
+import java.io.Serializable;
+
+
+
+
+public interface I${table.destinationClassName}${plugin.hibernateService.serviceSuffix} extends ICoreService{
+	
+	public void save(${table.destinationClassName} obj,User user);
+	public void update(${table.destinationClassName} obj);
+	public void saveSubmit(${table.destinationClassName} obj,User user,String abbr);
+    public void saveCheck(${table.destinationClassName} object,${table.destinationClassName}Check check,User user,String abbr);
+	public PostTree treegetPostTree(String abbr);
+	public PostTreeNode treegetPostTreeNode(Integer id,String abbr);
+	public PostTreeNode treegetCurrentPosition(User currentUser,String addr);
+	public PostTreeNode[] treegetPositionList(User currentUser,String addr);
+    public ${table.destinationClassName} setCheck(${table.destinationClassName} object,${table.destinationClassName}Check check);
+	public PaginationSupport getList(${table.destinationClassName}QueryTerm queryTerm,int pageNum,int pageSize);	
+	public PaginationSupport getHistoryList(Integer id,boolean isBalk,Integer stationId,int pageNum);	
+	public ${table.destinationClassName}History get${table.destinationClassName}History(Integer id);	
+	public PostTreeNode treegetCurrentPosition(Integer id,String addr);
+	#foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+		#if($relationshipRole.targetMany)
+			public PaginationSupport get${relationName}List(Integer id,int pageNum);
+			public ${relationName}History get${relationName}History(Integer id);	    
+	    #end
+	   #end
+	#end
+}

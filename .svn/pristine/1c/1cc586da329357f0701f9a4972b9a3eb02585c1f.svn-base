@@ -1,0 +1,24 @@
+<?xml version="1.0"?><!DOCTYPE hibernate-mapping PUBLIC	"-//Hibernate/Hibernate Mapping DTD 2.0//EN"	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.iscp.sys.formLayout.msg">
+<class name="MsgField" table="t_field">
+	<id name="id" type="integer" column="field_id">
+		<generator class="increment"/>
+	</id>
+	<property name="name" type="java.lang.String" column="field_name" length="30"/>
+	<property name="type" type="java.lang.String" column="field_type" length="30"/>
+	<property name="byName" type="java.lang.String" column="field_showname" length="30"/>
+	<property name="showType" type="java.lang.String" column="field_showtype" length="30"/>
+	<property name="length" type="java.lang.String" column="field_length" length="30"/>
+	<property name="default" type="java.lang.String" column="field_defaultvalue" length="30"/>
+	<property name="isNull" type="java.lang.String" column="field_isnull" length="30"/>
+	<property name="isDict" type="java.lang.String" column="field_fromdict" length="10"/>
+	<property name="dictListId" type="java.lang.String" column="field_dictid" length="30"/>
+	<property name="dictType" type="java.lang.String" column="field_dicttype" length="30"/>
+	<property name="dictvalGetType" type="java.lang.String" column="field_dictval_gettype" length="20"/>
+	<property name="dictvalShowType" type="java.lang.String" column="field_dictval_showtype" length="20"/>
+	<property name="action" type="java.lang.String" column="field_action" length="500"/>
+	<property name="tabIndex" type="java.lang.String" column="field_order" length="10"/>
+	<property name="field_mappingtable" type="java.lang.String" column="field_mappingtable" length="10"/>
+	<property name="iskey" type="java.lang.String" column="field_iskey" length="10"/>
+</class>
+</hibernate-mapping>

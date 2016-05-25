@@ -1,0 +1,15 @@
+<attach event="onblur" onevent="blur()"/>
+<attach event="onfocus" onevent="focus()"/>
+<script language="Javascript">
+function blur(){
+	style.borderColor="#fabe49";
+	style.borderWidth="2px";
+	style.backgroundColor="#fefeec";
+}
+
+function focus(){
+	style.borderColor="#a7b7c1";
+	style.borderWidth="1px";
+	style.backgroundColor="#FFFFFF";
+}
+</script>

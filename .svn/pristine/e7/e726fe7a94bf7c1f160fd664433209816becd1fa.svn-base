@@ -1,0 +1,653 @@
+package com.taiji.core.webwork.action;
+
+import com.taiji.core.util.DisplayInfo;
+import com.taiji.core.webwork.converter.DateConverter;
+import com.taiji.system.service.IMappingTableService;
+import com.taiji.system.domain.*;
+import com.taiji.user.domain.User;
+import com.taiji.system.service.IFieldService;
+
+import com.taiji.core.util.PaginationSupport;
+import com.taiji.core.util.Constants;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+import java.util.Date;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
+import com.opensymphony.xwork.ActionContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.lang.reflect.Method;
+import com.taiji.system.domain.Field;
+import com.taiji.core.util.DbNameConverterByXML;
+
+public abstract class  ProtectedListAction extends ProtectedAction {
+
+	private DisplayInfo _info;
+	protected IMappingTableService mappingTableService;
+	protected IFieldService fieldService;
+	private List fieldList;	
+	private Map fieldTableMap = new LinkedHashMap();
+	private List resultList;
+	private Map fieldMap = new LinkedHashMap();
+	private Map dictMap = new LinkedHashMap();
+	private Map relationMap = new LinkedHashMap();
+	private String keyColumn;
+	private String tableName;
+	private String className;
+	private boolean singleTableFlag;
+	protected PaginationSupport listResult;
+	private static final Log log = LogFactory.getLog(ProtectedListAction.class);
+	public static String commonClass = "showNameClass";
+	private List showNameList;
+    private List tagProcessList;
+    private String tagRedKey;
+    private Map propertyValueMap;
+		
+	public ProtectedListAction() {
+
+		_info = new DisplayInfo();
+	}
+	
+	public void wrapResult(String tableName,PaginationSupport result,String className) throws InvocationTargetException, IllegalAccessException,IOException{
+		if(result!=null){
+			_info.setTotalPage(new Integer(result.getTotalPage()));
+			wrapResult(tableName,result,className,true);		
+		}
+		else {
+			wrapResult(tableName,(List)null,className,true);		
+		}
+
+	}
+	public void wrapResult(String tableName,PaginationSupport result,String className,boolean singleTableFlag) throws InvocationTargetException, IllegalAccessException,IOException{
+		if(result!=null){
+		_info.setTotalPage(new Integer(result.getTotalPage()));
+		 wrapResult(tableName,result.getItems(),className,singleTableFlag);	
+		}	
+		else
+		 wrapResult(tableName,(List)null,className,singleTableFlag);	     
+	}
+	
+	public void wrapResult(String tableName,List result,String className) throws InvocationTargetException, IllegalAccessException,IOException{
+		wrapResult(tableName,result,className,true);
+	}
+	public void wrapResultCustom(String tableName,PaginationSupport result,String className) throws InvocationTargetException, IllegalAccessException,IOException{
+		
+		if(result!=null){
+			_info.setTotalPage(new Integer(result.getTotalPage()));
+		  wrapResultCustom(tableName,result.getItems(),className);
+		}		
+		else
+		  wrapResultCustom(tableName,(List)null,className);		
+	}
+	public void wrapResultCustom(String tableName,List result,String className) throws InvocationTargetException, IllegalAccessException,IOException{
+		this.tableName = tableName;
+		MappingTable table = mappingTableService.getMappingTableByName(tableName);
+		if(table == null) {
+			throw new IllegalArgumentException("table can't be null");
+		}
+	
+		//fieldList = fieldService.getFields(table.getId());
+		fieldList = new ArrayList(table.getFieldSet());
+		if(fieldList == null || fieldList.size()==0) {
+			throw new IllegalArgumentException("fieldList can't be null ");
+		}
+		this.resultList = result;
+		this.className = className;
+
+		User user = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+		 
+		//获得用户拥有该功能权限的操作集
+		 _info.setOperationList(getSecurityService().findOperationListByFunc(user,getFuncCode()));
+		
+		if(_info.getShowMultiList()==null)
+			  throw new IllegalArgumentException("showList can't be null ");
+			  
+		transMulitForm();
+		MulitProccessCustom();
+		reflectMulitResultCustom();		
+	}
+		
+	//把结果集封装成自定义的存储格式
+	public void wrapResult(String tableName,List result,String className,boolean singleTableFlag) throws InvocationTargetException, IllegalAccessException,IOException{
+		this.tableName = tableName;
+		MappingTable table = mappingTableService.getMappingTableByName(tableName);
+		if(table == null) {
+			throw new IllegalArgumentException("table can't be null");
+		}
+	
+		fieldList = fieldService.getFields(table.getId());
+		//fieldList = new ArrayList(table.getFieldSet());
+		if(fieldList == null || fieldList.size()==0) {
+			throw new IllegalArgumentException("fieldList can't be null ");
+		}
+		this.resultList = result;
+		this.className = className;
+		this.singleTableFlag = singleTableFlag;
+		User user = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);
+		 
+		//获得用户拥有该功能权限的操作集
+		 _info.setOperationList(getSecurityService().findOperationListByFunc(user,getFuncCode()));
+		 if(!singleTableFlag) {
+		//	processRelation();
+		    if(_info.getShowMultiList()==null)
+			  throw new IllegalArgumentException("showList can't be null ");
+			transMulitForm();
+			MulitProccess();
+			reflectMulitResult();
+		 }
+		 else {
+			//根据字段名转换为相应的字段对象
+			transForm();
+			//处理字段以及获取字段相应的对象属性名
+			process(className);
+			//根据结果集以及设定的显示字段获取显示字段的显示名以及相应的属性值
+			reflectResult();
+		 }
+		
+	}
+
+	public void transMulitForm() throws IOException{
+		Map result = new LinkedHashMap();
+		List fields;
+		Map _showList = _info.getShowMultiList();
+		if(_showList!=null) {
+			Iterator iter = _showList.keySet().iterator();
+			while(iter.hasNext()) {
+				fields = new ArrayList();
+				String className = (String)iter.next();
+				List fieldList = (List)_showList.get(className);
+				if(className.equalsIgnoreCase(commonClass)){
+					result.put(className,fieldList);
+				}else
+				{
+				
+				DbNameConverterByXML reader = new DbNameConverterByXML(className);
+				String tableName = reader.getTableName();
+				if(fieldList!=null) {
+					Iterator fIter = fieldList.iterator();
+					while(fIter.hasNext()) {
+						String fieldName = ((String)fIter.next());
+						Field field = fieldService.findFieldsByName(fieldName,tableName);
+						if(field!=null)
+						fields.add(field);
+					}
+				}
+				result.put(className,fields);
+			}
+		  }
+		}
+		fieldTableMap = result;
+	}
+	
+	public void transForm() {
+		List result = new ArrayList();
+		List _showList = null;
+		Map showMap = _info.getShowMultiList();
+
+	    
+		if(showMap!=null) {
+			_showList =	(List)showMap.get(className);
+		}
+				
+		if(_showList!=null) {
+			Iterator iter = _showList.iterator();
+			while(iter.hasNext()) {
+				String fieldName = (String)iter.next();
+				Field field = fieldService.findFieldsByName(fieldName,tableName);
+				if(field!=null)
+				result.add(field);
+			}
+		}
+		else {
+			int showSize = DisplayInfo.displaySize;
+			if(showSize> fieldList.size()) {
+				showSize = fieldList.size();
+			}
+			for(int i = 0; i<showSize;i++) {
+				result.add(((Field)fieldList.get(i)));
+			}
+
+		}
+		fieldList = result;
+	}
+	protected void MulitProccess() throws IOException{
+		Map tempMap = new LinkedHashMap();
+		Iterator iter = fieldTableMap.keySet().iterator();
+		while(iter.hasNext()) {
+			String reclassName = (String)iter.next();
+			DbNameConverterByXML reader = new DbNameConverterByXML(reclassName);
+			if(reclassName.equalsIgnoreCase(className)) {
+				keyColumn = reader.getKeyColumnName();
+			}
+			Map propertys = reader.getPropertyMapping();
+			List tempFieldList = new ArrayList();	
+			List reFieldList =(List) fieldTableMap.get(reclassName);
+						
+	        for(int i = 0; i<reFieldList.size();i++) {
+				Field field =(Field)reFieldList.get(i);
+				String fieldObject = (String)propertys.get(field.getName());
+				if(propertyValueMap!=null && propertyValueMap.containsKey(field.getName())){
+					tempMap.put(fieldObject,new ArrayList());       
+				}
+				if(fieldObject!=null && !fieldObject.equalsIgnoreCase("")) {
+					_info.getFieldNameList().add(field.getShowName());
+					fieldMap.put(field,fieldObject);
+					if(field.getFromDict().booleanValue()) {
+						dictMap.put(field,(Dictionary)dictService.getEntityObjectById(Integer.valueOf(field.getDictId())));		
+					}
+					tempFieldList.add(field);
+				}			
+			}
+			fieldTableMap.put(reclassName,tempFieldList);
+		}
+		if(propertyValueMap!=null){
+			propertyValueMap.clear();
+			propertyValueMap.putAll(tempMap);
+		}
+
+				
+	}
+	protected void MulitProccessCustom() throws IOException{
+		showNameList = new ArrayList();
+		Map tempMap = new LinkedHashMap();
+		Iterator iter = fieldTableMap.keySet().iterator();
+		
+		while(iter.hasNext()) {
+			String reclassName = (String)iter.next();
+			if(reclassName.equalsIgnoreCase(commonClass)){
+				List reFieldList =(List) fieldTableMap.get(reclassName);
+				Iterator iterField = reFieldList.iterator();
+				while(iterField.hasNext()) {
+					String showName = (String)iterField.next();
+					_info.getFieldNameList().add(showName);
+					showNameList.add(showName);
+				}
+						
+			}else
+			{
+			 DbNameConverterByXML reader = new DbNameConverterByXML(reclassName);
+			 if(reclassName.equalsIgnoreCase(className)) {
+				keyColumn = reader.getKeyColumnName();
+			 }
+			 Map propertys = reader.getPropertyMapping();
+			
+			 List reFieldList =(List) fieldTableMap.get(reclassName);
+						
+			 for(int i = 0; i<reFieldList.size();i++) {
+				Field field =(Field)reFieldList.get(i);
+				String fieldObject = (String)propertys.get(field.getName());
+				if(propertyValueMap!=null && propertyValueMap.containsKey(field.getName())){
+					tempMap.put(fieldObject,new ArrayList());       
+				}			
+				if(fieldObject!=null && !fieldObject.equalsIgnoreCase("")) {
+					_info.getFieldNameList().add(field.getShowName());
+					fieldMap.put(field,fieldObject);
+					if(field.getFromDict().booleanValue()) {
+						dictMap.put(field,(Dictionary)dictService.getEntityObjectById(Integer.valueOf(field.getDictId())));		
+					}
+					showNameList.add(field);
+				}			
+			}
+			
+		}
+		}
+		if(propertyValueMap!=null){
+			propertyValueMap.clear();
+			propertyValueMap.putAll(tempMap);
+		}
+				
+	}
+
+	protected void reflectMulitResultCustom() throws InvocationTargetException, IllegalAccessException{
+		tagProcessList = new ArrayList();
+		if(resultList ==null) {
+			return;
+		}
+		Iterator iter = resultList.iterator();
+		boolean redTagFlag = false;
+		while(iter.hasNext()) {
+			List recordList = new ArrayList();
+			Object objects [] = (Object [])iter.next();
+			recordList.add(objects[0]);
+			redTagFlag = false;
+			for(int i = 1; i<objects.length;i++) {
+				Object temp = objects[i];
+				Object fieldTemp = showNameList.get(i-1);
+				
+				if(fieldTemp instanceof Field) {
+					Field field = (Field)fieldTemp;
+					String fieldVaraibleName = (String)fieldMap.get(field);
+					if(fieldVaraibleName==null) continue;
+					if(propertyValueMap.containsKey(fieldVaraibleName)) {
+						List valueList = (List)propertyValueMap.get(fieldVaraibleName);
+						valueList.add(temp);
+						propertyValueMap.put(fieldVaraibleName,valueList);
+					}
+					if(!redTagFlag)
+					redTagFlag = processRedTag(field,temp);
+					if(!field.getFromDict().booleanValue()) {
+						if(field.getType().equalsIgnoreCase("date")) {
+							Date fvalue = (Date)temp;
+							DateConverter conveter = new DateConverter();
+							recordList.add(conveter.convertToString(null,fvalue));
+						}	
+						else {
+							recordList.add(temp);				
+						}
+					}
+					else {
+						Dictionary dict =(Dictionary)dictMap.get(field);
+						Set dictItems = dict.getItemSet();
+						String dictValue = String.valueOf(temp);
+						Iterator dictIter = dictItems.iterator();
+						boolean dictflag = false;
+						while(dictIter.hasNext()) {
+							DictItem dictItem = (DictItem) dictIter.next();
+							if(dictItem.getValue().equals(dictValue)) {
+								recordList.add(dictItem.getName());
+								dictflag = true;
+								break;
+							}
+						}
+						if(!dictflag)
+						recordList.add("");		
+					}
+				}
+				else {
+					recordList.add(temp);
+				}
+				}
+
+			_info.getFieldValueList().add(recordList);
+			if(redTagFlag) {
+				tagProcessList.add("red");
+			}
+			else {
+				tagProcessList.add("black");
+			}
+		}
+		
+	}
+
+	protected void process(String className) throws IOException{
+		
+		DbNameConverterByXML reader = new DbNameConverterByXML(className);
+		Map tempMap = new LinkedHashMap();	
+		keyColumn = reader.getKeyColumnName();
+		//从类的配置文件中获取它的所有的属性映射集合
+		Map propertys = reader.getPropertyMapping();
+		List tempFieldList = new ArrayList();
+		for(int i = 0; i<fieldList.size();i++) {
+			Field field =(Field)fieldList.get(i);
+			String fieldName = field.getName();
+			String fieldObject = (String)propertys.get(fieldName);
+            if(propertyValueMap!=null && propertyValueMap.containsKey(fieldName)){
+				tempMap.put(fieldObject,new ArrayList());       
+            }
+			if(fieldObject!=null && !fieldObject.equalsIgnoreCase("")) {
+				_info.getFieldNameList().add(field.getShowName());
+				fieldMap.put(field,fieldObject);
+				if(field.getFromDict().booleanValue()) {
+					dictMap.put(field,(Dictionary)dictService.getEntityObjectById(Integer.valueOf(field.getDictId())));		
+				}
+				tempFieldList.add(field);
+			}			
+		}
+		fieldList = tempFieldList;
+		if(propertyValueMap!=null){
+			propertyValueMap.clear();
+			propertyValueMap.putAll(tempMap);
+		}
+		
+	}
+	protected void reflectMulitResult() throws InvocationTargetException, IllegalAccessException{
+		tagProcessList = new ArrayList();
+		if(resultList ==null) {
+			return;
+		}
+		Iterator iter = resultList.iterator();
+		boolean redTagFlag = false;
+		while(iter.hasNext()) {
+			List recordList = new ArrayList();
+			Object objects [] = (Object [])iter.next();
+			redTagFlag = false;
+			for(int i = 0; i<objects.length;i++) {
+				Object temp = objects[i];
+				String objectClassName = temp.getClass().getName();	
+				int index = objectClassName.indexOf("$$EnhancerByCGLIB$$");
+				if(index!=-1)
+				objectClassName = objectClassName.substring(0,index);
+				if(objectClassName.equalsIgnoreCase(className)) {		
+					recordList.add(getFieldValue(temp,keyColumn));
+				}	
+				Iterator iter1 = ((List)fieldTableMap.get(objectClassName)).iterator();	
+			
+				while(iter1.hasNext()){
+					Field field = (Field)iter1.next();
+					String fieldVaraibleName = (String)fieldMap.get(field);
+					if(fieldVaraibleName==null) continue;
+					Object tempValue = getFieldValue(temp,fieldVaraibleName);
+					if(propertyValueMap.containsKey(fieldVaraibleName)) {
+						List valueList = (List)propertyValueMap.get(fieldVaraibleName);
+						valueList.add(tempValue);
+						propertyValueMap.put(fieldVaraibleName,valueList);
+					}
+					if(!redTagFlag)
+						redTagFlag = processRedTag(field,tempValue);
+					if(!field.getFromDict().booleanValue()) {
+						if(field.getType().equalsIgnoreCase("date")) {
+							Date fvalue = (Date)tempValue;
+							DateConverter conveter = new DateConverter();
+							recordList.add(conveter.convertToString(null,fvalue));
+						}					
+						else {
+																			  
+							recordList.add(tempValue);
+						}
+					 		
+					}
+					else {
+						Dictionary dict =(Dictionary)dictMap.get(field);
+						Set dictItems = dict.getItemSet();
+						String dictValue = String.valueOf(tempValue);
+						Iterator dictIter = dictItems.iterator();
+						boolean dictflag = false;
+						while(dictIter.hasNext()) {
+							DictItem dictItem = (DictItem) dictIter.next();
+							if(dictItem.getValue().equals(dictValue)) {
+								recordList.add(dictItem.getName());
+								dictflag = true;
+								break;
+							}
+						}
+						if(!dictflag)
+						recordList.add("");
+					}
+				
+				}			
+			}
+			_info.getFieldValueList().add(recordList);
+			if(redTagFlag) {
+			tagProcessList.add("red");
+			}
+					else {
+			tagProcessList.add("black");
+			}
+		}
+		
+	}
+	protected void reflectResult() throws InvocationTargetException, IllegalAccessException{
+		tagProcessList = new ArrayList();
+		if(resultList ==null) {
+			return;
+		}
+		Iterator iter = resultList.iterator();
+		boolean redTagFlag = false;
+		
+		while(iter.hasNext()) {
+			List recordList = new ArrayList();
+			Object o = null;
+			if(singleTableFlag){
+				o = iter.next();	
+			}
+			else {
+				Object one2OneArray [] = (Object [])iter.next();
+				for(int i = 0; i<one2OneArray.length;i++) {
+					Object temp = one2OneArray[i];
+					if(temp!=null)
+					  if(temp.getClass().getName().equalsIgnoreCase(className)) {
+						o = temp;
+						break;
+					  }					
+				}
+				
+			}
+			recordList.add(getFieldValue(o,keyColumn));
+			redTagFlag = false;
+			Iterator iter1 = fieldList.iterator();
+			while(iter1.hasNext()){
+				Field field = (Field)iter1.next();
+				String fieldVaraibleName = (String)fieldMap.get(field);
+				if(fieldVaraibleName==null) continue;
+				Object temp = getFieldValue(o,fieldVaraibleName);
+				
+				if(propertyValueMap.containsKey(fieldVaraibleName)) {
+					List valueList = (List)propertyValueMap.get(fieldVaraibleName);
+					valueList.add(temp);
+					propertyValueMap.put(fieldVaraibleName,valueList);
+				}
+				
+				if(!redTagFlag)
+				redTagFlag = processRedTag(field,temp);		
+				if(!field.getFromDict().booleanValue()) {
+					if(field.getType().equalsIgnoreCase("date")) {
+						Date fvalue = (Date)temp;
+						DateConverter conveter = new DateConverter();
+						recordList.add(conveter.convertToString(null,fvalue));
+					}					
+					else {
+																			  
+						recordList.add(temp);
+					}
+					
+					 		
+				}
+				else {
+					Dictionary dict =(Dictionary)dictMap.get(field);
+					Set dictItems = dict.getItemSet();
+					String dictValue = String.valueOf(temp);
+					Iterator dictIter = dictItems.iterator();
+					boolean dictflag = false;
+					while(dictIter.hasNext()) {
+						DictItem dictItem = (DictItem) dictIter.next();
+						if(dictItem.getValue().equals(dictValue)) {
+							recordList.add(dictItem.getName());
+							dictflag = true;
+							break;
+						}
+					}
+					if(!dictflag)
+					recordList.add("");
+				}
+				
+			}
+			_info.getFieldValueList().add(recordList);
+			if(redTagFlag) {
+								tagProcessList.add("red");
+				}
+				else {
+								tagProcessList.add("black");
+		   }
+		}
+		
+	}
+	protected Object getFieldValue(Object obj,String fieldVaraibleName) throws InvocationTargetException, IllegalAccessException{
+		Class c = obj.getClass();
+		
+		Object result= null;
+		try {
+			Class[] types = new Class[] {};
+			Method method = obj.getClass().getMethod(getGetterName(fieldVaraibleName), types);
+			result= method.invoke(obj, new Object[0]);	
+			
+		}catch(NoSuchMethodException ex) {
+			ex.printStackTrace();
+		}
+		return result;		
+		
+	}
+	protected String getGetterName(String fieldVaraibleName) {
+		
+		return "get"+fieldVaraibleName.substring(0,1).toUpperCase()+fieldVaraibleName.substring(1);
+	}
+
+	public void setMappingTableService(IMappingTableService service) {
+		mappingTableService = service;
+	}      
+	
+	public void setFieldService(IFieldService service) {
+		fieldService = service;
+	} 
+
+	public DisplayInfo getDisplayInfo() {
+		return _info;
+	}
+	protected void processRelation() throws IOException{
+		DbNameConverterByXML reader = new DbNameConverterByXML(className);	
+		relationMap = reader.getRelationMapping();		
+	}
+	
+	public String execute() throws Exception {
+	  listResult = getInitResult();
+	  wrapResult(getTableName(),listResult,getPersistentClass().getName());
+	  return SUCCESS;
+    }
+	public PaginationSupport getResultList() {
+		return listResult;
+	} 
+	public void setTagRedKey(String tagRedKey) {
+		this.tagRedKey = tagRedKey;
+	}
+    public List getTagProcessList(){
+    	return this.tagProcessList;
+    }
+    public boolean processRedTag(Field field,Object value) {
+    	boolean result = false;
+    	if(tagRedKey!=null) {
+    		int index = tagRedKey.indexOf("=");
+    		if(index>0) {
+    			String fieldName = tagRedKey.substring(0,index);
+    			String fieldValue = tagRedKey.substring(index+1);
+    			if(field.getName().equalsIgnoreCase(fieldName)) {
+    				if(String.valueOf(value).equalsIgnoreCase(fieldValue)) {
+    					result = true;    					
+    				}
+    			}
+    		}
+    	}
+    	return result;
+    }
+    public void setShowPropertyValue(List propertyList) {
+		propertyValueMap = new LinkedHashMap();
+    	Iterator iter = propertyList.iterator();
+    	while(iter.hasNext()) {
+    		String propertyValue = (String)iter.next();
+			propertyValueMap.put(propertyValue,new ArrayList());
+    	}
+    }
+    public Map getPropertyValueMap() {
+    	return this.propertyValueMap;
+    }
+	public abstract String getTableName();
+    public abstract PaginationSupport getInitResult();
+    public 	abstract  Class getPersistentClass();
+
+
+}

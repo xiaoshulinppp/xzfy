@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="dict.name">
+        <field-validator type="requiredstring">
+			<message key="请输入名称"/>
+        </field-validator>
+    </field>
+	
+    <field name="dict.abbr">
+        <field-validator type="requiredstring">
+			<message key="请输入缩写"/>
+        </field-validator>
+    </field>
+    <field name="dict.type">
+        <field-validator type="required">
+			<message key="请输入字典类型"/>
+        </field-validator>
+    </field>
+    <field name="dict.state">
+        <field-validator type="required">
+			<message key="请输入字典状态"/>
+        </field-validator>
+    </field>
+</validators>

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<title>test</title>
+		<script type="text/javascript" src="Tips.js"></script>			
+	</head>
+	<body>
+		<br/>
+		<div><input type="button" value="信息提示" onclick="Alert('http://www.qq.com',null,null,'确认要提交吗?',null,null)" />
+		<input type="button" value="成功信息" onclick="SucceedInfo('操作成功！',null,null,'成果提示',null,null)" />
+		<input type="button" value="失败信息" onclick="ErrorInfo('操作失败！',null,null,'失败提示',null,null)" />
+		<input type="button" value="询问信息" onclick="ConfirmInfo('信息确认框功能测试',333,null,'信息确认',function(){test('xxx')},fun2)" />
+		</div><script type="text/javascript">
+			function fun1(){
+				Alert("点击了'确定'按钮");
+			}
+			function fun2(){
+				Alert("点击了'取消'或者'关闭'按钮");
+			}
+		
+	
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+-- Create table
+create table APP_ZXFY_APPLOG
+(
+  id              varchar2(50),
+  archiveid       varchar2(50),
+  archiveType     varchar2(50),
+  archiveFileName varchar2(200),
+  downloadTime    varchar2(100),
+  xzfyId          varchar2(50)
+)
+tablespace ZXFY
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );

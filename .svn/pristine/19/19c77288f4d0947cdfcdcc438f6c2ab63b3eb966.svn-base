@@ -1,0 +1,186 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="webTemplate" extends="default" namespace="/webTemplate">
+		<default-interceptor-ref name="autowireDefault" />
+		
+		<!-- 获取模板列表 -->
+		<action name="showTemplateList" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="showTemplateList">
+			<result name="success">
+				/pages/webTemplate/template/templateList.ftl
+			</result>
+		</action>
+		
+		<!-- 进入创建新模板页面 -->
+		<action name="gotoCreateTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="gotoCreateTemplate">
+			<result name="success">
+				/pages/webTemplate/template/createTemplate.ftl
+			</result>
+		</action>
+		
+		<!-- 创建新模板 -->
+		<action name="createTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="createTemplate">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 删除模板 -->
+		<action name="deleteTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="deleteTemplate">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 进入修改模板页面 -->
+		<action name="gotoUpdateTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="gotoUpdateTemplate">
+			<result name="success">
+				/pages/webTemplate/template/updateTemplate.ftl
+			</result>
+		</action>
+		
+		<!-- 修改模板 -->
+		<action name="updateTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="updateTemplate">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 查看模板 -->
+		<action name="showTemplate" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="showTemplate">
+			<result name="success">
+				/pages/webTemplate/template/showTemplate.ftl
+			</result>
+		</action>
+		
+		<!-- 模板预览 -->
+		<action name="showTemplateImage" class="com.taiji.webTemplate.webwork.action.WtTemplateAction" method="showTemplateImage">
+			<result name="success">
+				/pages/webTemplate/template/showTemplateImage.ftl
+			</result>
+		</action>
+		
+		<!-- 进入栏目树框架 -->
+		<action name="gotoClassifyTreeFrame" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="gotoClassifyTreeFrame">
+			<result name="success">
+				/pages/webTemplate/classify/classifyTreeFrame.ftl
+			</result>
+		</action>
+		
+		<!-- 显示栏目树 -->
+		<action name="showClassifyTree" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="showClassifyTree">
+			<result name="success">
+				/pages/webTemplate/classify/classifyTree.ftl
+			</result>
+		</action>
+		
+		<!-- 显示栏目信息 -->
+		<action name="showClassifyInfo" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="showClassifyInfo">
+			<result name="success">
+				/pages/webTemplate/classify/classifyInfo.ftl
+			</result>
+		</action>
+		
+		<!-- 显示子栏目列表 -->
+		<action name="showChildClassifyList" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="showChildClassifyList">
+			<result name="success">
+				/pages/webTemplate/classify/classifyList.ftl
+			</result>
+		</action>
+		
+		<!-- 进入新增栏目页面 -->
+		<action name="gotoCreateClassify" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="gotoCreateClassify">
+			<result name="success">
+				/pages/webTemplate/classify/createClassify.ftl
+			</result>
+		</action>
+		
+		<!-- 新增栏目 -->
+		<action name="createClassify" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="createClassify">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 删除栏目 -->
+		<action name="deleteClassify" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="deleteClassify">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+			<result name="fail">
+				/pages/common/error.ftl
+			</result>
+		</action>
+		
+		<!-- 修改栏目 -->
+		<action name="updateClassify" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="updateClassify">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 进入栏目授权用户框架 -->
+		<action name="gotoClassifyRoleFrame" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="gotoClassifyRoleFrame">
+			<result name="success">
+				/pages/webTemplate/classify/classifyRoleFrame.ftl
+			</result>
+		</action>
+		
+		<!-- 显示栏目已授权用户列表 -->
+		<action name="showClassifyRoleList" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="showClassifyRoleList">
+			<result name="success">
+				/pages/webTemplate/classify/classifyRoleList.ftl
+			</result>
+			<result name="welcome">
+				/pages/common/welcome.ftl
+			</result>
+		</action>
+		
+		<!-- 显示栏目未授权用户列表 -->
+		<action name="showClassifyNoneRoleList" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="showClassifyNoneRoleList">
+			<result name="success">
+				/pages/webTemplate/classify/classifyRoleList.ftl
+			</result>
+		</action>
+		
+		<!-- 授权栏目用户 -->
+		<action name="entitledClassifyRole" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="entitledClassifyRole">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 解除授权栏目用户 -->
+		<action name="relieveClassifyRole" class="com.taiji.webTemplate.webwork.action.WtClassifyAction" method="relieveClassifyRole">
+			<result name="success">
+				/pages/common/success.ftl
+			</result>
+		</action>
+		
+		<!-- 进入栏目数据框架 -->
+		<action name="gotoClassifyDataFrame" class="com.taiji.webTemplate.webwork.action.WtClassifyDataAction" method="gotoClassifyDataFrame">
+			<result name="success">
+				/pages/webTemplate/classify/classifyDataFrame.ftl
+			</result>
+		</action>
+		
+		<!-- 进入模板功能链接 -->
+		<action name="gotoTemplateFunction" class="com.taiji.webTemplate.webwork.action.WtClassifyDataAction" method="gotoTemplateFunction">
+			<result name="success" type="redirect">
+				${functionUrl}&amp;funcCode=${funcCode}&amp;classifyId=${classifyId}
+			</result>
+			<result name="welcome">
+				/pages/common/welcome.ftl
+			</result>
+			<result name="fail">
+				/pages/common/errorWithoutButton.ftl
+			</result>
+		</action>
+		
+		<!-- 显示启动后的栏目树 -->
+		<action name="showClassifyDataTree" class="com.taiji.webTemplate.webwork.action.WtClassifyDataAction" method="showClassifyDataTree">
+			<result name="success">
+				/pages/webTemplate/classify/classifyTree.ftl
+			</result>
+		</action>
+	</package>
+</xwork>

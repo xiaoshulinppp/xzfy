@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.user.domain">
+<class 
+    name="FunctionPermission" 
+    table="u_functionpermission"
+    dynamic-update="true"
+	dynamic-insert="true"
+    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="functionpermission_id"
+    >
+        <generator class="increment" />
+    </id>
+
+   <property
+        name="functionid"
+        type="java.lang.Integer"
+        column="function_id"
+        not-null="true"
+    />
+   <property
+        name="opid"
+        type="java.lang.Integer"
+        column="operation_id"
+        not-null="true"
+    />
+    <many-to-one name="perm" class="Permission" column="permission_id">
+    </many-to-one> 	
+</class>
+	<query name="findFuncPermByCode"><![CDATA[
+		from FunctionPermission where functionid = ?
+	]]></query>
+</hibernate-mapping>

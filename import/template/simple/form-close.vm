@@ -1,0 +1,58 @@
+</form>
+#if ($parameters.checkSubmit || $parameters.validate)
+ <script type="text/javascript">
+  var checkSubmitFlg = false;
+  function ${parameters.name}_checkSubmit() {
+   if(checkSubmitFlg == true) {
+     return false;
+    }
+   checkSubmitFlg = true;
+    #if ($!webwork.htmlEncode($parameters.disableSubmit)) 
+    var idString = "$!webwork.htmlEncode($parameters.disableSubmit)";
+    var idArray = idString.split(",");
+    var formName = $parameters.name;
+    for(var i=0;i<idArray.length;i++) {
+     var idName = idArray[i];      
+     document.getElementById(idName).disabled = true;
+    }
+   #end
+   #if($parameters.checkSubmit)
+     return true;
+   #end
+ }
+ document.ondbclick = function docondblclick() {
+   widow.event.returnValue = false;
+ }
+ document.onclick = function dbconclick() {
+   if(checkSubmitFlg) {
+     window.event.returnValue = false;
+   }
+ }
+ 
+#if ($parameters.validate)
+   function ${parameters.name}_validate() {
+      
+        var form = document.forms['${parameters.name}'];
+        var focus = ${parameters.name}_validate_actual();
+        if (focus != null) {
+            form.elements[focus].focus();
+            if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
+                form.elements[focus].select();
+            }
+            return false;
+        } else {
+            ${parameters.name}_checkSubmit();
+
+            return true;
+        }
+    }
+
+    function ${parameters.name}_validate_actual() {
+        var form = document.forms['${parameters.name}'];
+        $parameters.javascriptValidation
+        return null;
+    }
+   
+#end
+   </script>
+#end

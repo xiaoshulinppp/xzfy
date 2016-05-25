@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--********************************************************* -->
+<!--* 文件创建日期：2013-07-24                                * -->
+<!--* 文件修改日期：2013                                       * -->
+<!--* 功能描述：左侧菜单文件                                    * -->
+<!--* 文件修改日期：行政审批监察与廉政风险防控平台		         *-->
+<!--********************************************************* -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>北京市经信委行政审批监察与廉政风险防控平台</title>
+<meta http-equiv=="Pragma" CONTENT="no-cache">
+<meta http-equiv="Window-target" CONTENT="_top">
+<!--                       css请不要改变调用顺序                       -->
+<link href="../sys_theme/css/base.css" rel="stylesheet" type="text/css" />
+<link href="../sys_theme/css/sys_menu.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+<div id="sidebar" class="fn-clear"><!--注意使用了id-->
+	<div id="sidebar-wrapper">
+    	<ul id="main-nav">
+        	<li>
+            	<a href="javascript:void(0)"  class="nav-top-item  no-submenu current">
+				<img src="../sys_theme/images/icons/menu_01_off.png"/><span>信息审核</span></a>
+             </li>
+            <li>
+            	<a href="javascript:void(0)"  target="mainframe" class="nav-top-item  no-submenu">
+				<img src="../sys_theme/images/icons/menu_02_off.png"/><span>工作记录管理</span></a>
+            </li>
+            <li>
+            	<a href="javascript:void(0)"  class="nav-top-item  no-submenu ">
+				<img src="../sys_theme/images/icons/menu_03_off.png"/><span>综合查询</span></a>
+             </li>
+              <li>
+            	<a href="javascript:void(0)"  class="nav-top-item  no-submenu ">
+				<img src="../sys_theme/images/icons/menu_04_off.png"/><span>统计分析</span></a>
+             </li>
+             <li>
+            	<a href="javascript:void(0)"  class="nav-top-item ">
+				<img src="../sys_theme/images/icons/menu_05_off.png"/><span>系统管理</span></a>
+                <ul>
+                	 <li ><a  href="javascript:void(0)"  target="mainframe">注册人员管理</a></li>
+                      <li ><a  href="javascript:void(0)"  target="mainframe">字典表管理</a></li>
+                </ul>                
+            </li>
+       </ul>
+       
+       
+    </div>
+</div>
+
+</body>
+<!--                    左侧菜单交互   Javascripts请不要改变调用顺序                       -->
+<script type="text/javascript" SRC="../sys_theme/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../sys_theme/js/base.menu.js"></script>
+</html>

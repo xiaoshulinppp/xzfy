@@ -1,0 +1,37 @@
+﻿<!--************************************************************ -->
+<!--* 文件创建人：祁纲                                         * -->
+<!--* 文件创建日期：2006-09-08                                 * -->
+<!--************************************************************ -->
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>信息系统构架平台V2.0</title>
+<link rel="stylesheet" href="../../css/16B/control_style.css" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+  function hidemenu()
+  { parent.document.getElementsByTagName("*").mainframeset.cols = "0,9,*";
+    document.getElementById("closemenu").style.display = "none";
+	document.getElementById("openmenu").style.display = "block";
+}
+  function showmenu()
+  { parent.document.getElementsByTagName("*").mainframeset.cols = "235,9,*";
+    document.getElementById("closemenu").style.display = "block";
+	document.getElementById("openmenu").style.display = "none";
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="8" border="0" align="center" cellpadding="0" cellspacing="0" height="100%" style="height:expression(body.offsetHeight);">
+  <tr id="closemenu" style="display:block;">
+    <td width="8" align="center" title="收起菜单" onClick="hidemenu();"><img style="vertical-align:middle;" src="../../images/16B/arrow_left.png"/></td>
+  </tr>
+  <tr id="openmenu" style="display:none;">
+    <td width="8" align="center" onClick="showmenu();" title="显示菜单"><img src="../../images/16B/arrow_right.png"/></td>
+  </tr>
+</table>
+</body>
+</html>

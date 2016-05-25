@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="style.name">
+        <field-validator type="requiredstring">
+			<message key="请输入风格名称"/>
+        </field-validator>
+    </field>
+	
+    <field name="style.framePath">
+        <field-validator type="requiredstring">
+			<message key="请输入框架路径"/>
+        </field-validator>
+    </field>
+	
+     <field name="style.cssPath">
+        <field-validator type="requiredstring">
+			<message key="请输入CSS路径"/>
+        </field-validator>
+    </field>
+	
+     <field name="style.jsPath">
+        <field-validator type="requiredstring">
+			<message key="请输入JS路径"/>
+        </field-validator>
+    </field>
+	
+      <field name="style.imagePath">
+        <field-validator type="requiredstring">
+			<message key="请输入图片路径"/>
+        </field-validator>
+	  </field>
+       <field name="style.preImage">
+        <field-validator type="requiredstring">
+			<message key="请输入预览图片路径"/>
+      </field-validator>
+	  </field>
+        <field name="style.preFile">
+        <field-validator type="requiredstring">
+			<message key="请输入预览文件路径"/>
+      </field-validator>
+	  </field>
+   
+</validators>

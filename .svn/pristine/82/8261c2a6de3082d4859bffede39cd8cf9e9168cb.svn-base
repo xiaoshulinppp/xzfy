@@ -1,0 +1,52 @@
+<html>
+<HEAD> 
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+</HEAD>
+<!--
+<SCRIPT LANGUAGE="javascript">
+	function showimage()
+	{		
+		divimage.style.visibility='visible';
+		divapplet.style.visibility='hidden';
+	}
+	function showapplet()
+	{		
+		divapplet.style.visibility='visible';
+		divimage.style.visibility='hidden';
+	}
+</SCRIPT>
+<body onload = "showapplet();">
+-->
+<body>
+<!--
+<SCRIPT language=javascript>
+		document.write("<div id=divimage style='position: absolute;visibility:hidden;z-index:10;top:250;left:330'><img src='loading.gif'></img></div>");	
+</SCRIPT>
+-->
+<div id=divapplet style='visibility:visible;z-index:2'>
+<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+codeBase="http://java.sun.com/products/plugin/1.3/jinstall-13-win32.cab#Version=1,3,0,0"
+width=800
+height=600
+align=center>
+<!--
+<object classid="clsid:CAFEEFAC-0014-0000-0000-ABCDEFFEDCBA"
+codeBase="http://java.sun.com/products/plugin/autodl/jinstall-1_4_0-win.cab#Version=1,4,0,0"
+width=800
+height=600
+align=center>
+-->
+<param name="code" value= "dbbrowser.DBBrowser.class">
+<param name="hspace" value="0">
+<param name="vspace" value="0">
+<param name="align" value="middle">
+<param name="x" value="800">
+<param name="y" value="520">
+<param name="d" value="200">
+<param name="serverBase" value="http://127.0.0.1:8080/DBAgencyModule/">
+</OBJECT>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<generate>
+	<templateName>infogather</templateName>
+	<packageName>com.taiji.infogather</packageName>
+	<webPath>pages/infogather</webPath>
+	<displayName>采集业务管理</displayName>
+	<position>infogather</position>	
+	<plugins>		
+		<plugin name="infoGatherHibernate">
+		</plugin>
+		<plugin name="infoGatherWebwork">
+		</plugin>
+	</plugins>
+	<beans>
+		<bean id="configService" class="com.taiji.core.generator.configen.service.impl.InfoGatherConfigureServiceImpl">
+			<hibernateCfgFilePathName>hibernate.cfg.xml</hibernateCfgFilePathName>
+			<serviceCfgFilePathName>applicationContext.xml</serviceCfgFilePathName>
+			<actionCfgFilePathName>webwork-film.xml</actionCfgFilePathName>
+		</bean>
+	</beans>
+</generate>

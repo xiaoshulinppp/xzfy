@@ -1,0 +1,73 @@
+@charset "utf-8";
+.combo-button
+{
+    BORDER-RIGHT: grey 1px ridge;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: lightgrey 1px ridge;
+    PADDING-LEFT: 0px;
+    FONT-SIZE: 8pt;
+    BACKGROUND-IMAGE: none;
+    PADDING-BOTTOM: 0px;
+    VERTICAL-ALIGN: baseline;
+    BORDER-LEFT: lightgrey 1px ridge;
+    WIDTH: 14px;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: grey 1px ridge;
+    BACKGROUND-REPEAT: repeat;
+    FONT-FAMILY: Webdings, Marlett;
+    HEIGHT: 20px;
+    BACKGROUND-COLOR: lightgrey
+}
+.combo-hilite
+{
+    BORDER-RIGHT: #78acff 1px solid;
+    BORDER-TOP: #78acff 1px solid;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #eaf2ff;
+    BORDER-LEFT: #78acff 1px solid;
+    COLOR: black;
+    BORDER-BOTTOM: #78acff 1px solid;
+    FONT-FAMILY: verdana
+}
+.combo-item
+{
+    BORDER-RIGHT: white 1px solid;
+    BORDER-TOP: white 1px solid;
+    FONT-SIZE: 9pt;
+    BACKGROUND: white;
+    BORDER-LEFT: white 1px solid;
+    COLOR: black;
+    BORDER-BOTTOM: white 1px solid;
+    FONT-FAMILY: verdana
+}
+.combo-input
+{
+    BORDER-RIGHT: lightgrey 1px inset;
+    BORDER-TOP: black 2px inset;
+    VERTICAL-ALIGN: baseline;
+    BORDER-LEFT: black 2px inset;
+    HEIGHT:20px;
+    WIDTH: 200px! important;
+    BORDER-BOTTOM: lightgrey 1px inset
+}
+.combo-list TABLE
+{
+    TABLE-LAYOUT: fixed;
+    WIDTH: 149px
+}
+.combo-list
+{
+    BORDER-RIGHT: black 1px solid;
+    PADDING-RIGHT: 1px;
+    BORDER-TOP: black 1px solid;
+    PADDING-LEFT: 1px;
+    Z-INDEX: 100;
+    BACKGROUND: white;
+    PADDING-BOTTOM: 1px;
+    OVERFLOW: scroll;
+    BORDER-LEFT: black 1px solid;
+    WIDTH: 149px;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: black 1px solid;
+    HEIGHT: 200pt
+}

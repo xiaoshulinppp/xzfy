@@ -1,0 +1,135 @@
+@charset "utf-8";
+body{
+	margin:0px;
+	background-color:#2c8bd6;
+	font-size:12px;
+	font-family:"宋体";
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+table,div,span,td,h1,h2,h3,h4,h5,h6{
+	font-size:12px;
+}
+
+a.toplink:link{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+a.toplink:visited{
+	color:#FFFFFF;
+	text-decoration:none;
+
+}
+a.toplink:active{
+	color:#a4e5ff;
+	text-decoration:none;
+}
+a.toplink:hover{
+	color:#a4e5ff;
+	text-decoration:none;
+}
+.tdSmenu{
+	line-height:25px;
+	height:25px;
+	text-align:right;
+	padding-right:15px;
+	color:#FFFFFF;
+	}
+.topTabOut{
+	background-image:url(../../images/16B/bg_head.png);
+	height:72px;
+	}
+.titleLogo{
+	width:360px;
+	}
+.topTitleChn{
+	font-family:"黑体";
+	font-size:24px;
+	line-height:30px;
+	color:#FFFFFF;
+	text-align:left;
+	font-weight:bold;
+	margin-left:20px;
+	}
+.topTitleEng{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	margin-left:20px;
+	}
+
+.topCardUl{
+	vertical-align:bottom;
+	float:right;
+	margin-right:5px;
+	}
+.topCardOn{
+	background-image:url(../../images/16B/bg_card_active.gif);
+	background-position:bottom;
+	background-repeat:no-repeat;
+	height:30px;
+	line-height:25px;
+	color:#000000;
+	width:106px;
+	text-align:center;
+	margin:0px 3px;
+	float:left;
+	font-weight:bold;
+	padding-top:5px;
+	}
+.topCardOn span{
+	color:#000000;
+	font-size:14px;
+	}
+.topCardOff{
+	background-image:url(../../images/16B/bg_card_normal.gif);
+	background-position:bottom;
+	background-repeat:no-repeat;
+	height:30px;
+	line-height:25px;
+	color:#1256a3;
+	width:102px;
+	margin:0px 3px;
+	text-align:center;
+	float:left;
+	padding-top:5px;
+	cursor:hand;
+	/*behavior:url(../../css/16B/cardHover.htc);*/
+	}
+.topCardOff span{
+	color:#1256a3;
+	filter:DropShadow(Color="#FFFFFF",OffX="1",OffY="1",Positive="1");
+	height:24px;
+	}
+
+.contBarOut{
+	background-image:url(../../images/16B/bg_cont_bar.png);
+	height:27px;
+	}
+.contBarOut td{
+	color:#116faa;
+	}
+.userInfo{
+	color:#116faa;
+	white-space:nowrap;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:right;
+}
+.userInfo a:link,.userInfo a:visited{
+	color:#116faa;
+	text-decoration:none;
+	}
+.userInfo a:hover{
+	color:#FF6600;
+	text-decoration:none;
+	}
+.buttonHead{
+	background-image:url(../../images/16B/bg_head_button.gif);
+	width:73px;
+	height:23px;
+	color:#014290;
+	border:0px;
+	}
+

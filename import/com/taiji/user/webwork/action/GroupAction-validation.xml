@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="group.name">
+        <field-validator type="requiredstring">
+			<message key="请输入用户组名称"/>
+        </field-validator>
+    </field>
+    
+</validators>

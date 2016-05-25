@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.system.domain">
+<class 
+    name="ComplexSearchStateCond"
+    table="t_complexsearchstate"
+    dynamic-update="true"
+	dynamic-insert="true"
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="foreign" >
+			<param name="property">queryCond</param>
+		</generator>
+    </id>
+    <property
+        name="showFields"
+        type="java.lang.String"
+        column="showFields"
+    />
+    <property
+        name="sortField"
+        type="java.lang.String"
+        column="sortField"
+    />
+    <property
+        name="sortType"
+        type="java.lang.Integer"
+        column="sortType"
+    />
+    <property
+        name="mainTableName"
+        type="java.lang.String"
+        column="mainTableName"
+    />
+    <property
+        name="subTableName"
+        type="java.lang.String"
+        column="subTableName"
+    />
+    <property
+        name="searchHql"
+        type="java.lang.String"
+        column="searchHql"
+    />
+    <property
+        name="searchHqlShow"
+        type="java.lang.String"
+        column="searchHqlShow"
+    />
+	<one-to-one name="queryCond" class="ComplexQueryCond" constrained="true"/>
+</class>
+</hibernate-mapping>

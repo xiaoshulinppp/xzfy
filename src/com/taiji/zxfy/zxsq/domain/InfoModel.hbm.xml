@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.taiji.zxfy.zxsq.domain">
+	<class name="InfoModel" table="APP_ZXFY_INFO">
+		<id name="id" type="java.lang.String" column="ID">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="receiveDate" type="java.lang.String" column="RECEIVE_DATE"
+			length="20"></property>
+		<property name="receiveRealDate" type="java.lang.String"
+			column="RECEIVE_REAL_DATE" length="20"></property>
+		<property name="receiveAddress" type="java.lang.String"
+			column="RECEIVE_ADDRESS" length="200"></property>
+		<property name="appType" type="java.lang.String" column="APP_TYPE"
+			length="2"></property>
+		<property name="agent" type="java.lang.String" column="AGENT"
+			length="2"></property>
+		<property name="agentName" type="java.lang.String" column="AGENT_NAME"
+			length="500"></property>
+		<property name="proxy" type="java.lang.String" column="PROXY"
+			length="2"></property>
+		<property name="defendantType" type="java.lang.String"
+			column="DEFENDANT_TYPE" length="2"></property>
+		<property name="defendantName" type="java.lang.String"
+			column="DEFENDANT_NAME" length="1000"></property>
+		<property name="defendantRealName" type="java.lang.String"
+			column="DEFENDANT_REAL_NAME" length="1000"></property>
+		<property name="isManage" type="java.lang.String" column="ISMANAGE"
+			length="2"></property>
+		<property name="manageType" type="java.lang.String" column="MANAGE_TYPE"
+			length="100"></property>
+		<property name="matterType" type="java.lang.String" column="MATTER_TYPE"
+			length="100"></property>
+		<property name="matterDetail" type="java.lang.String" column="MATTER_DETAIL"
+			length="2000"></property>
+		<property name="duty" type="java.lang.String" column="DUTY"
+			length="200"></property>
+		<property name="executeDate" type="java.lang.String" column="EXECUTE_DATE"
+			length="20"></property>
+		<property name="isProf" type="java.lang.String" column="IS_PROF"
+			length="2"></property>
+		<property name="isProfDetail" type="java.lang.String" column="IS_PROF_DETAIL"
+			length="200"></property>
+		<property name="requireFy" type="java.lang.String" column="REQUIRE_FY"
+			length="2000"></property>
+		<property name="breakRight" type="java.lang.String" column="BREAK_RIGHT"
+			length="200"></property>
+		<property name="xzfyRequset" type="java.lang.String" column="XZFY_REQUSET"
+			length="2000"></property>
+		<property name="xzfyRequsetRetail" type="java.lang.String"
+			column="XZFY_REQUSET_RETAIL" length="2000"></property>
+		<property name="conditionType" type="java.lang.String"
+			column="CONDITION_TYPE" length="2"></property>
+		<property name="receiveDetail" type="java.lang.String"
+			column="RECEIVE_DETAIL" length="2000"></property>
+		<property name="appAdviceType" type="java.lang.String"
+			column="APP_ADVICE_TYPE" length="2000"></property>
+		<property name="appAdviceDetail" type="java.lang.String"
+			column="APP_ADVICE_DETAIL"></property>
+		<property name="appType1" type="java.lang.String" column="APP_TYPE1"
+			length="2"></property>
+		<property name="appType2" type="java.lang.Integer" column="APP_TYPE2"
+			length="10"></property>
+		<property name="guanli1" type="java.lang.String" column="GUANLI1"
+			length="50"></property>
+		<property name="guanli2" type="java.lang.String" column="GUANLI2"
+			length="50"></property>
+		<property name="guanli3" type="java.lang.String" column="GUANLI3"
+			length="50"></property>
+		<property name="xzfyOrg" type="java.lang.String" column="XZFY_ORG"
+			length="200"></property>
+		<property name="user1Id" type="java.lang.String" column="USER1_ID"
+			length="10"></property>
+		<property name="user1Name" type="java.lang.String" column="USER1_NAME"
+			length="20"></property>
+		<property name="user2Id" type="java.lang.String" column="USER2_ID"
+			length="10"></property>
+		<property name="user2Name" type="java.lang.String" column="USER2_NAME"
+			length="20"></property>
+		<property name="user3Id" type="java.lang.String" column="USER3_ID"
+			length="10"></property>
+		<property name="user3Name" type="java.lang.String" column="USER3_NAME"
+			length="20"></property>
+		<property name="status" type="java.lang.String" column="STATUS"
+			length="2"></property>
+		<property name="lianDate" type="java.lang.String" column="LIAN_DATE"
+			length="20"></property>
+		<property name="finishDate" type="java.lang.String" column="FINISH_DATE"
+			length="20"></property>
+		<property name="buzhengFrom" type="java.lang.String" column="BUZHENG_FROM"
+			length="200"></property>
+		<property name="buzhengTo" type="java.lang.String" column="BUZHENG_TO"
+			length="20"></property>
+		<property name="lianRealDate" type="java.lang.String" column="LIAN_REAL_DATE"
+			length="20"></property>
+		<property name="finishRealDate" type="java.lang.String"
+			column="FINISH_REAL_DATE" length="20"></property>
+		<property name="isDelay" type="java.lang.String" column="ISDELAY"
+			length="2"></property>
+		<property name="isDelayFrom" type="java.lang.String" column="ISDELAY_FROM"
+			length="20"></property>
+		<property name="isDelayTo" type="java.lang.String" column="ISDELAY_TO"
+			length="20"></property>
+		<property name="isStop" type="java.lang.String" column="ISSTOP"
+			length="2"></property>
+		<property name="isStopFrom" type="java.lang.String" column="ISSTOP_FROM"
+			length="20"></property>
+		<property name="isStopTo" type="java.lang.String" column="ISSTOP_TO"
+			length="20"></property>
+		<property name="finishType" type="java.lang.String" column="FINISH_TYPE"
+			length="2"></property>
+		<property name="checkStatus" type="java.lang.String" column="CHECK_STATUS"
+			length="2"></property>
+		<property name="delayDetail" type="java.lang.String" column="DELAY_DETAIL"
+			length="2000"></property>
+		<property name="delayReason" type="java.lang.String" column="DELAY_REASON"
+			length="200"></property>
+		<property name="stop_reason" type="java.lang.String" column="STOP_REASON"
+			length="2000"></property>
+		<property name="caseNum" type="java.lang.String" column="CASENUM"
+			length="20"></property>
+		<property name="caseYear" type="java.lang.String" column="CASEYEAR"
+			length="5"></property>
+		<property name="caseIndex" type="java.lang.String" column="CASEINDEX"
+			length="15"></property>
+		<property name="caseOrg" type="java.lang.String" column="CASEORG"
+			length="5"></property>
+		<property name="appDetail" type="java.lang.String" column="APP_DETAIL"
+			length="4000"></property>
+		<property name="jdRenShu" type="java.lang.String" column="JD_RENSHU"
+			length="10"></property>
+		<property name="tApplicationDeptId" type="java.lang.String"
+			column="TAPPLICATIONDEPTID" length="10"></property>
+		<property name="keyWord" type="java.lang.String" column="KEYWORD"
+			length="4"></property>
+		<property name="caseType" type="java.lang.String" column="CASETYPE"
+			length="4"></property>
+		<property name="caseType2" type="java.lang.String" column="CASETYPE2"
+			length="4"></property>
+		<property name="refer" type="java.lang.String" column="REFER"
+			length="4"></property>
+		<property name="refer2" type="java.lang.String" column="REFER2"
+			length="4"></property>
+		<property name="renCount" type="java.lang.String" column="RENCOUNT"
+			length="10"></property>
+		<property name="agentDetail" type="java.lang.String" column="AGENT_DETAIL"
+			length="2000"></property>
+		<property name="xwName" type="java.lang.String" column="XWNAME"
+			length="500"></property>
+		<property name="xwNum" type="java.lang.String" column="XWNUM"
+			length="200"></property>
+		<property name="receiveType" type="java.lang.String" column="RECEIVE_TYPE"
+			length="4"></property>
+		<property name="appShow" type="java.lang.String" column="APP_SHOW"
+			length="4000"></property>
+		<property name="firstSubmitResult" type="java.lang.String"
+			column="FIRSTSUBMITRESULT" length="1000"></property>
+		<property name="tJzfzh" type="java.lang.String" column="TJZFZH"
+			length="200"></property>
+		<property name="finishBreakType" type="java.lang.String"
+			column="FINISHBREAKTYPE" length="4"></property>
+		<property name="endFile" type="java.lang.String" column="ENDFILE"
+			length="100"></property>
+		<property name="isBuZheng" type="java.lang.String" column="ISBUZHENG"
+			length="4"></property>
+		<property name="buzhengContentType" type="java.lang.String"
+			column="BUZHENGCONTENTTYPE" length="1000"></property>
+		<property name="isBuZhengShenPi" type="java.lang.String"
+			column="ISBUZHENGSHENPI" length="4"></property>
+		<property name="bzTongZhiRiQi" type="java.lang.String"
+			column="BZTONGZHIRIQI" length="20"></property>
+		<property name="bzBuQiRiQi" type="java.lang.String" column="BZBUQIRIQI"
+			length="20"></property>
+		<property name="bzTongZhiFanShi" type="java.lang.String"
+			column="BZTONGZHIFANSHI" length="20"></property>
+
+		<property name="jinDu" type="java.lang.String" column="jinDu"
+			length="20"></property>
+		<property name="flag" type="java.lang.String" column="flag"
+			length="4"></property>
+
+		<set name="AppModels" inverse="true" cascade="all" lazy="false"
+			order-by="id asc">
+			<key column="XZFY_ID"></key>
+			<one-to-many class="AppModel" />
+
+		</set>
+	</class>
+</hibernate-mapping>

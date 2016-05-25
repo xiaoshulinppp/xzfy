@@ -1,0 +1,36 @@
+@charset "utf-8";
+body{
+	margin:0px;
+	background-color:#FFFFFF;
+	font-size:12px;
+}
+
+table{
+	font-size:12px;
+}
+
+div{
+	font-size:12px;
+}
+.conArrowRight{
+	background-image:url(../../images/15B/frame_arrow_right.gif);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:hand;	
+}
+
+.conArrowLeft{
+	background-image:url(../../images/15B/frame_arrow_left.gif);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:hand;	
+}
+.contolToptd{
+	background-image:url(../../images/15B/pic_control_top.gif);
+	width:8px;
+	height:9px;
+}
+.contolBottd{
+	width:8px;
+	height:21px;
+}

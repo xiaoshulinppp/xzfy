@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.taiji.website.domain">
+<class 
+    name="Comment" 
+    table="COMMENTS"    
+>
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="increment" />
+    </id>
+
+   <property
+        name="commenter_name"
+        type="java.lang.String"
+        column="commenter_name"
+      
+    />	
+
+    <property
+        name="commenter_id"
+        type="java.lang.Integer"
+        column="commenter_id"
+
+    />
+   <property
+        name="comment"
+        type="java.lang.String"
+        column="comments"
+ 
+    />	
+   <property
+        name="time"
+        type="java.lang.String"
+        column="time"
+ 
+    />
+    <property
+        name="articleId"
+        type="java.lang.Integer"
+        column="articleId"
+
+    />
+    <property
+        name="grade"
+        type="java.lang.Integer"
+        column="grade"
+
+    />
+	</class>
+</hibernate-mapping>

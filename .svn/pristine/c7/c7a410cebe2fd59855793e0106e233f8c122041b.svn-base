@@ -1,0 +1,28 @@
+<attach event="onmouseover" onevent="over()"/>
+<attach event="onmouseout" onevent="out()"/>
+<attach event="onfocus" onevent="getfocus()"/>
+<attach event="onblur" onevent="getblur()"/>
+<script language="Javascript">
+function over(){
+	style.backgroundColor="#578ce1";
+	style.backgroundImage="url('../images/15B/bg_card_hover.gif')";
+	style.color="#1b66af";
+}
+
+function out(){
+	style.backgroundColor="#578ce1";
+	style.backgroundImage="url('../images/15B/bg_card_normal.gif')";
+	style.color="#FFFFFF";
+	
+}
+
+function getfocus(){
+	style.backgroundColor="#578ce1";
+	style.backgroundImage="url('../images/15B/bg_card_hover.gif')";
+}
+function getblur(){
+	style.backgroundColor="#578ce1";
+	style.backgroundImage="url('../images/15B/bg_card_normal.gif')";
+	style.color="#FFFFFF";
+}
+</script>

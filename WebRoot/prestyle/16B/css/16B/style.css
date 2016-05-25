@@ -1,0 +1,674 @@
+﻿@charset "utf-8";
+/*重定义*/
+html{
+	scrollbar-face-color:#7ca5e0; 
+	scrollbar-highlight-color:#FFFFFF; 
+	scrollbar-shadow-color:#FFFFFF; 
+	scrollbar-3dlight-color:#FFFFFF; 
+	scrollbar-arrow-color:#FFFFFF; 
+	scrollbar-track-color:#FFFFFF; 
+	scrollbar-darkshadow-color:#FFFFFF; 
+	scrollbar-base-color:#FFFFFF;
+	}
+body {
+	margin:0px;
+	padding-top:5px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-bottom:5px;
+	font-size:12px;
+	color:#000000;
+	background-color: #FFFFFF;
+}
+table,div,span,td,h1,h2,h3,h4,h5,h6{
+	font-size:12px;
+}
+form{
+	margin:0px;
+	}
+
+/*伪类定义*/
+a:link{
+	color:#2764B5;
+	text-decoration:none;
+	}
+a:visited{
+	color:#2764B5;
+	text-decoration:none;
+	}
+a:active{
+	color:#2764B5;
+	text-decoration:underline;
+	} 
+a:hover{
+	color:#FF9900;
+	text-decoration:none;
+	} 
+
+a.tt:link{
+	color:#FFFFFF;
+	text-decoration:none;
+	}
+a.tt:visited{
+	color:#FFFFFF;
+	text-decoration:none;
+	}
+a.tt:active{
+	color:#FFFFFF;
+	text-decoration:underline;
+	} 
+a.tt:hover{
+	color:#000000;
+	text-decoration:none;
+	} 
+
+/*特殊程序相关自定义*/
+.drag {
+	 position: relative
+}
+
+/*点击超连接时不要出现默认状态的虚线边框:a{blr:expression(this.onFocus=this.blur());}*/
+
+
+
+/*自定义*/
+/*长篇文字内容*/
+.word{
+	text-indent:20px;
+	line-height:150%
+}
+
+/*选卡效果*/
+
+.cardActive{
+	text-align:center;
+	width:102px;
+	height:25px;
+	line-height:25px;
+	background-color:#FFFFFF;
+	background-image:url(../../images/16B/bg_card_active_s.gif);
+	background-position:left;
+	background-repeat:no-repeat;
+	color:#000000;
+	font-weight:bold;
+}
+
+.cardNormal{
+	width:102px;
+	height:25px;
+	background-image:url(../../images/16B/bg_card_normal_s.gif);
+	background-position:left;
+	background-repeat:no-repeat;
+	cursor:hand;
+	text-align:center;
+	color:#1256a3;
+}
+
+.cardHover{
+	width:102px;
+	height:25px;
+	background-image:url(../../images/16B/bg_card_hover_s.gif);
+	background-position:left;
+	background-repeat:no-repeat;
+	cursor:hand;
+	height:23px;
+	text-align:center;
+	}
+.cardDisabled{
+	background-image:url(../../images/16B/bg_card_disable_s.gif);
+	background-position:left;
+	background-repeat:no-repeat;
+	cursor:default;
+	height:25px;
+	color:#888888;
+	text-align:center;
+	}
+
+.cardTh{
+	border-bottom:1pt solid #578ce1;
+	text-align:right;
+}
+
+.cardBody{
+	border-right:1px solid #578ce1;
+	border-left:1px solid #578ce1;
+	border-bottom:1pt solid #578ce1;
+	background-color:#FFFFFF;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+a.cardLink:link{
+	color:#1256a3;
+	text-decoration:none;
+	}
+a.cardLink:visited{
+	color:#1256a3;
+	text-decoration:none;
+	}
+a.cardLink:active{
+	color:#1256a3;
+	text-decoration:underline;
+	} 
+a.cardLink:hover{
+	color:#1256a3;
+	text-decoration:none;
+	}
+
+/*您的位置*/
+table.yourPlace{
+	background-image:url(../../images/16B/bg_yourplace.png);
+	background-color:#F6F6F6;
+	margin-bottom:5px;
+	width:98%;
+	height:23px;
+}
+table.yourPlace tr{
+	background-image:url(../../images/16B/pic_yourplace_left.png);
+	background-position:left;
+	background-repeat:no-repeat;
+	}
+table.yourPlace td{
+	background-image:url(../../images/16B/icon_yourplace.gif);
+	background-position:8px;
+	color:#000000;
+	padding-left:30px;
+	padding-top:2px;
+}
+/*标题文字表格*/
+table.tabtitle td{
+	color:#000000;
+	font-size:12px;
+	font-weight:bold;
+	letter-spacing:2px;
+	padding-left:20px;
+	text-align:left;
+	border:1px #FFFFFF solid;
+	height:25px;
+	}
+
+table.tabtitle{
+	height:25px;
+	border:1px #b6beca solid;
+	background-image:url(../../images/16B/bg_tab_title.png);
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#EEEEEE', endColorStr='#FFFFFF', gradientType='0');*/
+}
+/* search titlebar */
+.searchTltBar{
+	text-indent:0px;
+	width:20px;
+	background-image:url(../../images/16B/icon_search_bar.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:hand;
+	}
+.searchDiv{
+	display:none;
+	}
+		
+table.tabMainTop{
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#D5D5D5', endColorStr='#FFFFFF', gradientType='0');*/
+	height:30px;
+	border-left:1px #b6beca solid;
+	border-right:1px #b6beca solid;
+	border-top:1px #b6beca solid;
+	border-bottom:0px #b6beca solid;
+	border-collapse:collapse;
+}
+table.tabMainTop td{
+	padding-right:10px;
+	letter-spacing:2px;
+	background-color:#eaedf0;
+}
+
+
+table.tabMainBot{
+	height:30px;
+	border-left:1px #b6beca solid;
+	border-right:1px #b6beca solid;
+	border-top:0px #b6beca solid;
+	border-bottom:1px #b6beca solid;
+}
+table.tabMainBot td{
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#EEEEEE', endColorStr='#FFFFFF', gradientType='0');*/
+	background-color:#F6F6F6;
+	text-align:center;
+}
+
+
+/*主体表格定义*/
+/*表格外框*/
+
+.tabout{
+	border-left:1px #b6beca solid;
+	border-right:1px #b6beca solid;
+	border-top:1px #b6beca solid;
+	border-bottom:1px #b6beca solid; 
+	behavior:url(../css/16B/colorTable.htc);
+	border-collapse:collapse;
+}
+
+ /*表头*/
+.thListNormal{
+	height:22px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#CBCEE0', gradientType='0');*/
+	background-image:url(../../images/16B/bg_trlist.png);
+	text-align:center;
+	vertical-align:middle;
+	color:#000000;
+	border-left:#DFDDCE solid 1px;
+	border-right:#DFDDCE solid 1px;
+	border-top:#DFDDCE solid 1px;
+	border-bottom:#6bb2d6 solid 1px;
+	background-color:#FFFFFF;
+}
+.thListLeft{
+	height:22px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#CBCEE0', gradientType='0');*/
+	text-align:left;
+	background-image:url(../../images/16B/bg_trlist.png);
+	vertical-align:middle;
+	color:#000000;
+	border-left:#DFDDCE solid 1px;
+	border-right:#DFDDCE solid 1px;
+	border-top:#DFDDCE solid 1px;
+	border-bottom:#6bb2d6 solid 1px;
+	background-color:#FFFFFF;
+}
+.thListRight{
+	height:22px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#CBCEE0', gradientType='0');*/
+	text-align:right;
+	background-image:url(../../images/16B/bg_trlist.png);
+	vertical-align:middle;
+	color:#000000;
+	border-left:#DFDDCE solid 1px;
+	border-right:#DFDDCE solid 1px;
+	border-top:#DFDDCE solid 1px;
+	border-bottom:#6bb2d6 solid 1px;
+	background-color:#FFFFFF;
+}
+.thFormNormal{
+	height:22px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#CBCEE0', gradientType='0');*/
+	text-align:center;
+	background-image:url(../../images/16B/bg_trlist.png);
+	vertical-align:middle;
+	color:#000000;
+	border-left:#DFDDCE solid 1px;
+	border-right:#DFDDCE solid 1px;
+	border-top:#DFDDCE solid 1px;
+	border-bottom:#6bb2d6 solid 1px;
+	background-color:#FFFFFF;
+}
+
+ /*行*/
+.trColor{
+	
+}
+
+.trWhite{
+	
+}
+
+.trColor01{
+
+}
+
+.trColor02{
+
+}
+
+
+ /*单元格列表部分*/
+.tdlistCenter{
+	height:24px;
+	text-align:center;
+	border:#d8dee7 solid 1px;
+	}
+
+.tdListRight{
+	height:24px;
+	text-align:right;
+	border:#d8dee7 solid 1px;
+}
+
+.tdListLeft{
+	height:24px;
+	text-align:left;
+	border:#d8dee7 solid 1px;
+}
+
+ /*单元格表单部分*/
+ .tdFormleft{
+	height:24px;
+	width:25%;
+	text-align:right;
+	color:#2764B5;
+	background-color:#f0f6ff;
+	border:#d8dee7 solid 1px;
+}
+.tdFormRight{
+	height:24px;
+	width:75%;
+	text-align:left;
+	color:#2764B5;
+	background-color:#f0f6ff;
+	border:#d8dee7 solid 1px;
+}
+.tdFormText{
+	height:24px;
+	text-align:right;
+	color:#2764B5;
+	border:#d8dee7 solid 1px;
+	background-color:#f0f6ff;
+}
+.tdFormInput{
+	height:24px;
+	text-align:left;
+	border:#d8dee7 solid 1px;
+	background-color:#FFFFFF;
+}
+.tdFormCenter{
+	height:24px;
+	text-align:center;
+	border:#d8dee7 solid 1px;
+	background-color:#FFFFFF;
+}
+
+/*表单元素部分*/
+.fieldsetStyle{
+	width:98%;
+	padding-top:10px;
+	padding-bottom:10px;
+	border:1px solid #7ca5e0;
+}
+fieldset.fieldsetStyle legend{
+	border:1px solid #7ca5e0;
+	height:22px;
+	line-height:22px;
+	margin-bottom:10px;
+	padding:1px 10px;
+	background-color:#FFFFCC;
+	}
+.formStyle{
+
+}
+
+.selectStyleNormal{
+	border-top:#323230 solid 1px;
+	border-left:#323230 solid 1px;
+	border-bottom:#FAFEFA solid 1px;
+	border-right:#FAFEFA solid 1px;
+	background-color:#FFFFFF;
+}
+
+.selectStyleLong{
+    width:100%;
+    border-top:#323230 solid 1px;
+	border-left:#323230 solid 1px;
+	border-bottom:#FAFEFA solid 1px;
+	border-right:#FAFEFA solid 1px;
+	background-color:#FFFFFF;
+}
+
+.textarea{
+	border-top:#7fb1e0 solid 1px;
+	border-left:#7fb1e0 solid 1px;
+	border-bottom:#7fb1e0 solid 1px;
+	border-right:#7fb1e0 solid 1px;
+	background:#e0f2ff;
+	overflow:auto;
+	width:98%;
+	line-height:140%;
+	behavior:url(../css/16B/input_text.htc);
+}
+
+.button{
+	width:69px;
+	height:21px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#90baf2', endColorStr='#688bcc', gradientType='0');*/
+	background-image:url(../../images/16B/btn_normal.png);
+	behavior:url(../css/16B/button.htc);
+	border:#707070 solid 0px;
+	color:#000000;
+	text-align:center;
+}
+
+.buttonNormal{
+	height:21px;
+	/*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#90baf2', endColorStr='#688bcc', gradientType='0');*/
+	background-image:url(../../images/16B/btn_normal_off.png);
+	behavior:url(../css/16B/button_normal.htc);
+	border:#707070 solid 1px;
+	color:#000000;
+	text-align:center;
+}
+
+.buttonBig{
+	width:150px;
+	height:21px;
+	background-image:url(../../images/16B/btn_normal_off.png);
+	behavior:url(../css/16B/button_normal.htc);
+	border:#707070 solid 1px;
+	color:#000000;
+	text-align:center;
+}
+
+.goButton{ 
+	width:25px;
+	height:19px;
+	border:#5A6CA2 solid 0px;
+	color:#FFFFFF;
+	text-align:center;  
+	cursor:hand;
+	font-size:12px;
+}
+
+.arrowButton{
+	width:24px;
+	height:21px;
+	background-image:url(../../images/16B/btn_normal_off.png);
+	behavior:url(../css/16B/button_normal.htc);
+	border:#707070 solid 1px;
+	color:#000000;
+	text-align:center;
+	margin-top:4px;
+	cursor:hand;
+}
+
+.inputTextLong{
+	width:90%;
+	border-top:#7fb1e0 solid 1px;
+	border-left:#7fb1e0 solid 1px;
+	border-bottom:#7fb1e0 solid 1px;
+	border-right:#7fb1e0 solid 1px;
+	background:#e0f2ff;
+	height:20px;
+	font-size:12px;
+	behavior:url(../css/16B/input_text.htc);
+}
+
+.inputTextNormal{
+	border-top:#7fb1e0 solid 1px;
+	border-left:#7fb1e0 solid 1px;
+	border-bottom:#7fb1e0 solid 1px;
+	border-right:#7fb1e0 solid 1px;
+	background:#e0f2ff;
+	height:20px;
+	font-size:12px;
+	behavior:url(../css/16B/input_text.htc);
+}
+
+.inputTextNumber{
+	border-top:#a7b7c1 solid 1px;
+	border-left:#a7b7c1 solid 1px;
+	border-bottom:#a7b7c1 solid 1px;
+	border-right:#a7b7c1 solid 1px;
+	background:#e0f2ff;
+	height:20px;
+	font-size:12px;
+	text-align:right;
+	behavior:url(../css/16B/input_text.htc);
+}
+
+.inputTextSmall{
+	width:20px;
+	border-top:#a7b7c1 solid 1px;
+	border-left:#a7b7c1 solid 1px;
+	border-bottom:#a7b7c1 solid 1px;
+	border-right:#a7b7c1 solid 1px;
+	background:#e0f2ff;
+	height:17px;
+	font-size:12px;
+	text-align:center;
+	color:#7ca5e0;
+	behavior:url(../css/16B/input_text.htc);
+}
+.inputTextFile{
+	border-top:#a7b7c1 solid 1px;
+	border-left:#a7b7c1 solid 1px;
+	border-bottom:#a7b7c1 solid 1px;
+	border-right:#a7b7c1 solid 1px;
+	background:#e0f2ff;
+	height:20px;
+	font-size:12px;
+	behavior:url(../css/16B/input_text.htc);
+}
+
+/* notice page */
+.noticeWord{
+	color:#ff99000;
+	}
+
+
+/*分页导航样式*/
+/*.pTdBorder{}
+.pTotal{ 
+          width:140px;
+          text-align: center;
+          font-weight: bold;
+          color: #FFFFFF;
+          background-color: #C1B98B;
+}
+.pPageIn{
+          width:30px;
+          text-align: center;
+          font-weight: bold;
+          color: #968E5D;
+          text-DECORATION: underline;
+          background-color: #FFFFFF;
+          border-right: #E7E4D2 1px solid;
+	  border-top: #C2BEA9t 0px solid;
+	  border-left: #C2BEA9t 0px solid;
+	  border-bottom: #C2BEA9 0px solid;
+}
+.pPage{
+          width:30px;
+          text-align: center;
+          color: #968E5D;
+          background-color: #FFFFFF;
+		border-right: #DCD8C3 1px solid;
+	  border-top: #C2BEA9t 0px solid;
+	  border-left: #C2BEA9t 0px solid;
+	  border-bottom: #C2BEA9 0px solid;
+}
+.pPageGo{
+          width:180px;
+          text-align: center;
+          color: #968E5D;
+          background-color: #FFFFFF;
+}
+.TabWelcome{
+	width:496px;
+	border:1px solid #000000;
+	margin-top:100px;
+	}
+*/
+
+
+/*造型表格*/
+/*
+.bTabOut{
+    height:32px;
+    border-left:1px #ACA791 solid;
+	border-right:1px #ACA791 solid;
+	border-top:0px #ACA791 solid;
+	border-bottom:0px #ACA791 solid;
+	background-repeat: repeat-x;
+	background-color: #F5F2E3;
+}
+.bTabOutB{
+        height:32px;
+        border-left:1px #ACA791 solid;
+	border-right:1px #ACA791 solid;
+	border-top:0px #ACA791 solid;
+	border-bottom:1px #ACA791 solid;
+	background-repeat: repeat-x;
+	background-color: #FFFFFF;
+	background-image:url('../../images/11A/bg_button_bot.gif');
+	background-repeat: repeat-x;
+}
+.bTabOutT{
+        height:32px;
+        border-left:1px #ACA791 solid;
+	border-right:1px #ACA791 solid;
+	border-top:0px #ACA791 solid;
+	border-bottom:1px #ACA791 solid;
+	background-repeat: repeat-x;
+	background-color: #F5F2E3;
+}
+.tabOutF{
+        border-left:1px #ACA791 solid;
+	border-right:1px #ACA791 solid;
+	border-top:1px #ACA791 solid;
+	border-bottom:1px #ACA791 solid;
+
+}
+.tabBgA{
+        border-left:0px #ACA791 solid;
+	border-right:0px #ACA791 solid;
+	border-top:0px #D2CDB4 solid;
+	border-bottom:1px #D7D2B9 solid;
+}
+
+.pButton {
+	border-right: buttonhighlight 1px solid;
+	border-top: buttonshadow 1px solid;
+	border-left: buttonshadow 1px solid;
+	border-bottom: buttonhighlight 1px solid;
+	background-color:#EAE9E4;
+}
+
+.eButton {
+	border-right:#000000 1px solid;
+	border-top: buttonface 1px solid;
+	border-left: buttonface 1px solid;
+	border-bottom: #000000 1px solid;
+	background-color:#EAE9E4;
+}
+
+.rButton {
+	border-right: buttonface 1px solid;
+	border-top: #000000 1px solid;
+	border-left: #000000 1px solid;
+	border-bottom: buttonface 1px solid;
+	background-color: buttonhighlight;
+}
+
+.lButton {
+	border-right: buttonshadow 1px solid;
+	border-top: buttonshadow 1px solid;
+	border-left: buttonshadow 1px solid;
+	border-bottom: buttonshadow 1px solid;
+	background-color: #FFFFFF;
+}
+
+.tButton {
+	border-right: buttonshadow 1px solid;
+	border-top: buttonhighlight 1px solid;
+	border-left: buttonhighlight 1px solid;
+	border-bottom: buttonshadow 1px solid;
+	background-color: buttonface;
+}
+*/

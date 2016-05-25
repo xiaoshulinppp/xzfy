@@ -1,0 +1,219 @@
+package ${plugin.parameter.acitionPackageName};
+#set( $objectName = "$table.getVariableName()")
+#set( $className = "${table.destinationClassName}")
+
+import com.taiji.core.webwork.action.ProtectedDetailAction;
+import  ${plugin.parameter.domainPackageName}.*;
+import  ${plugin.parameter.servicePackageName}.*;
+import com.taiji.user.domain.User;
+import com.taiji.core.util.Constants;
+import com.opensymphony.xwork.ActionContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import java.util.*;
+
+
+
+public class ${className}InLineAction extends ProtectedDetailAction {
+	
+	private static final Log log = LogFactory.getLog(${className}InLineAction.class);
+	
+    #foreach($relationshipRole in $table.relationshipRoles)
+    #set( $relationName = "${table.getClassName($relationshipRole)}")
+    #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+    #set( $target = $relationshipRole.getTarget($plugin))
+  
+   #if(!$relationshipRole.targetMany && $relationshipRole.originMany) 
+    private Integer ${relationObjectName}Id = new Integer(0); 	
+    private I${relationName}Service object${relationName}Service;
+ 	#end
+	#end
+
+  
+	public String save(){	
+	try{	
+    	User currentUser = (User) ActionContext.getContext().getSession().get(Constants.USER_LOGIN);    		 
+
+       #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #if(!$relationshipRole.targetMany && $relationshipRole.originMany)     
+   		${relationName} ${relationObjectName}InLineTemp = new ${relationName}();
+        Integer session${relationName}Id = new Integer(0);
+		if(ActionContext.getContext().getSession().get("${relationObjectName}Id")!=null)
+		  session${relationName}Id=(Integer)ActionContext.getContext().getSession().get("${relationObjectName}Id");
+		  
+		if(${relationObjectName}Id.equals(new Integer(0))){	
+		if(session${relationName}Id.equals(new Integer(0))){
+	    #foreach( $column in $target.notKeyColumns)
+         #if($column.javaType == "java.lang.String")
+         ${relationObjectName}InLineTemp.set${column.capitalisedVariableName}("");
+         #else
+           ${relationObjectName}InLineTemp.set${column.capitalisedVariableName}(new ${column.javaType}(0));
+         #end
+         #end
+          ${relationObjectName}InLineTemp.setSubmitflag(new Integer(0));
+          #foreach($relationshipInLineRole in $target.relationshipRoles)
+           #set( $relationInLineName = "${target.getClassName($relationshipInLineRole)}")
+           #set( $relationInLineObjectName = "${target.getVariableName($relationshipInLineRole)}")
+           #set( $one2one = $relationshipInLineRole.relation.one2One )
+            #set( $targetInLine = $relationshipInLineRole.getTarget($plugin))
+            #if($one2one)
+              $relationInLineName ${relationInLineObjectName}Temp = new ${relationInLineName}();
+              #foreach( $columnInLine in $targetInLine.notKeyColumns)
+               #if($columnInLine.javaType == "java.lang.String")
+                 ${relationInLineObjectName}Temp.set${columnInLine.capitalisedVariableName}("");
+               #else
+                ${relationInLineObjectName}Temp.set${columnInLine.capitalisedVariableName}(new ${columnInLine.javaType}(0));
+               #end
+             #end
+              ${relationObjectName}InLineTemp.set${relationInLineName}(${relationInLineObjectName}Temp);
+              ${relationInLineObjectName}Temp.set${relationName}(${relationObjectName}InLineTemp);
+           #end
+          #end
+	     get${className}().set${relationName}(${relationObjectName}InLineTemp);
+		 Set ${objectName}s=new LinkedHashSet();
+		${objectName}s.add(get${className}());
+		${relationObjectName}InLineTemp.set${className}s(${objectName}s);
+		object${relationName}Service.save(${relationObjectName}InLineTemp,currentUser);	 		 		
+		}
+		else 
+		{
+	 
+		${relationObjectName}InLineTemp= (${relationName}) object${relationName}Service.getEntityObjectById(session${relationName}Id);
+		${relationObjectName}InLineTemp.setSubmitflag(new Integer(0));
+		get${className}().set${relationName}(${relationObjectName}InLineTemp);
+		coreService.save(get${className}());		 
+		}
+		}else{
+                ${relationObjectName}InLineTemp=(${relationName}) object${relationName}Service.getEntityObjectById(${relationObjectName}Id);
+		${relationObjectName}InLineTemp.setSubmitflag(new Integer(0));
+		get${className}().set${relationName}(${relationObjectName}InLineTemp);
+		coreService.save(get${className}());
+		}
+		
+			get${className}().set${relationName}(${relationObjectName}InLineTemp);
+	   #end
+       #end
+    #end
+
+		
+
+       #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if(!$relationshipRole.targetMany && $relationshipRole.originMany)    
+	ActionContext.getContext().getSession().put("${relationObjectName}Id",get${className}().get${relationName}().get${keyCVarTarget}());
+	   #end
+	   #end
+	   #end
+	}catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}			
+		return SUCCESS;
+	}
+	public String update(){		  
+ try{	  
+      #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if(!$relationshipRole.targetMany && $relationshipRole.originMany) 
+       ${relationName} ${relationObjectName}Temp=new ${relationName}();
+      
+       if(${relationObjectName}Id.equals(new Integer(0))){
+         ${relationObjectName}Temp=(${relationName}) object${relationName}Service.getEntityObjectById((Integer)ActionContext.getContext().getSession().get("${relationObjectName}Id"));
+       }else{
+          ${relationObjectName}Temp= (${relationName}) object${relationName}Service.getEntityObjectById(${relationObjectName}Id);
+       }
+        ${relationObjectName}Temp.setSubmitflag(new Integer(0));
+        
+         get${className}().set${relationName}(${relationObjectName}Temp);
+	     coreService.update(get${className}());
+
+
+	   #end
+	   #end
+	   #end	    
+	    	
+}catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}		
+	   
+		return SUCCESS;
+	}
+	public String delete(){
+	try{
+       super.delete();
+       #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #set ($keyColumnTarget = $target.pkColumn) 
+       #set ($keyvarTarget = ${keyColumnTarget.variableName}) 
+       #set ($keyCVarTarget = ${keyColumnTarget.capitalisedVariableName})
+       #if(!$relationshipRole.targetMany && $relationshipRole.originMany) 
+          
+       ${relationName} ${relationObjectName}Temp = new ${relationName}();
+	   ${relationObjectName}Temp.setSubmitflag(new Integer(0));
+	   if(${relationObjectName}Id.equals(new Integer(0))){
+		  ${relationObjectName}Temp= (${relationName})object${relationName}Service.getEntityObjectById((Integer)ActionContext.getContext().getSession().get("${relationObjectName}Id"));
+	   }else{
+		   ${relationObjectName}Temp= (${relationName}) object${relationName}Service.getEntityObjectById(${relationObjectName}Id);
+	   }
+	    ${relationObjectName}Temp.setSubmitflag(new Integer(0));
+	   object${relationName}Service.update( ${relationObjectName}Temp);
+	   #end
+	   #end
+	   #end
+	}catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}	
+      
+	  return SUCCESS;
+	}
+
+
+	public ${className} get${className}() {
+		return (${className}) getEntity();
+	}
+	public void set${className}(${className} ${objectName}) {
+		setEntity(${objectName});		
+	}
+    #foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+       #if(!$relationshipRole.targetMany && $relationshipRole.originMany) 
+           
+	public void set${relationName}Id(Integer ${relationObjectName}Id) {
+		this.${relationObjectName}Id = ${relationObjectName}Id;
+	}
+	public Integer get${relationName}Id() {
+		return ${relationObjectName}Id;	
+	}
+	public I${relationName}Service get${relationName}Service(){
+	    return object${relationName}Service;
+	}
+    public void set${relationName}Service(I${relationName}Service service) {
+		this.object${relationName}Service = service;
+	}
+	   #end	
+       #end	
+    #end
+	public Class getPersistentClass(){
+	  return ${className}.class;
+	}
+}

@@ -1,0 +1,70 @@
+package ${plugin.parameter.acitionPackageName};
+#set( $objectName = "$table.getVariableName()")
+#set( $className = "${table.destinationClassName}")
+#set ($keyColumn = $table.pkColumn) 
+#set ($keyvar = ${keyColumn.variableName}) 
+#set ($keyCVar = ${keyColumn.capitalisedVariableName})
+
+import com.taiji.core.webwork.action.ProtectedDetailAction;
+import  ${plugin.parameter.domainPackageName}.*;
+import  ${plugin.parameter.servicePackageName}.*;
+
+public class ${className}InLineQueryDetailAction extends ProtectedDetailAction{
+	private Integer infoId;
+	private ${className}History ${objectName}; 
+	private Integer ${objectName}Id= new Integer(0); 
+	private I${className}Service service;
+	#foreach($relationshipRole in $table.relationshipRoles)
+       #if( $relationshipRole.enabled )
+       #set( $many2many = $relationshipRole.relation.many2Many )
+       #set( $one2one = $relationshipRole.relation.one2One )
+       #set( $target = $relationshipRole.getTarget($plugin))
+       #set( $relationName = "${table.getClassName($relationshipRole)}")
+       #set( $relationObjectName = "${table.getVariableName($relationshipRole)}")
+		#if($relationshipRole.originMany)
+			private I${relationName}Service ${relationObjectName}Service;
+			private Integer ${relationObjectName}Id= new Integer(0);
+			
+	    #end
+	    #if($relationshipRole.originMany)
+			public void set${relationName}Service(I${relationName}Service service){
+				this.${relationObjectName}Service = service;
+			}
+			public I${relationName}Service get${relationName}Service(){
+				return this.${relationObjectName}Service;
+			}
+			public Integer get${relationName}Id(){
+			return this.${relationObjectName}Id;
+		    }
+	    #end
+	   #end
+	#end
+	public Integer get${className}Id(){
+		return ${objectName}Id;
+	}
+	public void setInfoId(Integer id){
+		this.infoId = id;
+	}
+	public Integer getInfoId(){
+		return infoId;
+	}
+	public void set${className}(${className}History ${objectName}){
+		this.${objectName} = ${objectName};
+	}
+	public ${className}History get${className}(){
+		return this.${objectName};
+	}
+	public void set${className}Service(I${className}Service service){
+		this.service = service;
+	}
+	public I${className}Service get${className}Service(){
+		return this.service;
+	}	
+	public String execute() throws Exception{
+		${objectName} = service.get${className}History(infoId);
+		return SUCCESS;
+	}
+	public Class getPersistentClass() {
+		return ${className}.class;
+	}
+}
