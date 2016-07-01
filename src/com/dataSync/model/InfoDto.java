@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
 		"caseType2", "refer", "refer2", "renCount", "agentDetail", "xwName",
 		"xwNum", "receiveType", "appShow", "firstSubmitResult", "tJzfzh",
 		"finishBreakType", "endFile", "isBuZheng", "buzhengContentType",
-		"isBuZhengShenPi", "bzTongZhiRiQi", "bzBuQiRiQi", "bzTongZhiFanShi" })
+		"isBuZhengShenPi", "bzTongZhiRiQi",  "bzTongZhiFanShi","bzBuQiRiQi" })
 public class InfoDto implements Serializable{
 
 	/**

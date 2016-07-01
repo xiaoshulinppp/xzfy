@@ -21,6 +21,8 @@ import com.taiji.fzb.service.XzfyService;
 import com.taiji.user.domain.Org;
 import com.taiji.user.domain.User;
 
+import net.sf.json.JSONObject;
+
 
 public class XzfyDetailAction1 extends ProtectedListAction{
 
@@ -43,7 +45,31 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 	private List keywordList;
 	
 	
+	
+	public String gotoCreate1() {
+		String sql=" from XzfyInfo";
+	//	List <XzfyInfo > aa = xzfyService.("");
+		XzfyInfo  aa = xzfyService.getXzfyById("20160513134807639437");
+		
+		List a=xzfyService.getXzfyByTB_flag("20160513134807639437");
+		
+		return "success" ;
+		
+		
+	}
 	public String gotoCreate() {
+		
+		  /*      XzfyInfo infolist =null;
+			// 如果是个人用户，读取详细信息201605161609013396
+				// 判断用户是否已经存在，存在取得该对象
+				 infolist = xzfyService.getXzfyById("20160607171149242845");
+				 JSONObject json = JSONObject.fromObject(infolist);//将java对象转换为json对象
+				 String str = json.toString();//将json对象转换为字符串
+                  System.out.println(str);
+				 
+         */      //   {"casenum":"","xzfy_requset":"","secondSubmitDate":"","receive_address":"","delay_reason":"","refer":"","pizhunren3":"","jdGzContent":"","pizhunren1":"","pizhunren2":"","casetype2":"","jdbl_flag":"","app_advice_type":"","laixin_post":"","isBuzheng":"","breakReport":"","tiaojie_result":"","buzheng_from":"","isdelay_from":"","adviseFile":"","receive_real_date":"2016-06-06","songdaquerenFlag":"","user4_id":"","tiaojiejilu":"","admit2":"","admit1":"","caseyear":"","nationMoneyDetail":"","app_show":"","resarch":"","finish_date":"","app_type":"1","advise":"","user3_id":"","user2_id":"","tiaojiejilu1":"","reception2":"","zhongzhispdate":"","jdFileContent":"","firstSubmitResult":"","zhidaosj":"","proxy":"","tiaojie_from":"","break_right":"北京市人民政府","check_name":"","tiaojie_count":0,"keyword2":"","keyword3":"","endFile":"","tAppDeptId":"","ismoney":"","istingzheng":"","dftzstatus":"","matter_type":"","user1_name":"","jianyi_file":"","receive_type":"","xwnum":"","jddetail":"","laixin_tel":"","content_abstract":"","hasanshen":"","fuyifs":"","xzfy_requset_retail":"","issame_detail":"","issame":"","lian_date":"","execute_date":"","xwname":"","tb_flag":"0","agent_address":"","pizhunren":"","opinion":"","jiansuom":"","renCount":"","is_commit":"","shishiyuly":"","admit2_id":"","zhize":"","is_prof":"","agent":"1","app_advice_detail":"","delayAdvice":"","admit1_id":"","pifuyijian3":"","isMany":"","agent_name":"代理人","pifuyijian2":"","pifuyijian1":"","buzhengDelay":"","laixin_name":"","trailMode":"","bzTongzhiriqi":"","defendant_type":"","defendant_name":"北京市住房和城乡建设委员会","jiedai_file":"","caseindex":"","bzAdvice":"","appdetail":"","shouju_flag":"","hastingzheng":"","xzfyAgents":[],"bzBuqiriqi":"","user1_id":"","jaAdvice":"","yijian_file":"","tjzfzh":"","lian_real_date":"","jieanspdate":"","buzhengContentType":"","casestatus":"","money_detail":"","tPoliceIsParade":"","isdelay":"","casetype":"","fenpei_name":"","defendant_real_name":"","agent_date":"","other_commit":"","user3_name":"","isstop":"","receiveAnswerDate":"","guanli1":"","guanli3":"","xzfyApps":[],"guanli2":"","menu":"","require_fy":"23（23）；（23）；","deputy_show":"","third":"","ismanage":"2","buzhengspdate":"","bzTongzhifangshi":"","bztz_flag":"","issafe":"","check_status":"","jdBzContent":"","mid_tiaojie":"","jdRenshu":"","third_agent":"","yuedusj":"","opinionFile":"","xzfy_org":"","user4_name":"","breakTo":"","app_type1":"","app_type2":0,"isstop_from":"","buzheng_to":"","check_file":"","matter_detail":"","yanzhengsj":"","laixin_address":"","user2_name":"","remark":"","delayTo":"","jieanwenshu":"","huifuspdate":"","isdelay_to":"","stadardResult":"","manage_type":"","caseorg":"","dbrDetail":"","stop_reason":"","receive_date":"2016-06-06","isstop_to":"","stop_detail":"","isBreak":"","handleReason":"","status":"","hasdiaocha":"","money_file":"","pifuyijian":"","referother":"","refer2":"","receive_detail":"","yanqispdate":"","breakAdvice":"","ischeck":"","agentDetail":"","fenpei_id":"","isBuzhengshenpi":"","has_tingzheng":"","tiaojie_to":"","istiaojie":"","pizhunriqi":"","id":"201605161609013396","firstSubmitDate":"","finish_type":"","duty":"","currentuser":"","isfront":"","bsqrSpecial":"","secondSubmitResult":"","finishBreakType":"","delayReport":"","is_prof_detail":"曾要求被申请人履行何职责(50字以内)","finish_real_date":"","pizhunriqi2":"","pizhunriqi1":"","safeContent":"","check_id":"","keyword":"","laAdvice":"","time_show":"","hastiaojie":"","delay_detail":"","reception":"","nationMoney":"","otherTrailMode":"","lianspdate":"","condition_type":"","sentAnswerDate":"","isAnswer":""}
+		
+		 
 		try {
 			String currentTime = new SimpleDateFormat("yyyyMMddHHmmssSSS")
 					.format(new Date());
@@ -364,7 +390,7 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 					}
 				}
 				xzfyApp.setProxytype(x.getApp_type());//申请人类别
-				xzfyApp.setXzfyInfo(x);               //整个申请人申请信息
+			//	xzfyApp.setXzfyInfo(x);               //整个申请人申请信息
 				xzfyService.save(xzfyApp);
 			}
 		}
@@ -403,7 +429,7 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 					}
 				}
 				xzfyApp.setProxytype(x.getApp_type());
-				xzfyApp.setXzfyInfo(x);
+			//	xzfyApp.setXzfyInfo(x);
 				xzfyService.save(xzfyApp);
 			}
 		}

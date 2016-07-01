@@ -22,7 +22,7 @@ public class XzfyApp extends Entity{
 	private String postcode;
 	private String telephone;
 	private String islink;
-	private XzfyInfo xzfyInfo;
+	//private XzfyInfo xzfyInfo;
 	public String getDeputyName() {
 		return deputyName;
 	}
@@ -127,13 +127,13 @@ public class XzfyApp extends Entity{
 		this.proxytype = proxytype;
 	}
 
-	public XzfyInfo getXzfyInfo() {
+/*	public XzfyInfo getXzfyInfo() {
 		return xzfyInfo;
 	}
 
 	public void setXzfyInfo(XzfyInfo xzfyInfo) {
 		this.xzfyInfo = xzfyInfo;
-	}
+	}*/
 
 	
 	public String getIslink() {

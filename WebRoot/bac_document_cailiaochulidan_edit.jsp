@@ -134,16 +134,16 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>编辑文档</title>
-		<link rel="stylesheet" type="text/css" href="css/eweboffice.css" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑文档</title>
+<link rel="stylesheet" type="text/css" href="css/eweboffice.css" />
 
-		<!--引用eWebOffice公用脚本-->
-		<script type="text/javascript" src="eWebOffice/eWebOffice.js">
+<!--引用eWebOffice公用脚本-->
+<script type="text/javascript" src="eWebOffice/eWebOffice.js">
 </script>
 
-		<script type="text/javascript" for="eWebOffice1" event="OnInit()">
+<script type="text/javascript" for="eWebOffice1" event="OnInit()">
 //控件初始化事件
 //标题栏、快捷工具栏、边框等界面相关设置可以在此事件中作，使得界面上不会有转变过程显现
 //如：隐藏快捷工具栏。当访问此网页时，如在OnLoad中设，则会先显示出工具栏，再看到工具栏没了。如在OnInit中设，直接打开就看不到。没有这个变化过程。
@@ -153,7 +153,8 @@ eWebOffice1.TitleVisible = false;
 //eWebOffice1.TitleCaption="极限软件有限公司";
 </script>
 
-<script type="text/javascript" for="eWebOffice1" event="OnDocumentAfterOpen()">
+<script type="text/javascript" for="eWebOffice1"
+	event="OnDocumentAfterOpen()">
 //文档打开后触发此事件
 //在此事件中设置初始Office菜单、工具栏、痕迹、保护等。
 eWebOfficeJS.SetWorkModeOnOpen("eWebOffice1", "<%=ms_Action%>");
@@ -161,7 +162,7 @@ eweboffice1.SetFileMenuVisible("SYS_FM_About", false);
 eweboffice1.SetFileMenuVisible("SYS_FM_Open", false);
 </script>
 
-		<script type="text/javascript" for="eWebOffice1" event="OnLoad()">
+<script type="text/javascript" for="eWebOffice1" event="OnLoad()">
 eWebOffice1.WebUrl = "<%=ms_WebUrl%>";
 eWebOffice1.RecordID = "<%=ms_RecordID%>";
 eWebOffice1.TemplateID = "<%=ms_TemplateID%>";
@@ -181,8 +182,8 @@ eWebOffice1.WebLoadBookmark();
             document.getElementById("show").style.display = "none";
 </script>
 
-		<script type="text/javascript" for="eWebOffice1"
-			event="OnCustomButtonClick(s_Key, s_Value)">
+<script type="text/javascript" for="eWebOffice1"
+	event="OnCustomButtonClick(s_Key, s_Value)">
 
 //s_Key: 为自定义按钮关键字，可以随便定义，不要与系统自带冲突即可，演示中为了区别，快捷工具栏上的按钮定义为"QB_"开头，Office文件菜单下的按钮定义为"File_"开头。
 switch (s_Key) {
@@ -224,7 +225,7 @@ case "QB_VerifySeal":
 </script>
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
 function DoCheckSubmit() {
 	if (document.getElementById("d_subject").value == "") {
@@ -244,54 +245,74 @@ function DoCheckSubmit() {
 }
 </script>
 
-	</head>
-	<body>
-	 <style type="text/css">
-        #bg{ display: block;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: black;  z-index:1001;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);}
-        #show{display: block;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  padding: 8px;  border: 8px solid #E8E9F7;  background-color: white;  z-index:1002;  overflow: auto;}
-    </style>
-    <div id="bg">
-<iframe  style="position:absolute;top: 0%;  left: 0%;  width:100%;height:100%;_filter:alpha(opacity=0);opacity=0;border-style:none;">正在加载中。。。</iframe>    
-    </div>
-    <div id="show">
-        <img src="images/loading.jpg">
-    </div>
-        <div style="background:url(images/loading1.jpg);width:100%;height:100%">
+</head>
+<body>
+	<style type="text/css">
+#bg {
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 1001;
+	-moz-opacity: 0.7;
+	opacity: .70;
+	filter: alpha(opacity = 70);
+}
+
+#show {
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	border: 8px solid #E8E9F7;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+}
+</style>
+	<div id="bg">
+		<iframe
+			style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; _filter: alpha(opacity = 0); opacity =0; border-style: none;">正在加载中。。。</iframe>
+	</div>
+	<div id="show">
+		<img src="images/loading.jpg">
+	</div>
+	<div
+		style="background: url(images/loading1.jpg); width: 100%; height: 100%">
 		<div id="bdy">
 
 
 			<hr />
-						<%if(ms_NodeDesc.equals("阅读")){ %>
+			<%if(ms_NodeDesc.equals("阅读")){ %>
 
-							
-							<% }else{%>
-			<form id="form1" name="form1" method="post" action="bac_document_cailiaochulidan_save.jsp?caseId=<%=ms_caseId%>&d_username=<%=ms_Author%>&d_checkstatus=<%=ms_checkstatus%>"
+
+			<% }else{%>
+			<form id="form1" name="form1" method="post"
+				action="bac_document_cailiaochulidan_save.jsp?caseId=<%=ms_caseId%>&d_username=<%=ms_Author%>&d_checkstatus=<%=ms_checkstatus%>"
 				onsubmit="return DoCheckSubmit()">
-				
+
 				<input type="hidden" name="d_recordid" id="d_recordid"
-					value="<%=ms_RecordID%>" />
-				<input type="hidden" name="ms_isqinggao" id="ms_isqingao"
-					value="" />
-				<input type="hidden" name="d_filetype" id="d_filetype"
-					value="<%=ms_FileType%>" />
-				<input type="hidden" name=caseId id="caseId" value="<%=ms_caseId%>" />
-				<input type="hidden" name=d_templateid id="d_templateid"
-					value="<%=ms_TemplateID%>" />
+					value="<%=ms_RecordID%>" /> <input type="hidden"
+					name="ms_isqinggao" id="ms_isqingao" value="" /> <input
+					type="hidden" name="d_filetype" id="d_filetype"
+					value="<%=ms_FileType%>" /> <input type="hidden" name=caseId
+					id="caseId" value="<%=ms_caseId%>" /> <input type="hidden"
+					name=d_templateid id="d_templateid" value="<%=ms_TemplateID%>" />
 				<table class="">
 
-											<td width="50%" rowspan="2" align="center">
-
-							<input type="submit" class="btn4" value="保存文档" onclick="acceptAllRevisions2()" style="visibility:visible">
-							<!--  <input type="button" class="btn4"
+					<td width="50%" rowspan="2" align="center"><input
+						type="submit" class="btn4" value="保存文档"
+						onclick="acceptAllRevisions2()" style="visibility: visible">
+						<!--  <input type="button" class="btn4"
 								onclick="location.href='bac_default_cailiaochulidan_list.jsp?caseId=<%=ms_caseId%>&d_username=<%=ms_Author%>'" value="查看历史版本">-->
-							<input type="submit" value="清稿" class="btn4"
-								onclick="acceptAllRevisions()">
-
-
-
-							&nbsp;
-							
-							<!--  <input type="button" class="btn4"
+						<input type="submit" value="清稿" class="btn4"
+						onclick="acceptAllRevisions()"> &nbsp; <!--  <input type="button" class="btn4"
 								onclick="location.href='bac_default_cailiaochulidan_list.jsp?caseId=<%=ms_caseId%>&d_username=<%=ms_Author%>'" value="返回列表">*/-->
 							<br>
 							<br>
@@ -314,7 +335,7 @@ function DoCheckSubmit() {
 
 				</table>
 			</form>
-										<%} %>
+			<%} %>
 
 
 
@@ -349,8 +370,8 @@ function acceptAllRevisions2(){
 			<hr />
 
 		</div>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
 
 

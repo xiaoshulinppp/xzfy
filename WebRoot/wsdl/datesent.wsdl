@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://sentdata.sinosoft.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://sentdata.sinosoft.com" xmlns:intf="http://sentdata.sinosoft.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://sentdata.sinosoft.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="sendname">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sendnameResponse">
+    <complexType>
+     <sequence>
+      <element name="sendnameReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sentObject">
+    <complexType>
+     <sequence>
+      <element name="operateCode" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sentObjectResponse">
+    <complexType>
+     <sequence>
+      <element name="sentObjectReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="sendList">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sendListResponse">
+    <complexType>
+     <sequence>
+      <element name="sendListReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="test">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="testResponse">
+    <complexType>
+     <sequence>
+      <element name="testReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="sendListRequest">
+
+      <wsdl:part element="impl:sendList" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sendnameRequest">
+
+      <wsdl:part element="impl:sendname" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sendListResponse">
+
+      <wsdl:part element="impl:sendListResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="testResponse">
+
+      <wsdl:part element="impl:testResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sendnameResponse">
+
+      <wsdl:part element="impl:sendnameResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sentObjectRequest">
+
+      <wsdl:part element="impl:sentObject" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="testRequest">
+
+      <wsdl:part element="impl:test" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sentObjectResponse">
+
+      <wsdl:part element="impl:sentObjectResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="datesent">
+
+      <wsdl:operation name="sendname">
+
+         <wsdl:input message="impl:sendnameRequest" name="sendnameRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sendnameResponse" name="sendnameResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sentObject">
+
+         <wsdl:input message="impl:sentObjectRequest" name="sentObjectRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sentObjectResponse" name="sentObjectResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sendList">
+
+         <wsdl:input message="impl:sendListRequest" name="sendListRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sendListResponse" name="sendListResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="test">
+
+         <wsdl:input message="impl:testRequest" name="testRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:testResponse" name="testResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="datesentSoapBinding" type="impl:datesent">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="sendname">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sendnameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sendnameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sentObject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sentObjectRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sentObjectResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sendList">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sendListRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sendListResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="test">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="testRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="testResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="datesentService">
+
+      <wsdl:port binding="impl:datesentSoapBinding" name="datesent">
+
+         <wsdlsoap:address location="http://localhost:8787/zxfy/services/datesent"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

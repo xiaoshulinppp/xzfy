@@ -2,27 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<link href="../css/common/styleXX.css" type="text/css" rel="stylesheet" />
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<title></title>
-
+	<link href="../css/common/styleXX.css" type="text/css" rel="stylesheet" />
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<title></title>
 </head>
 <!--javascript脚本添加位置。-->
 
 <!--javascript脚本添加位置结束。-->
 <body>
 	<div class="divTop">
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
+		<br /> <br /> <br /> <br /> <br /> <br />
 	</div>
 	<div class="divBg">
 		<center>
 			<div class="divclose">
-				<img src="../images/common/xxcsBg.png"/>
+				<img src="../images/common/xxcsBg.png" />
 			</div>
 			<!--
 			<div class="divimgIcon">

@@ -8,8 +8,14 @@
 
        <action name="appFYfaceInsert" class="com.taiji.fzb.webwork.XzfyDetailAction1"
 			method="gotoCreate">
-			<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2.ftl</result>
+     		<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2_3.ftl</result>
 		</action>
+		
+		
+		
+		 <!--  class="com.taiji.fzb.webwork.XzfyDetailAction1"
+			method="gotoCreate"> -->
+		
 		<action name="saveFace" class="com.taiji.fzb.webwork.XzfyDetailAction1"
 			method="saveFace">
 			<result name="success">/pages/zxfy/zxsq/saveface_success.ftl</result>

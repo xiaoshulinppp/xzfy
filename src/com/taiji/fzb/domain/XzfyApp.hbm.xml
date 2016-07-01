@@ -117,9 +117,9 @@
         column="other_type"
 	
     />
-
+<!-- 
     <many-to-one name="xzfyInfo" cascade="all" 
 			column="xzfy_id" class="XzfyInfo"  />
-	
+	 -->
 </class>
 </hibernate-mapping>

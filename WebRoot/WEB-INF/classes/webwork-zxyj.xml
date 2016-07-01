@@ -1,0 +1,33 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="zxyj" extends="default" namespace="/zxyj">
+		<default-interceptor-ref name="autowireDefault" />
+		<action name="searchList" class="com.taiji.zxfy.zxyj.webwork.action.ZxyjListAction" method="searchList">
+			<result name="success">
+				/pages/zxyj/zxyj_search.ftl
+			</result>
+		</action>
+		<action name="fileList" class="com.taiji.zxfy.zxyj.webwork.action.ZxyjListAction" method="fileList">
+			<result name="success">
+				/pages/zxyj/zxyj_list.ftl
+			</result>
+			<result name="error">
+				/pages/zxyj/zxyj_search.ftl
+			</result>
+		</action>
+		<action name="addSug" class="com.taiji.zxfy.zxyj.webwork.action.ZxyjDetail" method="addSug">
+			<result name="success" type="redirect">
+				fileList.action?funcCode=${funcCode}&amp;caseNum=${caseNum}
+			</result>
+		</action>
+		<!-- 下载附件 -->
+		<action name="downloadFile" class="com.taiji.zxfy.zxyj.webwork.action.ZxyjDetail" method="downloadFile">
+			<result name="success" type="stream">
+				<param name="inputName">docStream</param>
+				<param name="contentDisposition">attachment;${contentDisposition}</param>
+				<param name="contentType">application/x-msdownload;charset=gb2312</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+</xwork>

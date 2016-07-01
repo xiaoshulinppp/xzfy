@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.taiji.core.util.PaginationSupport;
 import com.taiji.core.webwork.action.ProtectedListAction;
+import com.taiji.fzb.domain.XzfyInfo;
 import com.taiji.zxfy.zxcx.service.ZxcxService;
 import com.taiji.zxfy.zxsq.domain.AppModel;
 import com.taiji.zxfy.zxsq.domain.ArchiveModel;
@@ -22,6 +23,7 @@ public class ZxcxListAction extends ProtectedListAction {
 	private String caseIndex;// 案件代码
 	private String message;// 反馈到前台的信息
 	private InfoModel infoModel;// 案件信息
+	private XzfyInfo xzfyInfo;// 案件信息
 	private String appName;// 申请人名称
 	private String appDeputyName;// 主要代表人名称
 	private String appLinkName;// 主要联系人
@@ -42,15 +44,15 @@ public class ZxcxListAction extends ProtectedListAction {
 	 */
 	@SuppressWarnings("unchecked")
 	public String zxcxByCaseIndex() {
-		String hql = "from InfoModel";
+		String hql = "from XzfyInfo";
 		boolean flag = false;// 判断是否跳转成功的标识符
-		List<InfoModel> list = zxcxService.findBySql(hql);
+		List<XzfyInfo> list = zxcxService.findBySql(hql);
 		if (caseIndex.equals("")) {
 			message = "申请码不能为空！";
 			return ERROR;
 		} else {
 			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getCaseNum().equals(caseIndex)) {
+				if (list.get(i).getJiansuom().equals(caseIndex)) {
 					flag = true;
 					break;
 				} else {
@@ -59,36 +61,10 @@ public class ZxcxListAction extends ProtectedListAction {
 			}
 		}
 		if (flag == true) {
-			String hqlInfo = "from InfoModel i where i.caseNum='" + caseIndex+"'";
-			List<InfoModel> infoModels = zxcxService.findBySql(hqlInfo);
-			infoModel = infoModels.get(0);
-			Set<AppModel> appModels = infoModel.getAppModels();
-			Iterator<AppModel> iterator = appModels.iterator();
-			appName = "";
-			appDeputyName = "";
-			if (appModels.size() < 5) {
-				while (iterator.hasNext()) {
-					AppModel appModel = iterator.next();
-					appName += appModel.getAppName() + " ";
-					if (appModel.getIsLink().equals("1")) {
-						appLinkName = appModel.getAppName();
-					}
-					if (appModel.getIsDeputy().equals("1")) {
-						appDeputyName += appModel.getAppName() + " ";
-					}
-				}
-			} else {
-				while (iterator.hasNext()) {
-					AppModel appModel = iterator.next();
-					if (appModel.getIsLink().equals("1")) {
-						appLinkName = appModel.getAppName();
-						appName = appDeputyName + " 等等";
-					}
-					if (appModel.getIsDeputy().equals("1")) {
-						appDeputyName += appModel.getAppName() + " ";
-					}
-				}
-			}
+			String hqlInfo = "from XzfyInfo i where i.jiansuom='" + caseIndex+"'";
+			List<XzfyInfo> infoModels = zxcxService.findBySql(hqlInfo);
+			xzfyInfo = infoModels.get(0);
+			
 			return SUCCESS;
 		}
 		if (flag == false) {
@@ -96,6 +72,14 @@ public class ZxcxListAction extends ProtectedListAction {
 			return ERROR;
 		}
 		return ERROR;
+	}
+
+	public XzfyInfo getXzfyInfo() {
+		return xzfyInfo;
+	}
+
+	public void setXzfyInfo(XzfyInfo xzfyInfo) {
+		this.xzfyInfo = xzfyInfo;
 	}
 
 	public PaginationSupport getInitResult() {

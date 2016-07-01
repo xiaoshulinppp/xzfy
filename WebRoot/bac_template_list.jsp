@@ -1,6 +1,7 @@
-<%@ page language="java" import="java.util.*,java.sql.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,java.sql.*"
+	pageEncoding="UTF-8"%>
 
-<%@include file="DBHelper.jsp" %>
+<%@include file="DBHelper.jsp"%>
 <%!
 public String GetTemplateList()
     {
@@ -48,7 +49,7 @@ public String GetTemplateList()
     }%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>模板管理</title>
@@ -56,37 +57,35 @@ public String GetTemplateList()
 
 </head>
 <body>
-<div id="bdy">
+	<div id="bdy">
 
-<div id="nav">您当前位置 &gt;&gt; 模板管理</div> 
-<hr />
+		<div id="nav">您当前位置 &gt;&gt; 模板管理</div>
+		<hr />
 
-<table border=0 width="100%">
-<tr>
-    <td>
-        <input type=button class="btn" value="新建Word模板"  onclick="location.href='bac_template_save.jsp?d_filetype=doc&action=new';">
-    </td>
-    <td align="right">
-        <input type=button class="btn" value="返回首页" onclick="location.href='bac_default.jsp';">
-    </td>
-</tr>
-</table>
+		<table border=0 width="100%">
+			<tr>
+				<td><input type=button class="btn" value="新建Word模板"
+					onclick="location.href='bac_template_save.jsp?d_filetype=doc&action=new';">
+				</td>
+				<td align="right"><input type=button class="btn" value="返回首页"
+					onclick="location.href='bac_default.jsp';"></td>
+			</tr>
+		</table>
 
-<br />
+		<br />
 
-<table class="lst">
-<tr>
-	<th>编号</th>
-	<th>模板名称</th>
-	<th>模板类型</th>
-	<th>模板说明</th>
-	<th>操作</th>
-</tr>
-<%=GetTemplateList()%>
-</table>
-<hr />
-</div>
+		<table class="lst">
+			<tr>
+				<th>编号</th>
+				<th>模板名称</th>
+				<th>模板类型</th>
+				<th>模板说明</th>
+				<th>操作</th>
+			</tr>
+			<%=GetTemplateList()%>
+		</table>
+		<hr />
+	</div>
 </body>
 </html>
 
-    

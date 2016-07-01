@@ -1,174 +1,191 @@
 @charset "utf-8";
-body{
-	margin:0px;
-	background-color:#1a3d39;
-	font-size:12px;
-	font-family:"宋体";
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	background-image:url(../../images/16AY/bg_head_back.png);
-	background-position:top;
-	background-repeat:repeat-x;
+
+body {
+	margin: 0px;
+	background-color: #1a3d39;
+	font-size: 12px;
+	font-family: "宋体";
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-image: url(../../images/16AY/bg_head_back.png);
+	background-position: top;
+	background-repeat: repeat-x;
 }
 
-ul,div,span,td,h1,h2,h3,h4,h5,h6{
-	font-size:12px;
-	text-decoration:none;
-	font-weight:normal;
-	margin:0px;
-	padding:0px;
+ul, div, span, td, h1, h2, h3, h4, h5, h6 {
+	font-size: 12px;
+	text-decoration: none;
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
 }
 
-a.toplink:link{
-	color:#0c72aa;
-	text-decoration:none;
-}
-a.toplink:visited{
-	color:#0c72aa;
-	text-decoration:none;
-
-}
-a.toplink:active{
-	color:#14a49e;
-	text-decoration:none;
-}
-a.toplink:hover{
-	color:#14a49e;
-	text-decoration:none;
+a.toplink:link {
+	color: #0c72aa;
+	text-decoration: none;
 }
 
-.topTabOut{
-	background-image:url(../../images/16AY/bg_head_main.png);
-	background-position:top left;
-	background-repeat:no-repeat;
-	height:98px;
-	margin:0px auto;
-	width:100%;
-	}
-.titleLogo{
-	width:360px;
-	float:left;
-	margin-top:10px;
-	}
-.tdSmenu{
-	line-height:25px;
-	text-align:right;
-	padding-right:15px;
-	color:#0c72aa;
-	height:25px;
-	}
-.listDiv{
-	height:47px;
-	}
-.topTitleChn{
-	font-family:"黑体";
-	font-size:24px;
-	line-height:30px;
-	color:#FFFFFF;
-	text-align:left;
-	font-weight:bold;
-	margin-left:20px;
-	}
-.topTitleEng{
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	font-size:12px;
-	color:#FFFFFF;
-	font-weight:bold;
-	margin-left:20px;
-	}
+a.toplink:visited {
+	color: #0c72aa;
+	text-decoration: none;
+}
 
-.topCardUl{
-	float:right;
-	margin-right:5px;
-	height:32px;
-	margin-top:40px;
-	
-	}
-.topCardUl li{
-	list-style:none;
-	display:block;
-	}
-.topCardOn{
-	background-image:url(../../images/16AY/bg_card_active.png);
-	background-position:bottom;
-	background-repeat:no-repeat;
-	height:33px;
-	width:120px;
-	text-align:center;
-	margin:0px 2px;
-	float:left;
-	}
-.topCardOn span{
-	color:#FFFFFF;
-	font-size:14px;
-	font-weight:bold;
+a.toplink:active {
+	color: #14a49e;
+	text-decoration: none;
+}
+
+a.toplink:hover {
+	color: #14a49e;
+	text-decoration: none;
+}
+
+.topTabOut {
+	background-image: url(../../images/16AY/bg_head_main.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	height: 98px;
+	margin: 0px auto;
+	width: 100%;
+}
+
+.titleLogo {
+	width: 360px;
+	float: left;
+	margin-top: 10px;
+}
+
+.tdSmenu {
+	line-height: 25px;
+	text-align: right;
+	padding-right: 15px;
+	color: #0c72aa;
+	height: 25px;
+}
+
+.listDiv {
+	height: 47px;
+}
+
+.topTitleChn {
+	font-family: "黑体";
+	font-size: 24px;
+	line-height: 30px;
+	color: #FFFFFF;
+	text-align: left;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+.topTitleEng {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+.topCardUl {
+	float: right;
+	margin-right: 5px;
+	height: 32px;
+	margin-top: 40px;
+}
+
+.topCardUl li {
+	list-style: none;
+	display: block;
+}
+
+.topCardOn {
+	background-image: url(../../images/16AY/bg_card_active.png);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 120px;
+	text-align: center;
+	margin: 0px 2px;
+	float: left;
+}
+
+.topCardOn span {
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
 	/*filter:DropShadow(Color="#FFFFFF",OffX="1",OffY="1",Positive="1");*/
-	width:120px;
-	line-height:30px;
-	padding-top:3px;
-	}
-.topCardOff{
-	background-image:url(../../images/16AY/bg_card_normal.png);
-	background-position:bottom;
-	background-repeat:no-repeat;
-	height:33px;
-	width:120px;
-	margin:0px 2px;
-	text-align:center;
-	float:left;
-	cursor:hand;
-	}
-.topCardOff span{
-	font-size:14px;
-	color:#585858;
-	/*filter:DropShadow(Color="#FFFFFF",OffX="1",OffY="1",Positive="1");*/
-	width:120px;
-	line-height:30px;
-	padding-top:3px;
-	font-weight:bold;
-	}
-
-.contBarOut{
-	background-image:url(../../images/16AY/bg_nav.png);
-	height:38px;
-	margin:0 auto;
-	width:100%;
-	}
-.contBarIn{
-	background-image:url(../../images/16AY/bg_nav_f.png);
-	background-position:right;
-	background-repeat:no-repeat;
-	height:38px;
-	line-height:38px;
-	color:#d92a05;
-	margin:0 auto;
-	width:100%;
-	}
-.loginTime{
-	float:left;
-	margin-left:10px;
-	line-height:36px;
-	height:38px;
-	}
-.userInfo{
-	color:#d92a05;
-	line-height:36px;
-	float:right;
-	margin-right:10px;
-	height:38px;
+	width: 120px;
+	line-height: 30px;
+	padding-top: 3px;
 }
-.userInfo a:link,.userInfo a:visited{
-	color:#d92a05;
-	text-decoration:none;
-	}
-.userInfo a:hover{
-	color:#0c72aa;
-	text-decoration:none;
-	}
-.buttonHead{
-	background-image:url(../../images/16AY/bg_head_button.gif);
-	width:73px;
-	height:23px;
-	color:#014290;
-	border:0px;
-	}
 
+.topCardOff {
+	background-image: url(../../images/16AY/bg_card_normal.png);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 120px;
+	margin: 0px 2px;
+	text-align: center;
+	float: left;
+	cursor: hand;
+}
+
+.topCardOff span {
+	font-size: 14px;
+	color: #585858;
+	/*filter:DropShadow(Color="#FFFFFF",OffX="1",OffY="1",Positive="1");*/
+	width: 120px;
+	line-height: 30px;
+	padding-top: 3px;
+	font-weight: bold;
+}
+
+.contBarOut {
+	background-image: url(../../images/16AY/bg_nav.png);
+	height: 38px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.contBarIn {
+	background-image: url(../../images/16AY/bg_nav_f.png);
+	background-position: right;
+	background-repeat: no-repeat;
+	height: 38px;
+	line-height: 38px;
+	color: #d92a05;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.loginTime {
+	float: left;
+	margin-left: 10px;
+	line-height: 36px;
+	height: 38px;
+}
+
+.userInfo {
+	color: #d92a05;
+	line-height: 36px;
+	float: right;
+	margin-right: 10px;
+	height: 38px;
+}
+
+.userInfo a:link, .userInfo a:visited {
+	color: #d92a05;
+	text-decoration: none;
+}
+
+.userInfo a:hover {
+	color: #0c72aa;
+	text-decoration: none;
+}
+
+.buttonHead {
+	background-image: url(../../images/16AY/bg_head_button.gif);
+	width: 73px;
+	height: 23px;
+	color: #014290;
+	border: 0px;
+}

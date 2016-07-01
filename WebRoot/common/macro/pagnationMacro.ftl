@@ -1,31 +1,25 @@
-<#macro pagnation  formName currentPage totalPage reqUrl params> 
-<#assign currentPageInt =currentPage?number>
-<#assign totalPageInt =totalPage?number>
+<#macro pagnation formName currentPage totalPage reqUrl params> <#assign
+currentPageInt =currentPage?number> <#assign totalPageInt
+=totalPage?number>
 
-<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabMainBot">
-  <tr>
-    <td>
-        ${action.getText("di")}${currentPageInt}/${totalPageInt}${action.getText("page")}
-         <#if (pageNum >1)> 
-        <a href ="${reqUrl}?pageNum=1&${params}">${action.getText("firstpage")}</a>
-        </#if>
-         <#assign upPage = currentPageInt -1>
-         <#if (upPage>=1)>    
-        <a href ="${reqUrl}?pageNum=${upPage}&${params}">${action.getText("uptopage")}</a>
-        </#if>
-        <#assign downPage = currentPageInt +1>
-        <#if (downPage <= totalPageInt)> 
-        <a href ="${reqUrl}?pageNum=${downPage}&${params}">${action.getText("downtopage")}</a>
-        </#if>
-         <#if (pageNum < totalPageInt)> 
-        <a href ="${reqUrl}?pageNum =${totalPageInt}&${params}">${action.getText("endpage")}</a>
-         </#if>
-        ${action.getText("di")}
-        <input name="gotoPageNum" type="text" class="inputTextSmall" maxlength="3">
-        ${action.getText("page")}
-        <a href="#" id="gotopage" onclick="gotoPage('${currentPageInt}','${totalPageInt}')">GO</a>
-    </td>
-  </tr>
+<table width="98%" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tabMainBot">
+	<tr>
+		<td>
+			${action.getText("di")}${currentPageInt}/${totalPageInt}${action.getText("page")}
+			<#if (pageNum >1)> <a href="${reqUrl}?pageNum=1&${params}">${action.getText("firstpage")}</a>
+			</#if> <#assign upPage = currentPageInt -1> <#if (upPage>=1)> <a
+			href="${reqUrl}?pageNum=${upPage}&${params}">${action.getText("uptopage")}</a>
+			</#if> <#assign downPage = currentPageInt +1> <#if (downPage <=
+			totalPageInt)> <a href="${reqUrl}?pageNum=${downPage}&${params}">${action.getText("downtopage")}</a>
+			</#if> <#if (pageNum < totalPageInt)> <a
+			href="${reqUrl}?pageNum =${totalPageInt}&${params}">${action.getText("endpage")}</a>
+			</#if> ${action.getText("di")} <input name="gotoPageNum" type="text"
+			class="inputTextSmall" maxlength="3">
+			${action.getText("page")} <a href="#" id="gotopage"
+			onclick="gotoPage('${currentPageInt}','${totalPageInt}')">GO</a>
+		</td>
+	</tr>
 </table>
 <script>
 function   document.onkeydown()     

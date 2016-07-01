@@ -63,13 +63,13 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>书签管理</title>
-		<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>书签管理</title>
+<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 function DoCheckSubmit() {
 	if (document.form1.d_bookmarkname.value == "") {
 		alert("请输入书签名称！");
@@ -83,120 +83,86 @@ function DoCheckSubmit() {
 }
 </script>
 
-	</head>
-	<body>
-		<div id="bdy">
+</head>
+<body>
+	<div id="bdy">
 
-			<div id="nav">
-				您当前位置 &gt;&gt;
-				<a href="#" onclick="window.close();">模板管理</a> &gt;&gt;
-				<a href="bac_bookmark_list.jsp?d_templateid=<%=ms_TemplateID%>">书签管理</a>
-				&gt;&gt; 编辑书签[
-				<span class=red><%=ms_ActionDesc%></span>]
-			</div>
-			<hr />
-
-			<form name=form1 action="bac_bookmark_save.jsp" method="post"
-				onsubmit="return DoCheckSubmit();">
-				<input type=hidden name=d_id value="<%=ms_ID%>" />
-				<input type=hidden name=d_templateid value="<%=ms_TemplateID%>" />
-				<table class="edit">
-					<tr>
-						<td>
-							书签名称
-						</td>
-						<td>
-							<input type="text" name="d_bookmarkname" size="50" class="txt"
-								value="<%=ms_BookmarkName%>">
-							（在Word模板中显示名称）
-						</td>
-					</tr>
-					<tr>
-						<td>
-							书签说明
-						</td>
-						<td>
-							<input type="text" name="d_bookmarkdesc" size="50" class="txt"
-								value="<%=ms_BookmarkDesc%>">
-							（在Word模板中书签说明）
-						</td>
-					</tr>
-					<tr>
-						<td>
-							数据查询
-						</td>
-						<td>
-							<textarea class="textarea" wrap="VIRTUAL" name="d_bookmarktext"><%=ms_BookmarkText%></textarea>
-							<br />
-							（查询示例：select showField from tableName where caseId=@caseId）
-						</td>
-					</tr>
-					<tr>
-						<td>
-							显示方式
-						</td>
-						<td>
-							<select name="d_bookmarkshowtype" id="d_bookmarkshowtype"
-								onchange="showTypeChange()">
-								<option value="single"
-									<%if ("single".equals(ms_BookmarkShowType)) {%> selected <%}%>>
-									单一显示
-								</option>
-								<option value="loop"
-									<%if ("loop".equals(ms_BookmarkShowType)) {%> selected <%}%>>
-									循环显示
-								</option>
-								<option value="sysdate"
-									<%if ("sysdate".equals(ms_BookmarkShowType)) {%> selected <%}%>>
-									系统日期
-								</option>
-							</select>
-							<tbody id="endType" style="display: none">
-								<tr>
-									<td>
-										是否去除末尾符号
-									</td>
-									<td>
-										<input type="radio" name="d_bookmarkendtype" value="是"
-											id="d_bookmarkendtype_y"
-											<%if ("是".equals(ms_BookmarkEndType)) {%> checked <%}%> />
-										去除
-										<input type="radio" name="d_bookmarkendtype" value="否"
-											id="d_bookmarkendtype_n"
-											<%if ("否".equals(ms_BookmarkEndType)) {%> checked <%}%> />
-										不去除
-										<br />
-										（循环显示填写说明：{显示字段名称}{标点}{换行(选填)},如：{shenqinren}{、}{}）
-									</td>
-								</tr>
-							</tbody>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							数据显示
-						</td>
-						<td>
-							<textarea class="textarea" wrap="VIRTUAL" name="d_bookmarkshow"
-								id="d_bookmarkshow"><%=ms_BookmarkShow%></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" value=" 保 存 " class="btn">
-							<input type="reset" value=" 重 填 " class="btn">
-							<input type="button" value=" 返 回 " onclick="history.back();"
-								class="btn">
-						</td>
-					</tr>
-				</table>
-			</form>
-
-			<hr />
-
+		<div id="nav">
+			您当前位置 &gt;&gt; <a href="#" onclick="window.close();">模板管理</a>
+			&gt;&gt; <a
+				href="bac_bookmark_list.jsp?d_templateid=<%=ms_TemplateID%>">书签管理</a>
+			&gt;&gt; 编辑书签[ <span class=red><%=ms_ActionDesc%></span>]
 		</div>
-	</body>
-	<script>
+		<hr />
+
+		<form name=form1 action="bac_bookmark_save.jsp" method="post"
+			onsubmit="return DoCheckSubmit();">
+			<input type=hidden name=d_id value="<%=ms_ID%>" /> <input
+				type=hidden name=d_templateid value="<%=ms_TemplateID%>" />
+			<table class="edit">
+				<tr>
+					<td>书签名称</td>
+					<td><input type="text" name="d_bookmarkname" size="50"
+						class="txt" value="<%=ms_BookmarkName%>"> （在Word模板中显示名称）</td>
+				</tr>
+				<tr>
+					<td>书签说明</td>
+					<td><input type="text" name="d_bookmarkdesc" size="50"
+						class="txt" value="<%=ms_BookmarkDesc%>"> （在Word模板中书签说明）</td>
+				</tr>
+				<tr>
+					<td>数据查询</td>
+					<td><textarea class="textarea" wrap="VIRTUAL"
+							name="d_bookmarktext"><%=ms_BookmarkText%></textarea> <br />
+						（查询示例：select showField from tableName where caseId=@caseId）</td>
+				</tr>
+				<tr>
+					<td>显示方式</td>
+					<td><select name="d_bookmarkshowtype" id="d_bookmarkshowtype"
+						onchange="showTypeChange()">
+							<option value="single"
+								<%if ("single".equals(ms_BookmarkShowType)) {%> selected <%}%>>
+								单一显示</option>
+							<option value="loop"
+								<%if ("loop".equals(ms_BookmarkShowType)) {%> selected <%}%>>
+								循环显示</option>
+							<option value="sysdate"
+								<%if ("sysdate".equals(ms_BookmarkShowType)) {%> selected <%}%>>
+								系统日期</option>
+					</select>
+						<tbody id="endType" style="display: none">
+							<tr>
+								<td>是否去除末尾符号</td>
+								<td><input type="radio" name="d_bookmarkendtype" value="是"
+									id="d_bookmarkendtype_y"
+									<%if ("是".equals(ms_BookmarkEndType)) {%> checked <%}%> /> 去除
+									<input type="radio" name="d_bookmarkendtype" value="否"
+									id="d_bookmarkendtype_n"
+									<%if ("否".equals(ms_BookmarkEndType)) {%> checked <%}%> /> 不去除
+									<br /> （循环显示填写说明：{显示字段名称}{标点}{换行(选填)},如：{shenqinren}{、}{}）</td>
+							</tr>
+						</tbody></td>
+				</tr>
+				<tr>
+					<td>数据显示</td>
+					<td><textarea class="textarea" wrap="VIRTUAL"
+							name="d_bookmarkshow" id="d_bookmarkshow"><%=ms_BookmarkShow%></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value=" 保 存 " class="btn">
+						<input type="reset" value=" 重 填 " class="btn"> <input
+						type="button" value=" 返 回 " onclick="history.back();" class="btn">
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<hr />
+
+	</div>
+</body>
+<script>
 function showTypeChange() {
 	var showTypeValue = document.getElementById("d_bookmarkshowtype").value;
 	if (showTypeValue == "loop") {

@@ -66,12 +66,12 @@ System.out.println(ms_cassid);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>审批单未审批</title>
-		<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>审批单未审批</title>
+<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
 function ChangeFileType() {
 	var s_TemplateData = "";
@@ -115,33 +115,31 @@ function AddOption(s_Id, s_Value, s_Text) {
 }
 </script>
 
-	</head>
+</head>
 
 
-	<body onload="ChangeFileType()">
-		<div id="bdy">
+<body onload="ChangeFileType()">
+	<div id="bdy">
 
-			<div id="nav">
-				您当前位置 &gt;&gt;
-				<a href="bac_default_shenpidanweishenpi.jsp?caseId=<%=ms_cassid%>&d_username=<%=ms_userrName%>&d_checkstatus=<%=ms_checkstatus%>&finish_type=<%= ms_finishtype%>">首页</a>
-			</div>
-			<hr />
+		<div id="nav">
+			您当前位置 &gt;&gt; <a
+				href="bac_default_shenpidanweishenpi.jsp?caseId=<%=ms_cassid%>&d_username=<%=ms_userrName%>&d_checkstatus=<%=ms_checkstatus%>&finish_type=<%= ms_finishtype%>">首页</a>
+		</div>
+		<hr />
 
-			<table class="lst">
-				<tr>
-					<th colspan="2">
-						审批单未审批编辑管理——新版笔录编辑
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<form name="form1" action="bac_document_shenpidanweishenpi_edit.jsp?action=new"
-							method="post">
-							用户名：
-							<input name="d_username" id="d_username" style="width: 75px"
-								type="text" value="<%=ms_userrName%>" />
-							<input type=button value="编辑审批单未审批" onclick="printNotice()">
-							<script>
+		<table class="lst">
+			<tr>
+				<th colspan="2">审批单未审批编辑管理——新版笔录编辑</th>
+			</tr>
+			<tr>
+				<td>
+					<form name="form1"
+						action="bac_document_shenpidanweishenpi_edit.jsp?action=new"
+						method="post">
+						用户名： <input name="d_username" id="d_username" style="width: 75px"
+							type="text" value="<%=ms_userrName%>" /> <input type=button
+							value="编辑审批单未审批" onclick="printNotice()">
+						<script>
 <%!//首先用模板管理新建模板，并添加相关书签，然后修改相关参数，包括d_username、d_templateid、caseId 
 	public String tempUrl;
 	//秘书名称
@@ -167,38 +165,24 @@ function printNotice(){
 	window.open("<%=tempUrl%>");
 }
 </script>
-						</form>
-					</td>
-				</tr>
-			</table>
+					</form>
+				</td>
+			</tr>
+		</table>
 
-			<br />
+		<br />
 
-			<table class="lst">
-				<tr>
-					<th style="width: 40px;">
-						编号
-					</th>
-					<th style="width: 120px;">
-						文档编号
-					</th>
-					<th style="width: ;">
-						标题
-					</th>
-					<th style="width: 60px;">
-						作者
-					</th>
-					<th style="width: 40px;">
-						类型
-					</th>
-					<th style="width: 80px;">
-						日期
-					</th>
-					<th style="width: 220px;">
-						操作
-					</th>
-				</tr>
-				<%
+		<table class="lst">
+			<tr>
+				<th style="width: 40px;">编号</th>
+				<th style="width: 120px;">文档编号</th>
+				<th style="width:;">标题</th>
+				<th style="width: 60px;">作者</th>
+				<th style="width: 40px;">类型</th>
+				<th style="width: 80px;">日期</th>
+				<th style="width: 220px;">操作</th>
+			</tr>
+			<%
 					String sql = "select * from (select * from eWebOffice_T_Document where D_TYPE='审批单未审批'  and caseId="+ms_cassid+"and D_SHENPIDANTYPE="+ms_checkstatus+"order by d_id desc ) where rownum=1 ";
 					try {
 						con = getConn();
@@ -302,11 +286,11 @@ function printNotice(){
 						closeAll(con, stmt, rs);
 					}
 				%>
-			</table>
+		</table>
 
-			<hr />
-		</div>
-	</body>
+		<hr />
+	</div>
+</body>
 </html>
 
 

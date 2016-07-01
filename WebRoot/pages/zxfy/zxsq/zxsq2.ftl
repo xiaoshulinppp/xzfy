@@ -21,11 +21,17 @@
      <div>&nbsp;
      &nbsp;
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-   <h2 style="font-size:25px"  align="center">在线服务平台申请协议</h2>
+   <h2 style="font-size:25px"  align="center">北京市人民政府法制办公室
+行政复议信息服务平台须知</h2>
    <br>
    <br>
 
-  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../pages/zxfy/img/zxsq1.png" width="800" height＝"120" align="center"  >
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../pages/zxfy/img/zxsq2.png" width="800" height＝"100" align="center" style="text-align:center">
+
+  <br>
  <p style = "margin:15px ;line-height:160%;font-size:20px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 您好！在您填写信息之前，请认真阅读并了解以下内容：</p>
 
 <p style = "margin:15px ; line-height:160%;font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>一、本平台为自动的行政复议信息服务平台，信息提示仅供参考。</b>为方便群众申请行政复议，提高工作效率和规范化水平，

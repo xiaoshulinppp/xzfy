@@ -1,5 +1,6 @@
-<%@ page language="java" import="java.util.*,java.sql.*" pageEncoding="UTF-8"%>
-<%@include file="DBHelper.jsp" %>
+<%@ page language="java" import="java.util.*,java.sql.*"
+	pageEncoding="UTF-8"%>
+<%@include file="DBHelper.jsp"%>
 <%
 		Connection con = null;
 	    PreparedStatement stmt = null;

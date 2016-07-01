@@ -78,8 +78,8 @@
         column="postcode"
     />
 
-    <many-to-one name="xzfyInfo" cascade="all"
+   <!--  <many-to-one name="xzfyInfo" cascade="all"
 			column="xzfy_id" class="XzfyInfo"  />
-			
+			 -->
 </class>
 </hibernate-mapping>

@@ -1,4 +1,6 @@
-﻿<%@ page language="java" import="java.util.*,java.sql.*,java.text.SimpleDateFormat,java.util.Calendar,oracle.sql.BLOB,java.io.*,oracle.jdbc.driver.OracleResultSet" pageEncoding="UTF-8"%>
+﻿<%@ page language="java"
+	import="java.util.*,java.sql.*,java.text.SimpleDateFormat,java.util.Calendar,oracle.sql.BLOB,java.io.*,oracle.jdbc.driver.OracleResultSet"
+	pageEncoding="UTF-8"%>
 <%!
 	//Oracle
 	private static String DBDRIVER="oracle.jdbc.driver.OracleDriver";  

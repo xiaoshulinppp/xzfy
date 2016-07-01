@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sinosoft.sentdata.domain.dogs;
 import com.taiji.core.service.ICoreService;
 import com.taiji.core.util.PaginationSupport;
 import com.taiji.fzb.domain.Beishenqingren;
@@ -37,8 +38,17 @@ public interface XzfyService extends ICoreService {
 	 * @param entityId
 	 *            模板对象ID
 	 * @return 模板对象
+	 * @throws SQLException 
 	 */
+	
+	public List<List<String>> getXzfyInfoList(int type) throws SQLException; 
+	
+	public List<dogs> finddogs(String TBflag);
+	
+	
+	public dogs findog();
 	public XzfyInfo getXzfyById(String entityId);
+	public List<XzfyInfo> getXzfyByTB_flag(String TBflag);
 //	public XzfyBuwei getBuweiById(String xzfyId);
 	
 	//public XzfyRecieve getRecieveById(String entityId);

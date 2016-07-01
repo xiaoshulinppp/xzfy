@@ -1,19 +1,18 @@
 @charset "utf-8";
-body{
-	margin:0px;
-	background-color:#59c4fc;
-	font-size:12px;
-	background-image:url(../../images/15B/bg_foot.gif);
-	background-position:top;
-	background-repeat:repeat-x;
+
+body {
+	margin: 0px;
+	background-color: #59c4fc;
+	font-size: 12px;
+	background-image: url(../../images/15B/bg_foot.gif);
+	background-position: top;
+	background-repeat: repeat-x;
 }
 
-table{
-	font-size:12px;
+table {
+	font-size: 12px;
 }
 
-div{
-	font-size:12px;
+div {
+	font-size: 12px;
 }
-
-

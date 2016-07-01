@@ -17,7 +17,7 @@ public class XzfyAgent extends Entity{
 	private String postcode;
 	private String work_address;
 	private String cer_no;
-	private XzfyInfo xzfyInfo;
+	//private XzfyInfo xzfyInfo;
 	
 	public String getXzfy_id() {
 		return xzfy_id;
@@ -85,12 +85,12 @@ public class XzfyAgent extends Entity{
 	public void setCer_no(String cerNo) {
 		cer_no = cerNo;
 	}
-	public XzfyInfo getXzfyInfo() {
+	/*public XzfyInfo getXzfyInfo() {
 		return xzfyInfo;
 	}
 	public void setXzfyInfo(XzfyInfo xzfyInfo) {
 		this.xzfyInfo = xzfyInfo;
-	}
+	}*/
 
 }
 

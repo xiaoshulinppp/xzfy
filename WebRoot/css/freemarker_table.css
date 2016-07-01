@@ -10,7 +10,7 @@
 	margin: 0;
 }
 
-.tableview tr.filter input,#rowInput {
+.tableview tr.filter input, #rowInput {
 	text-align: left;
 	color: #333333;
 	font-size: 12px;
@@ -86,7 +86,7 @@
 #foldertab li span.messageBar {
 	margin-left: 8px;
 	color: red;
-	font-weight: bold;	
+	font-weight: bold;
 	visibility: hidden;
 }
 
@@ -149,7 +149,7 @@ ul#squaretab {
 	border: 1px solid #DFDFDF;
 }
 
-#squaretab a:link,#squaretab a:visited {
+#squaretab a:link, #squaretab a:visited {
 	color: #fff;
 	background-color: #DFDFDF;
 	text-decoration: none;

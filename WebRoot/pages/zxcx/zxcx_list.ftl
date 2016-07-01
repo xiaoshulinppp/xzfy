@@ -18,99 +18,97 @@
 	    </div>
 	    <div class="xzfy-table xzfy1-table">
 	    	<table class="table">
-	    		<colgroup>
+	    	<!--	<colgroup>
                     <col style="width: 30%;" />
                     <col style="width: 70%;" />
                 </colgroup>
+                -->
                 <tbody>
+                	<colgroup>
+	                    <col width="20%;"/>
+	                    <col width="35%;"/>
+	                    <col width="45%;"/>
+	                </colgroup>
 			    	<tr>
 						<td colspan=3>案件信息</td>
 					</tr>
 					<tr>
-					<td rowspan=5>申请人</td>
-					</tr>
-					<tr>
+						<td rowspan=3>申请人</td>
 						<td>申请日期</td>
-						<td>${infoModel.receiveDate?default('')}</td>
+						<td>${xzfyInfo.receive_real_date?default('')}</td>
 					</tr>
 					<tr>
 						<td>申请人</td>
-						<td>${appName?default('')}</td>
+						 <#assign appdetail=xzfyInfo.appdetail?default('')>
+						<td>${appdetail}</td>
 					</tr>
 					<tr>
 						<td>代表人</td>
-						<td>${appDeputyName?default('')}</td>
+						<#assign dbrDetail=xzfyInfo.dbrDetail?default('')>
+						<td>${dbrDetail}</td>
 					</tr>
-					<tr>
-						<td>主要联系人</td>
-						<td>${appLinkName?default('')}</td>
-					</tr>
-					<#if infoModel.defendantType='4'>
+					<#assign defendant_type=xzfyInfo.defendant_type?default('')>
+   <#assign defendant_type_2=""?default('')>
+    
+   <#if defendant_type=="3">
+					 <#assign defendant_type_2="乡镇街道">   
+					         
+	 <#elseif  defendant_type=="4">
+					         <#assign defendant_type_2="区县政府部门">
+	<#elseif defendant_type=="5">
+					               
+	                      <#assign defendant_type_2="区县政府">
+	<#elseif defendant_type=="6">
+					       <#assign defendant_type_2="省级政府">       
+	 <#elseif  defendant_type=="7">
+					  <#assign defendant_type_2="省级政府部门">
+	<#elseif defendant_type=="8">
+					    <#assign defendant_type_2="其他">    
+	 <#elseif  defendant_type=="9">
+					         <#assign defendant_type_2="区县政府部门派出机构">
+     <#elseif  defendant_type=="11">
+					        <#assign defendant_type_2="国务院部门">
+					        
+	</#if>
 						<tr>
-							<td rowspan=4>被申请人</td>
-						</tr>
-						<tr>
-							<td>行政复议机关</td>
-							<td>${infoModel.xzfyOrg?default('')}</td>
-						</tr>
-						<tr>
+							<td rowspan=2>被申请人</td>
 							<td>被申请人种类</td>
-							<td>其它</td>
+							<td>${defendant_type_2}</td>
 						</tr>
 						<tr>
 							<td>被申请人名称</td>
-							<td>${infoModel.defendantRealName?default('')}</td>
+							 <#assign defendant_name=xzfyInfo.defendant_name?default('')>
+							<td>${defendant_name}</td>
 						</tr>
-					<#else>
-						<tr>
-							<td rowspan=3>被申请人</td>
-						</tr>
-						<tr>
-							<td>行政复议机关</td>
-							<td>${infoModel.xzfyOrg?default('')}</td>
-						</tr>
-						<tr>
-							<td>被申请人种类</td>
-							<#if infoModel.defendantType='1'>
-								<td>区县政府</td>
-							</#if>
-							<#if infoModel.defendantType='2'>
-								<td>省级政府部门</td>
-							</#if>
-							<#if infoModel.defendantType='3'>
-								<td>省级行政机关</td>
-							</#if>
-						</tr>
-					</#if>
+					
+					
+					
 					<tr>
-						<td rowspan=4>复议请求</td>
+						<td rowspan=2>复议请求</td>
+						<td>要求复议的具体行政行为情况</td>
+						<td> <#assign require_fy=xzfyInfo.require_fy?default('')> ${require_fy}</td>
+						
 					</tr>
-					<tr>
-						<td>具体行政行为</td>
-						<td>${infoModel.xzfyRequset?default('1')}</td>
-					</tr>
-					<tr>
-						<td>请求如何处理</td>
-						<td>${infoModel.xzfyRequsetRetail?default('2')}</td>
-					</tr>
+					
 					<tr>
 						<td>是否行政不作为</td>
-						<#if infoModel.isManage=='0'>
+						<#assign ismanage=xzfyInfo.ismanage?default('')>
+						<#if ismanage=='0'>
 							<td>否</td>
 						<#else>
 							<td>是</td>
 						</#if>
 					</tr>
 					<tr>
-						<td rowspan=4>事实及理由</td>
+						<td rowspan=2>事实及理由</td>
+						<td>要求被申请人履行日期</td>
+						<#assign zhidaosj=xzfyInfo.zhidaosj?default('')>
+						<td>${zhidaosj}</td>
 					</tr>
 					<tr>
-						<td>知道该具体行政行为的时间</td>
-						<td>${infoModel.executeDate?default('')}</td>
-					</tr>
-					<tr>
-						<td>该具体行政行为侵害申请人合法权益的事实</td>
-						<td>${infoModel.breakRight?default('')}</td>
+						<td>曾要求被申请人履行何职责</td>
+						 <#assign is_prof_detail=xzfyInfo.is_prof_detail?default('')>
+						<td>${is_prof_detail}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -131,7 +129,8 @@
 				                    <col style="width: 70%;" />
 				                </colgroup>
 				                <tbody>
-									<#if infoModel.finishRealDate?exists>
+								
+								<#--<#if infoModel.finishRealDate?exists>
 										<tr>
 											<td>${infoModel.finishRealDate?default('')}</td>
 											<td>结案日期</td>
@@ -196,13 +195,16 @@
 											<td>${infoModel.receiveRealDate?default('')}</td>
 											<td>当面确认</td>
 										</tr>
-									</#if>
-									<#if infoModel.receiveDate?exists>
+									</#if>-->
+									
 										<tr>
-											<td>${infoModel.receiveDate?default('')}</td>
-											<td>提交申请</td>
+										
+											<td><font style="color:red">2016-06-22</font></td>
+											<td> <font style="color:red"> 提交申请</font></td>
+										
 										</tr>
-									</#if>
+									
+									
 								</tbody>
 							</table>
 						</td>

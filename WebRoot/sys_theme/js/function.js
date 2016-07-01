@@ -1457,6 +1457,7 @@ function setxz(idValue){
 
 function setApp(divName,type){
 	document.getElementById("tiqu").value="0";
+	//alert("111");
 	//closeSelect();
 	if (type == 1){
 		var top = 550;    
@@ -1539,7 +1540,282 @@ function closeApp(){
 	
 	for(var i=0;i<bjdr1.length;i++){
 		if(bjdr1.item(i).value==""){
-			alert("请填写申请人姓名！");return;
+			alert("请填写被申请人姓名！");return;
+		}
+		if(i<5){
+		if(bnum.item(i).value==""){
+			alert("请填写身份证号码！");return;
+		}
+		}
+		userString=userString+bjdr1.item(i).value+"，"+bsex.item(i).value;
+		if(bnum.item(i).value==""){userString=userString+"，";}
+		else{userString=userString+"，身份证号"+bnum.item(i).value;}
+			
+		if(baddress.item(i).value==""){userString=userString+"，";}
+		else{userString=userString+"，送达地址"+baddress.item(i).value;}
+			
+		if(bpost.item(i).value==""){userString=userString+"，";}
+		else {userString=userString+"，邮编"+bpost.item(i).value;}
+		
+		if(bphone.item(i).value==""){userString=userString+"，";}
+		else{ userString=userString+"，电话"+bphone.item(i).value;}
+		
+		userString=userString+"；"
+	}
+	
+	var applicationsum=document.getElementById("rencount").value;
+	document.getElementById("rencount").value=bjdr1.length;
+
+	renCount();
+	//userString=userString+"共计"+applicationsum+"人。";
+	////var sqroldvalue = document.getElementById("shenqingren").value;
+	document.getElementById("shenqingren").value=userString;
+}
+
+var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/; 
+var isMob=/^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/; 
+function closeApp_w(){//gongmin
+//	openSelect();
+	
+	document.getElementById("appDiv").style.display="none";
+	var tuser=document.getElementById("tapp");
+	var bjdr1=document.getElementsByName("appsqr");
+	var bsex=document.getElementsByName("appsex");
+	var bnum=document.getElementsByName("appnum");
+	var baddress=document.getElementsByName("appaddress");
+	var bpost=document.getElementsByName("apppost");
+	var bphone=document.getElementsByName("appphone");
+	
+	var userString="";
+	var userString_cang="";
+	var reg = new RegExp("^[0-9]*$");  
+	
+	for(var i=0;i<bjdr1.length;i++){
+		if(bjdr1.item(i).value==""){
+			alert("请填写被申请人姓名！");return;
+		}
+		if(bsex.item(i).value==""){
+			alert("请填写被申请人性别！");return;
+		}
+		if(bnum.item(i).value==""){
+			alert("请填写被申请人身份证号！");return;
+		}else{
+			if(!IdCardValidate(bnum.item(i).value)){
+				alert("请输入正确格式的身份证号！");return;
+				
+			}
+			
+			
+		}
+		if(baddress.item(i).value==""){
+			alert("请填写被申请人送达地址！");return;
+		}
+		if(bpost.item(i).value==""){
+			alert("请填写被申请人邮编！");return;
+		}else{
+			
+			if(!youzheng(bpost.item(i).value)){
+				
+				alert("请输入正确格式的邮政编码！");return;
+			}
+		}
+		if(bphone.item(i).value==""){
+			alert("请填写被申请人电话！");return;
+		}else{
+	    	
+			 if(isMob.test(bphone.item(i).value)||isPhone.test(bphone.item(i).value)){ 
+	    	       
+	    	    }else{
+	    	    	
+	    	    	alert("请输入正确的电话格式！");return;
+	    	    	
+	    	    }
+	    }
+		userString=userString+"( "+(i+1)+" )"+bjdr1.item(i).value+"，"+bsex.item(i).value;
+		userString_cang=userString_cang+bjdr1.item(i).value+"$"+bsex.item(i).value;
+		if(bnum.item(i).value==""){
+		
+			userString=userString+"，";
+			
+		}
+		else{
+		
+			userString=userString+"，身份证号："+bnum.item(i).value;
+			userString_cang=userString_cang+"$身份证号"+bnum.item(i).value;
+			
+		}
+			
+		if(baddress.item(i).value==""){
+			
+			userString=userString+"，";
+			}
+		else{
+			
+			userString=userString+"，送达地址："+baddress.item(i).value;
+			userString_cang=userString_cang+"$送达地址"+baddress.item(i).value;
+		}
+			
+		if(bpost.item(i).value==""){
+			userString=userString+"，";
+			}
+		else {
+			userString=userString+"，邮编："+bpost.item(i).value;
+			userString_cang=userString_cang+"$邮编"+bpost.item(i).value;
+			}
+		
+		if(bphone.item(i).value==""){
+			userString=userString+"，";
+			}
+		else{ 
+			
+			userString=userString+"，电话："+bphone.item(i).value;
+			userString_cang=userString_cang+"$电话"+bphone.item(i).value;
+			
+		}
+		
+		userString=userString+"；"  
+		userString_cang=userString_cang+"&"  
+	}
+	
+	var applicationsum=document.getElementById("rencount").value;
+	document.getElementById("rencount").value=bjdr1.length;
+
+	renCount();
+	//userString=userString+"共计"+applicationsum+"人。";
+	////var sqroldvalue = document.getElementById("shenqingren").value;
+	document.getElementById("shenqingren").value=userString+" 共计  "+bjdr1.length+" 人";
+	document.getElementById("shenqingren_cang").value=userString_cang;
+}
+
+
+var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];    // 加权因子   
+var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];            // 身份证验证位值.10代表X   
+function IdCardValidate(idCard) {   //身份证校验实例
+    idCard = trim(idCard.replace(/ /g, ""));               //去掉字符串头尾空格                     
+    if (idCard.length == 15) {   
+        return isValidityBrithBy15IdCard(idCard);       //进行15位身份证的验证    
+    } else if (idCard.length == 18) {   
+        var a_idCard = idCard.split("");                // 得到身份证数组   
+        if(isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)){   //进行18位身份证的基本验证和第18位的验证
+            return true;   
+        }else {   
+            return false;   
+        }   
+    } else {   
+        return false;   
+    }   
+}   
+/**  
+ * 判断身份证号码为18位时最后的验证位是否正确  
+ * @param a_idCard 身份证号码数组  
+ * @return  
+ */  
+function isTrueValidateCodeBy18IdCard(a_idCard) {   
+    var sum = 0;                             // 声明加权求和变量   
+    if (a_idCard[17].toLowerCase() == 'x') {   
+        a_idCard[17] = 10;                    // 将最后位为x的验证码替换为10方便后续操作   
+    }   
+    for ( var i = 0; i < 17; i++) {   
+        sum += Wi[i] * a_idCard[i];            // 加权求和   
+    }   
+    valCodePosition = sum % 11;                // 得到验证码所位置   
+    if (a_idCard[17] == ValideCode[valCodePosition]) {   
+        return true;   
+    } else {   
+        return false;   
+    }   
+}   
+/**  
+  * 验证18位数身份证号码中的生日是否是有效生日  
+  * @param idCard 18位书身份证字符串  
+  * @return  
+  */  
+function isValidityBrithBy18IdCard(idCard18){   
+    var year =  idCard18.substring(6,10);   
+    var month = idCard18.substring(10,12);   
+    var day = idCard18.substring(12,14);   
+    var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));   
+    // 这里用getFullYear()获取年份，避免千年虫问题   
+    if(temp_date.getFullYear()!=parseFloat(year)   
+          ||temp_date.getMonth()!=parseFloat(month)-1   
+          ||temp_date.getDate()!=parseFloat(day)){   
+            return false;   
+    }else{   
+        return true;   
+    }   
+}   
+  /**  
+   * 验证15位数身份证号码中的生日是否是有效生日  
+   * @param idCard15 15位书身份证字符串  
+   * @return  
+   */  
+  function isValidityBrithBy15IdCard(idCard15){   
+      var year =  idCard15.substring(6,8);   
+      var month = idCard15.substring(8,10);   
+      var day = idCard15.substring(10,12);   
+      var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));   
+      // 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法   
+      if(temp_date.getYear()!=parseFloat(year)   
+              ||temp_date.getMonth()!=parseFloat(month)-1   
+              ||temp_date.getDate()!=parseFloat(day)){   
+                return false;   
+        }else{   
+            return true;   
+        }   
+  }   
+//去掉字符串头尾空格   
+function trim(str) {   
+    return str.replace(/(^\s*)|(\s*$)/g, "");   
+}  
+
+//邮件地址的验证（包含@和.）
+function  youxiang(ss){
+var re;
+//var ss=document.getElementById(textboxid).value;
+re= /\w@\w*\.\w/
+if(re.test(ss))
+	return true;
+else
+{
+	return false; 
+ //document.getElementById('label4').innerText="请输入正确的邮件地址！";
+// document.getElementById('imagebutton1').disabled=true;
+}
+}
+//邮政编码的验证（开头能为0，共6位）
+
+//var ss=document.getElementById('TextBox4').value;
+function youzheng(ss){
+var re= /^[0-9]{6}$/
+if(re.test(ss))
+	return true;
+else
+{
+	return false;
+
+}
+}
+function closeApp_gaiqianbeifen(){
+//	openSelect();
+	
+	document.getElementById("appDiv").style.display="none";
+	var tuser=document.getElementById("tapp");
+	var userString="";
+	var bjdr1=document.getElementsByName("appsqr");
+	var bsex=document.getElementsByName("appsex");
+	var bnum=document.getElementsByName("appnum");
+	var baddress=document.getElementsByName("appaddress");
+	var bpost=document.getElementsByName("apppost");
+	var bphone=document.getElementsByName("appphone");
+	
+	for(var i=0;i<bjdr1.length;i++){
+		if(bjdr1.item(i).value==""){
+			alert("请填写被申请人姓名！");return;
+		}
+		if(i<5){
+		if(bnum.item(i).value==""){
+			alert("请填写身份证号码！");return;
+		}
 		}
 		userString=userString+bjdr1.item(i).value+"，"+bsex.item(i).value;
 		if(bnum.item(i).value!="")
@@ -1558,6 +1834,7 @@ function closeApp(){
 
 	renCount();
 	//userString=userString+"共计"+applicationsum+"人。";
+	////var sqroldvalue = document.getElementById("shenqingren").value;
 	document.getElementById("shenqingren").value=userString;
 }
 
@@ -1791,8 +2068,11 @@ function addFr(){
 		handleList.item(i).value="";
 	}
 	var taList=ob1.getElementsByTagName("textarea");
+	
+	var taList2=ob1.getElementsByTagName("select");
 	taList.item(0).value="";
 	tuser.insertBefore(ob1,ins);
+	
 }
 
 function checkFr(){
@@ -1810,6 +2090,7 @@ function checkFr(){
 		if (frsqr.item(i).value==""){
 			alert("请填写被申请人姓名！");return false;
 		}
+		
 		if(fzrother.item(i).value!=0)
 			userString=userString+"（"+fzrother.item(i).value+"）";
 		if(fuzeren.item(i).value!="")
@@ -1829,6 +2110,109 @@ function checkFr(){
 //	setAppname();
 //	setCountAppname('shenqingren','rencount');
 }
+function checkFr_w(){  //faren
+	var tuser=document.getElementById("tfaren");
+	var frsqr=document.getElementsByName("frsqr");
+	var fuzeren=document.getElementsByName("fuzeren");
+	var fzrlb=document.getElementsByName("fzrlb");
+	var fzraddress=document.getElementsByName("fzraddress");
+	var fzrpost=document.getElementsByName("fzrpost");
+	var fzrtele=document.getElementsByName("fzrtele");
+	var fzrother=document.getElementsByName("fzrother");
+	
+	var userString="";
+	var userString_cang="";
+	for(var i=0;i<frsqr.length;i++){
+		
+		
+		userString=userString+"("+(i+1)+")"+frsqr.item(i).value;
+		userString_cang=userString_cang+frsqr.item(i).value;
+		
+		if (frsqr.item(i).value==""){
+			alert("请填写申请人姓名！");return false;
+		}
+		if (fuzeren.item(i).value==""){
+			alert("请填写代表人姓名！");return false;
+		}
+		if (fzrlb.item(i).value==""){
+			alert("请填写代表人类别！");return false;
+		}
+		if (fzraddress.item(i).value==""){
+			alert("请填写申请人送达地址！");return false;
+		}
+		if (fzrpost.item(i).value==""){
+			alert("请填写申请人邮编！");return false;
+		}else{
+			
+			if(!youzheng(fzrpost.item(i).value)){
+				
+				alert("请输入正确格式的邮政编码！");return;
+			}
+		}
+		if (fzrtele.item(i).value==""){
+			alert("请填写申请人电话！");return false;
+		}else{
+	    	
+			 if(isMob.test(fzrtele.item(i).value)||isPhone.test(fzrtele.item(i).value)){ 
+	    	       
+	    	    }else{
+	    	    	
+	    	    	alert("请输入正确的电话格式！");return;
+	    	    	
+	    	    }
+	    }
+		if (fzrother.item(i).value==""){
+			alert("请填写申请人其他！");return false;
+		}
+		
+		if(fzrother.item(i).value!=0)
+			{userString=userString+"（"+fzrother.item(i).value+"）";
+			userString_cang=userString_cang+"$"+fzrother.item(i).value;}
+		else{
+			userString_cang=userString_cang+"$"+fzrother.item(i).value;
+			
+		}
+		if(fuzeren.item(i).value!="")
+			{
+			     userString=userString+"，"+fzrlb.item(i).value+"是："+fuzeren.item(i).value;
+			userString_cang=userString_cang+"$"+fzrlb.item(i).value+"$"+fuzeren.item(i).value;
+			}
+		if(fzraddress.item(i).value!="")
+			
+			{
+			userString=userString+"，送达地址"+fzraddress.item(i).value;
+			userString_cang=userString_cang+"$"+fzraddress.item(i).value;
+
+			
+			}
+		if(fzrpost.item(i).value!="")
+			{
+			userString=userString+"，邮编"+fzrpost.item(i).value;
+			userString_cang=userString_cang+"$"+fzrpost.item(i).value;
+			
+			
+			}
+		if(fzrtele.item(i).value!="")
+			{
+			userString=userString+"，电话"+fzrtele.item(i).value;
+			userString_cang=userString_cang+"$"+fzrtele.item(i).value;
+			
+			
+			}
+		userString=userString+"；"
+		userString_cang=userString_cang+"&"
+
+	}
+	document.getElementById("rencount").value=frsqr.length;
+	document.getElementById("appname").value=userString+"  共"+frsqr.length+" 人";
+	document.getElementById("appname_cang").value=userString_cang;
+	renCount();
+//	setAppname();
+//	setCountAppname('shenqingren','rencount');
+}
+
+
+
 
 function setFrCount(){
 	document.getElementById("rencount").value=document.getElementById("arencount").value;
@@ -1934,7 +2318,7 @@ function addXw(){
 }
 
 
-function checkXw(){
+function checkXw(){//原始内网页面用
 	var tuser=document.getElementById("txw");
 	var userString="";
 	var userStringAll="";
@@ -1945,6 +2329,8 @@ function checkXw(){
 	var zd3=document.getElementsByName("zd3");
 	var tujing=document.getElementsByName("tujing");
 
+//	var oldvalue=document.getElementById("xw_an_old").value;
+	
 	var userString1="";
 	var userString2="";
 	var xingwei1="";
@@ -2063,10 +2449,319 @@ function checkXw(){
 	document.getElementById("require_fy").value=userStringAll;
 }
 
+function checkXw_zl(){ //转录页面用
+	var tuser=document.getElementById("txw");
+	var userString="";
+	var userStringAll="";
+	var frsqr=document.getElementsByName("xzfyInfo.xwname");
+	var fuzeren=document.getElementsByName("xzfyInfo.xwnum");
+	var zd1=document.getElementsByName("zd1");
+	var zd2=document.getElementsByName("zd2");
+	var zd3=document.getElementsByName("zd3");
+	var tujing=document.getElementsByName("tujing");
+
+	var oldvalue=document.getElementById("xw_an_old").value;
+	
+	var userString1="";
+	var userString2="";
+	var xingwei1="";
+	var xingwei2="";
+	for(var i=0;i<frsqr.length;i++){
+		var n=i+1;
+		if(frsqr.length==1){
+			if(frsqr.item(i).value=="") {
+				alert("被复议的具体行为-名称");
+				return false;;
+			}
+			userString=userString+frsqr.item(i).value;
+			userString1=userString1+frsqr.item(i).value+"；";
+			userStringAll=userStringAll+frsqr.item(i).value;
+			if(fuzeren.item(i).value!=""){
+				userString=userString+"（"+fuzeren.item(i).value+"）";
+				userStringAll=userStringAll+"（"+fuzeren.item(i).value+"）；";
+				userString2=userString2+fuzeren.item(i).value+"；";
+			} 
+			var zdate="";
+			if(zd1.item(i).value!=0){
+			zdate=zd1.item(i).value+"年";
+			if(zd2.item(i).value!=0){
+				zdate=zdate+zd2.item(i).value+"月";
+				if(zd3.item(i).value!=0){
+					zdate=zdate+zd3.item(i).value+"日";
+				}	
+			}
+			}
+			if(zdate!=""){
+				userStringAll=userStringAll+"知道时间："+zdate;
+				document.getElementById("buzheng_from").value=zdate;
+			}
+			
+			if(tujing.item(i).value!=""){
+				userStringAll=userStringAll+"（"+tujing.item(i).value+"）；";
+				document.getElementById("buzheng_from").value=document.getElementById("buzheng_from").value+"（"+tujing.item(i).value+"）";
+			}else{
+				userStringAll=userStringAll+"；";
+			}
+		}else{
+			if(frsqr.item(i).value=="") {
+				alert("被复议的具体行为-名称");
+				return false;
+			}
+			userString=userString+"（"+n+"）"+frsqr.item(i).value;
+			userString1=userString1+"（"+n+"）"+frsqr.item(i).value+"；";
+			userStringAll=userStringAll+"（"+n+"）"+frsqr.item(i).value+"；";
+			if(fuzeren.item(i).value!=""){
+				userString=userString+"（"+fuzeren.item(i).value+"）";
+				userString2=userString2+n+fuzeren.item(i).value+"；";
+				userStringAll=userStringAll+fuzeren.item(i).value+"；";
+			}
+			var zdate="";
+			if(zd1.item(i).value!=0){
+			zdate=zd1.item(i).value+"年";
+			if(zd2.item(i).value!=0){
+				zdate=zdate+zd2.item(i).value+"月";
+				if(zd3.item(i).value!=0){
+					zdate=zdate+zd3.item(i).value+"日";
+				}	
+			}
+			}
+			if(zdate!=""){
+				userStringAll=userStringAll+"知道时间："+zdate;
+				document.getElementById("buzheng_from").value=zdate;
+			}
+			if(tujing.item(i).value!=""){
+				userStringAll=userStringAll+"（"+tujing.item(i).value+"）；";
+				document.getElementById("buzheng_from").value=document.getElementById("buzheng_from").value+"（"+tujing.item(i).value+"）；";
+			}else{
+				userStringAll=userStringAll+"；";
+			}
+		}
+		if(i<frsqr.length-1)
+			userString=userString+"；";
+		else
+			userString=userString+"。";
+	}
+	document.getElementById("xingwei1").value=userString;
+	
+	document.getElementById("xingwei").value=userString1;
+	//document.getElementById("anum").value=userString2;
+
+	for(var j=0;j<tujing.length;j++){
+		var n=j+1;
+		var zdate="";
+		if(zd1.item(j).value!=0){
+			zdate=zd1.item(j).value+"年";
+			if(zd2.item(j).value!=0){
+				zdate=zdate+zd2.item(j).value+"月";
+				if(zd3.item(j).value!=0){
+					zdate=zdate+zd3.item(j).value+"日";
+				}	
+			}
+		}
+		if(tujing.length==1){
+			xingwei2=xingwei2+zdate;
+			if(tujing.item(j).value!=""){
+				xingwei2=xingwei2+"（"+tujing.item(j).value+"）";
+			}
+		}else{
+			xingwei2=xingwei2+"（"+n+"）"+zdate;
+			if(tujing.item(j).value!=""){
+				xingwei2=xingwei2+"（"+tujing.item(j).value+"）";
+			}
+		}
+		if(j<tujing.length-1)
+			xingwei2=xingwei2+"；";
+		else
+			xingwei2=xingwei2+"。";
+	}
+	document.getElementById("xingwei2").value=xingwei2;
+	userString=userString+"<br>"+xingwei2;
+	document.getElementById("xw_an").innerHTML=oldvalue+  userStringAll;
+	document.getElementById("require_fy").value=oldvalue+ userStringAll;
+}
+
+function checkXw_w(){//外网页面用
+	var tuser=document.getElementById("txw");
+	var frsqr=document.getElementsByName("xzfyInfo.xwname");//复议名称，即是字符串项，也是数据库表单项
+	var fuzeren=document.getElementsByName("xzfyInfo.xwnum");//复议文号，即是字符串项，也是数据库表单项
+	var zd1=document.getElementsByName("zd1");//知道时间 年
+	var zd2=document.getElementsByName("zd2");//知道时间 月
+	var zd3=document.getElementsByName("zd3");//知道时间  日
+	var tujing=document.getElementsByName("tujing"); //知道途径
+
+//	var oldvalue=document.getElementById("xw_an_old").value;
+	
+	//名称1$文号1$1998-2-3$途径1&
+	//名称$文号$1997-2-3$途径&名称$文号$2013-6-16$途径&
+	var userString="";
+	//userString: "文书名称（文书文号）。<br>2005年10月17日（途径为他人告知）。
+	//userString: "（1）文书名称（文书文号）；（2）文书名称（文书文号）。<br>（1）2005年10月17日（途径为他人告知）；（2）2015年6月14日（城管告知）。"
+	var userStringAll="";
+	var userStringAll_cang="";
+	//userStringAll: "（1）文书名称；文书文号；知道时间：2005年10月17日（途径为他人告知）；（2）文书名称；文书文号；知道时间：2015年6月14日（城管告知）；"
+	//userStringAll: "文书名称（文书文号）；知道时间：2005年10月17日（途径为他人告知）；"
+	var userString1="";
+	//userString1: "文书名称；"
+	//userString1: "（1）文书名称；（2）文书名称；"
+	var userString2="";
+	//userString2: "1文书文号；2文书文号；"
+	//userString2: "文书文号；"
+	var xingwei1="";
+	//无值
+	var xingwei2="";
+	var jianshu="";
+	//xingwei2: "（1）2005年10月17日（途径为他人告知）；（2）2015年6月14日（城管告知）。"
+	//xingwei2: "2005年10月17日（途径为他人告知）。"
+	for(var i=0;i<frsqr.length;i++){
+			var n=i+1;
+			if(frsqr.length==1){ //一个案子的时候
+					if(frsqr.item(i).value=="") {  //为空验证
+						alert("被复议的具体行为-名称");
+						return false;;
+					}
+					userString=userString+frsqr.item(i).value;
+					userString1=userString1+frsqr.item(i).value+"；";
+					userStringAll=userStringAll+frsqr.item(i).value;
+					userStringAll_cang=userStringAll_cang+frsqr.item(i).value;
+					if(fuzeren.item(i).value!=""){
+						userString=userString+"（"+fuzeren.item(i).value+"）";
+						userStringAll=userStringAll+"（"+fuzeren.item(i).value+"）；";
+						
+						jianshu=fuzeren.item(i);
+						userStringAll_cang=userStringAll_cang+"$"+fuzeren.item(i).value+"$";
+						userString2=userString2+fuzeren.item(i).value+"；";
+					} 
+					var zdate="";
+					var zdate_cang="";
+					if(zd1.item(i).value!=0){
+					zdate=zd1.item(i).value+"年";
+					zdate_cang=zd1.item(i).value+"-";
+					if(zd2.item(i).value!=0){
+						zdate=zdate+zd2.item(i).value+"月";
+						zdate_cang=zdate_cang+zd2.item(i).value+"-";
+						if(zd3.item(i).value!=0){
+							zdate=zdate+zd3.item(i).value+"日";
+							zdate_cang=zdate_cang+zd3.item(i).value;
+						}	
+					}
+					}
+					if(zdate!=""){
+						userStringAll=userStringAll+"知道时间："+zdate;
+						userStringAll_cang=userStringAll_cang+zdate_cang;
+						
+						document.getElementById("buzheng_from").value=zdate;
+					}
+					
+					if(tujing.item(i).value!=""){
+						userStringAll=userStringAll+"（"+tujing.item(i).value+"）；";
+						userStringAll_cang=userStringAll_cang+"$"+tujing.item(i).value+"&";
+						
+						document.getElementById("buzheng_from").value=document.getElementById("buzheng_from").value+"（"+tujing.item(i).value+"）";
+					}else{
+						userStringAll=userStringAll+"；";
+					}
+		 }else{//多个案子的时候。
+					if(frsqr.item(i).value=="") {
+						alert("被复议的具体行为-名称");
+						return false;
+					}
+					userString=userString+"（"+n+"）"+frsqr.item(i).value;
+					userString1=userString1+"（"+n+"）"+frsqr.item(i).value+"；";
+					userStringAll=userStringAll+"（"+n+"）"+frsqr.item(i).value+"；";
+					userStringAll_cang=userStringAll_cang+frsqr.item(i).value+"$";
+					
+					if(fuzeren.item(i).value!=""){
+						userString=userString+"（"+fuzeren.item(i).value+"）";
+						userString2=userString2+n+fuzeren.item(i).value+"；";
+						userStringAll=userStringAll+fuzeren.item(i).value+"；";
+						userStringAll_cang=userStringAll_cang+fuzeren.item(i).value+"$";
+					}
+					var zdate="";
+					var zdate_cang="";
+					if(zd1.item(i).value!=0){
+					zdate=zd1.item(i).value+"年";
+					zdate_cang=zd1.item(i).value+"-";
+					if(zd2.item(i).value!=0){
+						zdate=zdate+zd2.item(i).value+"月";
+						zdate_cang=zdate_cang+zd2.item(i).value+"-";
+						if(zd3.item(i).value!=0){
+							zdate=zdate+zd3.item(i).value+"日";
+							zdate_cang=zdate_cang+zd3.item(i).value;
+						}	
+					}
+					}
+					if(zdate!=""){
+						userStringAll=userStringAll+"知道时间："+zdate;
+						userStringAll_cang=userStringAll_cang+zdate_cang;
+						document.getElementById("buzheng_from").value=zdate;
+					}
+					if(tujing.item(i).value!=""){
+						userStringAll=userStringAll+"（"+tujing.item(i).value+"）；";
+						userStringAll_cang=userStringAll_cang+"$"+tujing.item(i).value+"&";
+						document.getElementById("buzheng_from").value=document.getElementById("buzheng_from").value+"（"+tujing.item(i).value+"）；";
+					}else{
+						userStringAll=userStringAll+"；";
+						userStringAll_cang=userStringAll_cang+"&";
+					}
+			}
+				if(i<frsqr.length-1)
+					userString=userString+"；";
+				else
+					userString=userString+"。";
+	}
+	document.getElementById("xingwei1").value=userString;
+	
+	document.getElementById("xingwei").value=userString1;
+	//document.getElementById("anum").value=userString2;
+
+	for(var j=0;j<tujing.length;j++){
+			var n=j+1;
+			var zdate="";
+			if(zd1.item(j).value!=0){
+				zdate=zd1.item(j).value+"年";
+				if(zd2.item(j).value!=0){
+					zdate=zdate+zd2.item(j).value+"月";
+					if(zd3.item(j).value!=0){
+						zdate=zdate+zd3.item(j).value+"日";
+					}	
+				}
+			}
+			if(tujing.length==1){
+				xingwei2=xingwei2+zdate;
+				if(tujing.item(j).value!=""){
+					xingwei2=xingwei2+"（"+tujing.item(j).value+"）";
+				}
+			}else{
+				xingwei2=xingwei2+"（"+n+"）"+zdate;
+				if(tujing.item(j).value!=""){
+					xingwei2=xingwei2+"（"+tujing.item(j).value+"）";
+				}
+			}
+			if(j<tujing.length-1)
+				xingwei2=xingwei2+"；";
+			else
+				xingwei2=xingwei2+"。";
+	}
+	document.getElementById("xingwei2").value=xingwei2;
+	userString=userString+"<br>"+xingwei2;
+	document.getElementById("xw_an").innerHTML=  userStringAll +"共"+jianshu+"件";
+	document.getElementById("require_fy").value= userStringAll +"共"+jianshu+"件";
+	document.getElementById("xw_an_cang").value=userStringAll_cang;
+	
+}
+
+
+
 function closeDivXw(){
 	checkXw();
 	closeDivById('xwDiv');
 }
+
+function closeDivXw_w(){
+	checkXw_w();
+	closeDivById('xwDiv');
+}
+
 
 function deleteXw(e){
 	var tuser=document.getElementById("txw");
@@ -2229,7 +2924,7 @@ function check_qtfyjg(idValue){
 		document.getElementById("qtfyjg").style.display="block";
 	else
 		document.getElementById("qtfyjg").style.display="none";
-		document.getElementById("shuoming").value="";
+		//document.getElementById("shuoming").value="";
 }
 
 function checkComma(obj){

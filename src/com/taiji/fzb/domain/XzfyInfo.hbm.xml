@@ -54,7 +54,7 @@
 			column="defendant_type" length="2" />
 
 		<property name="defendant_name" type="java.lang.String"
-			column="defendant_name" length="2" />
+			column="defendant_name" length="500" />
 		<property name="defendant_real_name" type="java.lang.String"
 			column="defendant_real_name" length="50" />
 
@@ -89,7 +89,7 @@
 
 
 		<property name="xzfy_requset" type="java.lang.String" column="xzfy_requset"
-			length="2" />
+			length="200" />
 		<property name="xzfy_requset_retail" type="java.lang.String"
 			column="xzfy_requset_retail" length="500" />
 
@@ -120,7 +120,7 @@
 		<property name="tiaojie_to" type="java.lang.String" column="tiaojie_to"
 			length="20" />
 
-		<property name="tiaojie_count" type="java.lang.Integer"
+		<property name="tiaojie_count" type="java.lang.String"
 			column="tiaojie_count" />
 		<property name="issame" type="java.lang.String" column="issame"
 			length="2" />
@@ -148,7 +148,7 @@
 
 		<property name="app_type1" type="java.lang.String" column="app_type1"
 			length="2" />
-		<property name="app_type2" type="java.lang.Integer" column="app_type2"
+		<property name="app_type2" type="java.lang.String" column="app_type2"
 			length="2" />
 
 		<property name="guanli1" type="java.lang.String" column="guanli1"
@@ -160,7 +160,7 @@
 		<property name="guanli3" type="java.lang.String" column="guanli3"
 			length="50" />
 		<property name="xzfy_org" type="java.lang.String" column="xzfy_org"
-			length="2" />
+			length="200" />
 
 
 		<property name="user1_id" type="java.lang.String" column="user1_id"
@@ -595,39 +595,32 @@
 			length="50" />
             <property name="jiansuom" type="java.lang.String" column="jiansuom"
 			length="50" />
+            <property name="tb_flag" type="java.lang.String" column="tb_flag"
+			length="5" />
+            <property name="tb_time" type="java.lang.String" column="tb_time"
+			length="20" />
 
 
-		<set name="xzfyApps" inverse="true" cascade="all" lazy="false"
+	
+	 <property name="agentDetail_cang" type="java.lang.String" column="agentDetail_cang"
+			length="500" />
+            <property name="appdetail_cang" type="java.lang.String" column="appdetail_cang"
+			length="500" />
+            <property name="require_fy_cang" type="java.lang.String" column="require_fy_cang"
+			length="500" />
+
+
+	<!-- 	<set name="xzfyApps" inverse="true" cascade="all" lazy="false"
 			order-by="id asc">
 			<key column="xzfy_id" />
 			<one-to-many class="XzfyApp" />
 		</set>
 
-
-
-
-
 		<set name="xzfyAgents" inverse="true" cascade="all" lazy="true">
 			<key column="xzfy_id" />
 			<one-to-many class="XzfyAgent" />
-		</set>
-
-		<!-- <set name="xzfyDftzs" inverse="true" cascade="all" lazy="false" order-by="id 
-			desc"> <key column="xzfy_id" /> <one-to-many class="XzfyDftz"/> </set> -->
-
-		<!-- <set name="xzfyXcdcs" inverse="true" cascade="all">
-			<key column="xzfy_id" />
-			<one-to-many class="XzfyXcdc" />
 		</set> -->
 
-		<!-- <set name="xzfyShenpis" inverse="true" cascade="all">
-			<key column="xzfy_id" />
-			<one-to-many class="XzfyShenpi" />
-		</set> -->
-
-		<!-- <set name="xzfyInfoFile" inverse="true" cascade="all">
-			<key column="xzfy_id" />
-			<one-to-many class="XzfyInfoFile" />
-		</set> -->
+		
 	</class>
 </hibernate-mapping>

@@ -1,25 +1,25 @@
 @charset "utf-8";
-body{
-	margin:0px;
-	background-color:#FFFFFF;
-	font-size:12px;
-	background-image:url(../../images/16B/bg_foot.png);
-	background-position:top;
-	background-repeat:repeat-x;
+
+body {
+	margin: 0px;
+	background-color: #FFFFFF;
+	font-size: 12px;
+	background-image: url(../../images/16B/bg_foot.png);
+	background-position: top;
+	background-repeat: repeat-x;
 }
 
-table{
-	font-size:12px;
+table {
+	font-size: 12px;
 }
 
-div{
-	font-size:12px;
+div {
+	font-size: 12px;
 }
-.footInfo{
-	height:30px;
-	line-height:30px;
-	text-align:center;
-	color:#FFFFFF;
-	}
 
-
+.footInfo {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #FFFFFF;
+}

@@ -14,10 +14,9 @@
 	</head>
 	<body>
 	
-	<input type="hidden" name="funcCode" value="${jiansuom}" />
 <script type="text/javascript">
 window.location.href="../xzfy/saveFace1.action?funcCode=${funcCode}&jiansuom=${jiansuom}&fasongsj=${xzfyInfo.yanzhengsj}";
-//window.location.href="../zxfy/mainPage.action?funcCode=${funcCode}";
+
 
  alert("提交成功");
 

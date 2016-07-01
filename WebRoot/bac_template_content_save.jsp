@@ -71,17 +71,17 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>模板管理</title>
-		<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>模板管理</title>
+<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
 
-		<!--引用eWebOffice公用脚本-->
-		<script type="text/javascript" src="eWebOffice/eWebOffice.js">
+<!--引用eWebOffice公用脚本-->
+<script type="text/javascript" src="eWebOffice/eWebOffice.js">
 </script>
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
 //表单检测，保存
 function DoCheckSubmit() {
@@ -133,7 +133,7 @@ function DoSetBookmark(s_Name, s_Text) {
 }
 </script>
 
-		<script>
+<script>
 <%!public String tempUrl;%>
 <%tempUrl = request.getContextPath();
 			tempUrl = request.getScheme() + "://" + request.getServerName()
@@ -145,11 +145,11 @@ function bookmarkList(){
 </script>
 
 
-		<script type="text/javascript" for="eWebOffice1" event="OnInit()">
+<script type="text/javascript" for="eWebOffice1" event="OnInit()">
 eWebOffice1.CaseId.QuickBarCommentVisible = false;
 </script>
 
-		<script type="text/javascript" for="eWebOffice1" event="OnLoad()">
+<script type="text/javascript" for="eWebOffice1" event="OnLoad()">
 eWebOffice1.WebUrl = "<%=ms_WebUrl%>"; //WebUrl:系统服务器路径，与服务器文件交互操作，如保存、打开文档，重要文件
 eWebOffice1.FileType = "<%=ms_FileType%>"; //FileType:文档类型  doc  xls 
 eWebOffice1.UserName = "<%=ms_UserName%>"; //UserName:操作用户名
@@ -162,89 +162,69 @@ eWebOffice1.TemplateID = "<%=ms_TemplateID%>"; //Template:模板编号，如果�
 	
 </script>
 
-	</head>
-	<body>
-		<div id="bdy">
+</head>
+<body>
+	<div id="bdy">
 
-			<div id="nav">
-				您当前位置 &gt;&gt;
-				<a href="bac_template_list.jsp">模板管理</a> &gt;&gt; 编辑[
-				<span class=red><%=ms_ActionDesc%></span>]
-			</div>
-			<hr />
+		<div id="nav">
+			您当前位置 &gt;&gt; <a href="bac_template_list.jsp">模板管理</a> &gt;&gt; 编辑[
+			<span class=red><%=ms_ActionDesc%></span>]
+		</div>
+		<hr />
 
-			<div id="templateleft">
-				<table cellspacing=3 class="tlt">
+		<div id="templateleft">
+			<table cellspacing=3 class="tlt">
+				<tr>
+					<td><input type=button value="书签管理" class="btn90"
+						onclick="bookmarkList()"></td>
+				</tr>
+				<tr>
+					<td><input type=button value="插入书签" class="btn90"
+						onclick="DoWebOpenBookmark()"></td>
+				</tr>
+				<tr>
+					<td><input type=button value="填充模版" class="btn90"
+						onclick="DoLoadBookmark()"></td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="templatemain">
+			<form name="form1" method="post" action="bac_template_save_run.jsp"
+				onsubmit="return DoCheckSubmit();">
+				<input type=hidden name="d_templateid" id="d_templateid"
+					value="<%=ms_TemplateID%>" /> <input type=hidden name="d_filetype"
+					id="d_filetype" value="<%=ms_FileType%>" /> <input type=hidden
+					name="action" id="action" value="<%=ms_Action%>" />
+				<table class="edit">
 					<tr>
-						<td>
-							<input type=button value="书签管理" class="btn90"
-								onclick="bookmarkList()">
-						</td>
+						<td align=center>模版名称</td>
+						<td><input type=text class=txt name="d_filename"
+							id="d_filename" value="<%=ms_FileName%>" size=50></td>
+						<td align=center rowspan="2"><input class="btn4" type=submit
+							value="保存模板"> <input class="btn4" type=button
+							value="返回列表" onclick="location.href='bac_template_list.jsp'">
+							<br /> <br /> <span class=red>注意：只有选择《保存》后，所做的操作才有效！</span></td>
 					</tr>
 					<tr>
-						<td>
-							<input type=button value="插入书签" class="btn90"
-								onclick="DoWebOpenBookmark()">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type=button value="填充模版" class="btn90"
-								onclick="DoLoadBookmark()">
-						</td>
+						<td align=center>模板说明</td>
+						<td><input type=text class=txt name="d_descript"
+							id="d_descript" value="<%=ms_Descript%>" size=50></td>
 					</tr>
 				</table>
-			</div>
+			</form>
 
-			<div id="templatemain">
-				<form name="form1" method="post" action="bac_template_save_run.jsp"
-					onsubmit="return DoCheckSubmit();">
-					<input type=hidden name="d_templateid" id="d_templateid"
-						value="<%=ms_TemplateID%>" />
-					<input type=hidden name="d_filetype" id="d_filetype"
-						value="<%=ms_FileType%>" />
-					<input type=hidden name="action" id="action" value="<%=ms_Action%>" />
-					<table class="edit">
-						<tr>
-							<td align=center>
-								模版名称
-							</td>
-							<td>
-								<input type=text class=txt name="d_filename" id="d_filename"
-									value="<%=ms_FileName%>" size=50>
-							</td>
-							<td align=center rowspan="2">
-								<input class="btn4" type=submit value="保存模板">
-								<input class="btn4" type=button value="返回列表"
-									onclick="location.href='bac_template_list.jsp'">
-								<br />
-								<br />
-								<span class=red>注意：只有选择《保存》后，所做的操作才有效！</span>
-							</td>
-						</tr>
-						<tr>
-							<td align=center>
-								模板说明
-							</td>
-							<td>
-								<input type=text class=txt name="d_descript" id="d_descript"
-									value="<%=ms_Descript%>" size=50>
-							</td>
-						</tr>
-					</table>
-				</form>
-
-				<!--创建eWebOffice实例-->
-				<script type="text/javascript">
+			<!--创建eWebOffice实例-->
+			<script type="text/javascript">
 eWebOfficeJS.Create("eWebOffice1", "100%", "700px");
 </script>
 
-			</div>
-			<div id="footer">
-				<hr />
-			</div>
-
-
 		</div>
-	</body>
+		<div id="footer">
+			<hr />
+		</div>
+
+
+	</div>
+</body>
 </html>

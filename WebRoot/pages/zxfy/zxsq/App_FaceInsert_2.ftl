@@ -582,13 +582,39 @@ function check_pc(cv){
     </td>
    </tr>
    -->
-   <tr  id="shenqingren1">
+  <!--- <tr  id="shenqingren1">
   	<th ><font color="red">*</font>申请人：</th>
     <td  colspan=3>
     <a href="javascript:setApp('#appDiv',1)" style="display:block" id="appspan">添加</a>
     <textarea name="xzfyInfo.appdetail" type="text" class="textarea" style="border:0px" onchange="setCountAppname('shenqingren','rencount')" id="shenqingren"  altname="申请人" style="overflow-y:visible;" readonly></textarea>
     </td>
     </tr>
+-->    
+    <tr  id="shenqingren1">
+  	<th ><font color="red">*</font>申请人：</th>
+    <td  colspan=6>
+    
+      姓名：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="" value=""> <br>
+       性别：&nbsp;&nbsp;&nbsp;&nbsp;<select name="appsex" isUser="true" retSelect="1" style="display:block">
+			<option value=""></option>
+			<option value="男">男</option>
+			<option value="女">女</option>
+		</select>    <br>
+    身份证：&nbsp;&nbsp;<input type="text" name="" value=""><br>
+    电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="" value=""><br>
+   住址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="" value=""><br>
+   通讯地址：<input type="text" name="" value=""><br>
+    <br>
+    <br>
+   
+    <a href="javascript:setApp('#appDiv',1)" style="display:block" id="appspan">继续添加</a>
+    <textarea name="xzfyInfo.appdetail" type="text" class="textarea" style="border:0px" onchange="setCountAppname('shenqingren','rencount')" id="shenqingren"  altname="申请人" style="overflow-y:visible;" readonly></textarea>
+    </td>
+    </tr>
+    
+    
+    
+    
    <tr class="trwhite" id="sqr" style="display:none">
     <th><font color="red">*</font>申请人名称：</th>
     <td colspan=3>
@@ -596,16 +622,7 @@ function check_pc(cv){
     <textarea name="xzfyInfo.agentDetail" type="text" id="appname" style="border:0px"  class="textarea" altname="法人" style="overflow-y:visible;" readonly></textarea>
     </td>
    </tr>		
-		<!--<tr >
-			<th ><font color="red">*</font>被接待人：</th>
-			<td  >
-			<a href="javascript:setUser1('#userDiv')" style="display:block" id="userspan">添加</a>
-			<textarea name="xzfyInfo.jddetail" type="text" class="textarea"  id="user" ischeck="y" altname="被接待人" style="overflow-y:visible;"></textarea>
-			</td>
-			<th><font color="red">*</font>被接待人数：</th>
-			<td><input name="xzfyInfo.jdRenshu" onchange="countNum('applicationsum')" type="text" id="applicationsum" class="input2" ischeck="y" altname="接待人数" >
-			</td>  
-		</tr>-->
+		
 		<tr  style="display:none">
 			<th>多人复议：</td>
 			<td>
@@ -613,16 +630,7 @@ function check_pc(cv){
 			</td>
 		</tr>
 		<tr >
-	<!--<th><font color="red">*</font>涉及安全：</th>
-    <td  colspan=3>
-        <input name="xzfyInfo.issafe" id="anquany_y"  value="是" onclick="setAqf(1)" type="radio" ><label for="isting_y">是</label>
-        <input name="xzfyInfo.issafe" id="anquany_n"  value="否" onclick="setAqf(2)" type="radio"  checked><label for="isting_n">否</label>
-        <span id="aqspan"  style="display:none">
-		  <a href="javascript:setAqf(1)">添加</a><br>
-		  <textarea name="xzfyInfo.safeContent" type="text" class="textarea"  id="aqcontent" altname="安全隐患" style="overflow-y:visible;" onchange="textCounter(this.form.comment,1000);"></textarea>
-		</span>
-    </td>
-</tr>-->
+	
   <input type="hidden" id="tiqu" value="0">
    <tr id="daibiaorendiv" style="display:none"> 
 	<th>代表人：</th>
@@ -686,22 +694,14 @@ function check_pc(cv){
     
   
    <tr id="jddlr" style="display:none">
-    <th>委托代理人姓名a：</th>
     
+    <th>委托代理人姓名a：</th>
     
     <td>
     <input name="xzfyInfo.agent_name" type="text" id="dlrname"  ischeck="y" class="input2" ischeck="y" 
-     altname="委托代理人姓名项"  value="请填写姓名+身份证号+(律师)律师所在事务所名称" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999999" ></td>
+     altname="委托代理人姓名项"   onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999999" ></td>
     </td>
-    <!--<th>是否有授权委托书：</th>
-    <td>
     
-    <input name="xzfyInfo.proxy" id="dlrsq_y"  value="1"  type="radio"><label for="dlrsq_y">有</label>
-        <input name="xzfyInfo.proxy" id="dlrsq_n"  value="0"  type="radio" checked><label for="dlrsq_n">无</label>
-        
-	</td>-->
-	<!--<td><input type="text" id="key" name="key" value=" 请输入关键词" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999999">
-    </td>-->
     </tr>
    <tr class="trwhite" id="jddlr1" style="display:none">
     <th>委托时间：</th>
@@ -821,6 +821,8 @@ function check_pc(cv){
 	</td>
 	
 	</tr>
+	
+	
 	<tr>
      <th><span id="jutixingzheng"><font color="red">*</font>要求复议的具体行政行为情况：</span></th>
 	    <td>
@@ -847,6 +849,20 @@ function check_pc(cv){
     <td><input name="app_face.annum" type="text" id="annum"  class="input2"  altname="文号" ></td>
   </tr>
   
+ <!-- <tr>
+  <th>是否有曾要求被申请人履责而其未履行的证明材料：</th>
+	    <td>
+	   <select name="xzfyInfo.is_prof" id="ismingque" onchange="ryq2()">
+	    <option value="0">----请选择----</option>
+	      <option value="有">有</option>
+		 <option value="无">无</option>
+	  </select>
+	    <textarea name="xzfyInfo.is_prof_detail" id="mingque" class="textarea" ></textarea>
+	      </td>
+	    </tr>
+  -->
+  
+  
   <tr  style="display:none">
 	<th>知道时间：</td>
 	    <td>
@@ -863,26 +879,14 @@ function check_pc(cv){
   </tr>
 
   <tr class="trwhite" id="requesttype2" style="display:none">
-   <th>不作为事项：</td>
-   <td>
-
-  <select name="xzfyInfo.matter_type" id="use_type"  onchange="setBzw()">
-         <option value="0">----请选择----</option>
-	 <option value="不颁发证照">不颁发证照</option>
-	 <option value="不审批登记">不审批登记</option>
-	 <option value="不保护人身权">不保护人身权</option>
-	 <option value="不保护其他财产权">不保护其他财产权</option>
-	 <option value="不保护受教育权">不保护受教育权</option>
-	 <option value="不发放抚恤金">不发放抚恤金</option>
-	 <option value="不发放社会保险金">不发放社会保险金</option>
-	 <option value="不发放最低生活保障费">不发放最低生活保障费</option>
-	 <option value="不履行信息公开职责">不履行信息公开职责</option>
-	 <option value="其他">其他</option>
-  </select>
-  <textarea class="textarea" name="xzfyInfo.matter_detail" id="bzwbc" style="overflow-y:visible;"></textarea>
-  </span>
-  </td>
-	    </tr>    
+   <th>曾要求被申请人履行何职责(50字以内)：</th>
+	    <td>
+	   
+	  
+	    <textarea name="xzfyInfo.is_prof_detail" id="mingque" class="textarea" ></textarea>
+	      </td>
+	    </tr>
+	    </tr>   
 	    <tr  id="requesttype3" style="display:none">
 	    <th>要求被申请人履行日期：</th>
 	    <td >
@@ -915,7 +919,7 @@ function check_pc(cv){
 		 	<option value="11">11</option>
 			<option value="12">12</option>
 		</select>
-		<select name="knowd2" id="knowd12" onchange='setKnowDate1()' retSelect="1">
+		<!--<select name="knowd2" id="knowd12" onchange='setKnowDate1()' retSelect="1">
 			<option value="0">选择日</option>
 	    		<option value="1">01</option>
 		 	<option value="2">02</option>
@@ -948,7 +952,7 @@ function check_pc(cv){
 		 	<option value="29">29</option>
 		 	<option value="30">30</option>
 			<option value="31">31</option>
-		</select>
+		</select>-->
 	    </td>
 	    
 	   </tr>
@@ -973,7 +977,7 @@ function check_pc(cv){
     <textarea name="xzfyInfo.xzfy_requset_retail" id="xzfyqq1" type="text"  style="overflow-y:visible;" class="textarea" ischeck="y" altname="行政复议请求" onchange="closeBzw1()"></textarea>
   </td>
   </tr>
-  <tr>
+  <!----<tr>
 	  <th>是否申请听证：</td>
 	    <td>
 	    	  <input type="radio" name="xzfyInfo.istingzheng" value="是" id="tingzheng_y" ischeck="y" altname="是否听证" >
@@ -982,7 +986,7 @@ function check_pc(cv){
 		      <label for="isting_n">否</label>
 	    </td>
 	   
-    </tr>
+    </tr>-->
  
 
  <tbody id="check_select" style="display:none">
@@ -1085,7 +1089,7 @@ function check_pc(cv){
 
 <tbody id="otherDetail2" style="display:none">	
 </tbody>
- <tr >
+ <!----<tr >
   <th><font color="red">*</font>接待情况：</td>
     <td> 
     
@@ -1094,7 +1098,7 @@ function check_pc(cv){
  <textarea name="xzfyInfo.jdFileContent" id="filedetail" type="text" class='textarea' style="overflow-y:visible;display:block"></textarea>
  
 </td> 
-</tr>
+</tr>-->
 <tr>
  <th>被接待人意见：<br>(鼠标双击添加对话)</td>
     <td> 
@@ -1102,7 +1106,7 @@ function check_pc(cv){
     <textarea name="xzfyInfo.app_advice_detail" id="otheradvice" class="textarea" style="overflow-y:visible;" altname="意见" ondblclick="getValue1(this)">答：同意。</textarea>
     </td>
  </tr>
- <tr >
+ <!--<tr >
   <th>受理机关：</td>
     <td><select name="sljg" id="sljg" >
 	   <option value="${localBm}" selected>${localName}</option>
@@ -1113,8 +1117,8 @@ function check_pc(cv){
     </td> 
    
  
- </tr>
- <tr  style="display:none">
+ </tr>-->
+ <!--<tr  style="display:none">
 	
 	    <th>知道该行政行为时间：</th> 
 	    <td>
@@ -1122,9 +1126,9 @@ function check_pc(cv){
 		     id="zhidaosj" 
 		      altname="要求被申请人履行日期" class="input2">
 	   </td>
-  </tr>
+  </tr>-->
  
- <tr  id="requesttype4" >
+ <!---<tr  id="requesttype4" >
 	    <th>知道该行政行为时间：</th>
 	    <td >
 	    <select name="knowy" id="knowy2" onchange='setKnowDate2()' retSelect="1">
@@ -1192,7 +1196,7 @@ function check_pc(cv){
 		</select>
 	    </td>
 	    
-	   </tr>
+	   </tr>-->
 
 <tr  id="mingan">
     <th><font color="red">*</font>复议申请方式：</th>
@@ -3359,7 +3363,7 @@ function closeBzw(){
 
 function closeBzw1(){
 	if(document.getElementById("requestrrr").value==2){
-	//document.getElementById("requesttype2").style.display="none";
+	document.getElementById("requesttype2").style.display="none";
 	//document.getElementById("requesttype3").style.display="none";
 	document.getElementById("closeBzw").style.display="none";
 	document.getElementById("getBzw").style.display="block";

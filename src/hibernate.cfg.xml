@@ -65,7 +65,7 @@
 		<property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
 		
 		
-        <property name="hbm2ddl.auto">update</property>
+      <!--   <property name="hbm2ddl.auto">update</property> -->
 
 
 		<mapping resource="com/taiji/user/domain/User.hbm.xml" />
@@ -122,8 +122,8 @@
 
       <mapping resource="com/taiji/fzb/domain/XzfyAgent.hbm.xml" />
   
-  
-  
+
+     <mapping resource="com/sinosoft/sentdata/domain/dogs.hbm.xml" />
   
  
   

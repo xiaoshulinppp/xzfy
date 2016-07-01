@@ -57,12 +57,12 @@ System.out.println(ms_cassid);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>行政复议答复通知列表</title>
-		<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>行政复议答复通知列表</title>
+<link rel="Stylesheet" type="text/css" href="css/eweboffice.css" />
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
 function ChangeFileType() {
 	var s_TemplateData = "";
@@ -106,68 +106,52 @@ function AddOption(s_Id, s_Value, s_Text) {
 }
 </script>
 
-	</head>
+</head>
 
 
-	<body onload="ChangeFileType()">
+<body onload="ChangeFileType()">
 
-		<div id="bdy">
+	<div id="bdy">
 
 
-			<hr />
+		<hr />
 
-			<table class="lst">
-				<tr>
-					<th colspan="2">
-						答复通知编辑管理——历史版本列表
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<form name="form1" action="bac_document_dafutongzhi_edit.jsp?action=new"
-							method="post">
-							用户名：
-							<input name="d_username" id="d_username" style="width: 75px"
-								type="text" value="<%=ms_userrName%>" />
+		<table class="lst">
+			<tr>
+				<th colspan="2">答复通知编辑管理——历史版本列表</th>
+			</tr>
+			<tr>
+				<td>
+					<form name="form1"
+						action="bac_document_dafutongzhi_edit.jsp?action=new"
+						method="post">
+						用户名： <input name="d_username" id="d_username" style="width: 75px"
+							type="text" value="<%=ms_userrName%>" />
 
-							<script>
+						<script>
 
 
 //调用示例：window.open("http://localhost:8011/eWebOffice/bac_document_edit.jsp?action=new&d_filetype=doc&d_templateid=20130725154319&d_username=user1&caseId=1")
 
 </script>
-						</form>
-					</td>
-				</tr>
-			</table>
+					</form>
+				</td>
+			</tr>
+		</table>
 
-			<br />
+		<br />
 
-			<table class="lst">
-				<tr>
-					<th style="width: 60px;">
-						编号
-					</th>
-					<th style="width: 120px;">
-						文档编号
-					</th>
-					<th style="width: ;">
-						标题
-					</th>
-					<th style="width: 80px;">
-						作者
-					</th>
-					<th style="width: 40px;">
-						类型
-					</th>
-					<th style="width: 100px;">
-						日期
-					</th>
-					<th style="width: 240px;">
-						操作
-					</th>
-				</tr>
-				<%
+		<table class="lst">
+			<tr>
+				<th style="width: 60px;">编号</th>
+				<th style="width: 120px;">文档编号</th>
+				<th style="width:;">标题</th>
+				<th style="width: 80px;">作者</th>
+				<th style="width: 40px;">类型</th>
+				<th style="width: 100px;">日期</th>
+				<th style="width: 240px;">操作</th>
+			</tr>
+			<%
 					String sql = "select * from eWebOffice_T_Document where D_TYPE='答复通知'  and caseId="+ms_cassid+" order by d_id desc ";
 					try {
 						con = getConn();
@@ -256,11 +240,11 @@ function AddOption(s_Id, s_Value, s_Text) {
 						closeAll(con, stmt, rs);
 					}
 				%>
-			</table>
+		</table>
 
-			<hr />
-		</div>
-	</body>
+		<hr />
+	</div>
+</body>
 </html>
 
 

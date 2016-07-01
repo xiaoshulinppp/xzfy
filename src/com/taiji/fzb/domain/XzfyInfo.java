@@ -1,9 +1,10 @@
 package com.taiji.fzb.domain;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class XzfyInfo {
+public class XzfyInfo implements Serializable{
 
 	// fields
 	private String id;
@@ -98,7 +99,7 @@ public class XzfyInfo {
 
 	private java.lang.String tiaojie_to;
 
-	private Integer tiaojie_count;
+	private String tiaojie_count;
 
 	private java.lang.String issame;
 
@@ -194,7 +195,7 @@ public class XzfyInfo {
 
 	private java.lang.String app_type1;
 
-	private java.lang.Integer app_type2;
+	private java.lang.String app_type2;
 
 	private java.lang.String guanli1;
 
@@ -298,11 +299,54 @@ public class XzfyInfo {
 	private String yanzhengsj;
 	private String yuedusj;
 	private String jiansuom;
+	private String tb_flag;
+	private String tb_time;
+	
+	private String  agentDetail_cang;
+	private String appdetail_cang;
+	private String  require_fy_cang;
 	
 	
-	
-	
-	
+	public String getAgentDetail_cang() {
+		return agentDetail_cang;
+	}
+
+	public void setAgentDetail_cang(String agentDetail_cang) {
+		this.agentDetail_cang = agentDetail_cang;
+	}
+
+	public String getAppdetail_cang() {
+		return appdetail_cang;
+	}
+
+	public void setAppdetail_cang(String appdetail_cang) {
+		this.appdetail_cang = appdetail_cang;
+	}
+
+	public String getRequire_fy_cang() {
+		return require_fy_cang;
+	}
+
+	public void setRequire_fy_cang(String require_fy_cang) {
+		this.require_fy_cang = require_fy_cang;
+	}
+
+	public String getTb_time() {
+		return tb_time;
+	}
+
+	public void setTb_time(String tb_time) {
+		this.tb_time = tb_time;
+	}
+
+	public String getTb_flag() {
+		return tb_flag;
+	}
+
+	public void setTb_flag(String tb_flag) {
+		this.tb_flag = tb_flag;
+	}
+
 	public String getHastingzheng() {
 		return hastingzheng;
 	}
@@ -741,13 +785,7 @@ public class XzfyInfo {
 		tiaojie_to = tiaojieTo;
 	}
 
-	public Integer getTiaojie_count() {
-		return tiaojie_count;
-	}
-
-	public void setTiaojie_count(Integer tiaojieCount) {
-		tiaojie_count = tiaojieCount;
-	}
+	
 
 	public java.lang.String getIssame() {
 		return issame;
@@ -1208,28 +1246,28 @@ public class XzfyInfo {
 		this.handleReason = handleReason;
 	}
 
-	private Set xzfyApps = new LinkedHashSet();
+//	private Set xzfyApps = new LinkedHashSet();
 
 	/*private Set<XzfyInfoFile> xzfyInfoFile = new LinkedHashSet<XzfyInfoFile>();
 */
-	public Set getXzfyApps() {
+	/*public Set getXzfyApps() {
 		return xzfyApps;
 	}
 
 	public void setXzfyApps(Set xzfyApps) {
 		this.xzfyApps = xzfyApps;
-	}
+	}*/
 
-	private Set<XzfyAgent> xzfyAgents = new LinkedHashSet<XzfyAgent>();
+//	private Set<XzfyAgent> xzfyAgents = new LinkedHashSet<XzfyAgent>();
 
-	public Set<XzfyAgent> getXzfyAgents() {
+	/*public Set<XzfyAgent> getXzfyAgents() {
 		return xzfyAgents;
 	}
 
 	public void setXzfyAgents(Set<XzfyAgent> xzfyAgents) {
 		this.xzfyAgents = xzfyAgents;
 	}
-
+*/
 	public java.lang.String getApp_type() {
 		return app_type;
 	}
@@ -1246,12 +1284,22 @@ public class XzfyInfo {
 		app_type1 = appType1;
 	}
 
-	public java.lang.Integer getApp_type2() {
+	
+
+	public String getTiaojie_count() {
+		return tiaojie_count;
+	}
+
+	public void setTiaojie_count(String tiaojie_count) {
+		this.tiaojie_count = tiaojie_count;
+	}
+
+	public java.lang.String getApp_type2() {
 		return app_type2;
 	}
 
-	public void setApp_type2(java.lang.Integer appType2) {
-		app_type2 = appType2;
+	public void setApp_type2(java.lang.String app_type2) {
+		this.app_type2 = app_type2;
 	}
 
 	public String getJdRenshu() {

@@ -2,32 +2,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GBK">
 <link rel="stylesheet" href="web/css/12B/style.css" type="text/css">
-<title>
-表单布局工具
-</title>
+<title>表单布局工具</title>
 </head>
 <body>
-表单布局工具<br>
-<input id="codeButton" class="button" type="button" onclick="design();" value="编辑" DISABLED/>
-<input id="viewButton" class="button" type="button" onclick="preview();" value="预览"/>
-<div id="designArea" style="display:block;">
-<applet
-  codebase = "."
-  code     = "com.iscp.sys.formLayout.view.formLayoutClient.class"
-  name     = "formLayoutClientApplet"
-  ARCHIVE  = "layoutClient.jar"
-  width    = "800"
-  height   = "500"
-  hspace   = "0"
-  vspace   = "0"
-  align    = "middle"
-  layoutserver = "TEST"
->
-</applet>
-</div>
-<div id="viewArea" style="display:none;width:800; Height:500" width="800" height="500">
-<iframe id="previewer" src="about:blank" width="800" height="500">
-</iframe>
+	表单布局工具
+	<br>
+	<input id="codeButton" class="button" type="button" onclick="design();"
+		value="编辑" DISABLED />
+	<input id="viewButton" class="button" type="button"
+		onclick="preview();" value="预览" />
+	<div id="designArea" style="display: block;">
+		<applet codebase="."
+			code="com.iscp.sys.formLayout.view.formLayoutClient.class"
+			name="formLayoutClientApplet" ARCHIVE="layoutClient.jar" width="800"
+			height="500" hspace="0" vspace="0" align="middle" layoutserver="TEST">
+		</applet>
+	</div>
+	<div id="viewArea" style="display: none; width: 800; Height: 500"
+		width="800" height="500">
+		<iframe id="previewer" src="about:blank" width="800" height="500">
+		</iframe>
 </body>
 </html>
 <script>

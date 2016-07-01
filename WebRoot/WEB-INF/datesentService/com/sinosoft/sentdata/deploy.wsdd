@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from datesentService WSDL service -->
+
+  <service name="datesent" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://sentdata.sinosoft.com"/>
+      <parameter name="wsdlServiceElement" value="datesentService"/>
+      <parameter name="schemaQualified" value="http://sentdata.sinosoft.com"/>
+      <parameter name="wsdlServicePort" value="datesent"/>
+      <parameter name="className" value="com.sinosoft.sentdata.datesent"/>
+      <parameter name="wsdlPortType" value="datesent"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://sentdata.sinosoft.com" xmlns:retNS="http://sentdata.sinosoft.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="sendname" qname="operNS:sendname" returnQName="retNS:sendnameReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://sentdata.sinosoft.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://sentdata.sinosoft.com" xmlns:retNS="http://sentdata.sinosoft.com" xmlns:rtns="http://sentdata.sinosoft.com" xmlns:tns="http://sentdata.sinosoft.com" name="sentObject" qname="operNS:sentObject" returnQName="retNS:sentObjectReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://sentdata.sinosoft.com" qname="pns:operateCode" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://sentdata.sinosoft.com" xmlns:retNS="http://sentdata.sinosoft.com" xmlns:rtns="http://sentdata.sinosoft.com" xmlns:tns="http://sentdata.sinosoft.com" name="sendList" qname="operNS:sendList" returnQName="retNS:sendListReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://sentdata.sinosoft.com" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://sentdata.sinosoft.com" xmlns:retNS="http://sentdata.sinosoft.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="test" qname="operNS:test" returnQName="retNS:testReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://sentdata.sinosoft.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="sentObject test sendname sendList"/>
+
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sendListResponse" type="java:com.sinosoft.sentdata.SendListResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sentObjectResponse" type="java:com.sinosoft.sentdata.SentObjectResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sendList" type="java:com.sinosoft.sentdata.SendList" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sentObject" type="java:com.sinosoft.sentdata.SentObject" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://sentdata.sinosoft.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sendnameResponse" type="java:com.sinosoft.sentdata.SendnameResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;testResponse" type="java:com.sinosoft.sentdata.TestResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;sendname" type="java:com.sinosoft.sentdata.Sendname" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://sentdata.sinosoft.com" qname="ns:&gt;test" type="java:com.sinosoft.sentdata.Test" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

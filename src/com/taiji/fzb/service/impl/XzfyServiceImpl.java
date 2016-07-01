@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.sinosoft.sentdata.domain.dogs;
 import com.taiji.core.service.impl.CoreServiceImpl;
 import com.taiji.core.util.PaginationSupport;
 import com.taiji.fzb.domain.Beishenqingren;
@@ -30,7 +31,7 @@ import com.util.HibernateSessionFactory;
 import com.util.JdbcUtil;
 
 @SuppressWarnings("unchecked")
-public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
+public class XzfyServiceImpl extends  CoreServiceImpl implements XzfyService {
 
 	/*
 	 * 获取模板列表
@@ -62,7 +63,8 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 		HQL += " from XzfyInfo xzfy";
 		HQL += " where 1 = 1";
 		HQL += " and xzfy.id = '" + entityId+"'";
-		List<XzfyInfo> dataList = super.find(HQL);
+		//List<XzfyInfo> dataList = super.find(HQL);
+		List<XzfyInfo> dataList = this.find(HQL);
 		XzfyInfo xzfy = new XzfyInfo();
 		if (dataList.isEmpty()) {
 			xzfy = new XzfyInfo();
@@ -73,43 +75,6 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 	}
 
 
-	/*public XzfyBuwei getBuweiById(String xzfyId){
-		String HQL = "";
-		HQL += " from XzfyBuwei xzfy";
-		HQL += " where 1 = 1";
-		HQL += " and xzfy.id = '" + xzfyId+"'";
-		List<XzfyBuwei> dataList = super.find(HQL);
-		XzfyBuwei xzfy = new XzfyBuwei();
-		if (dataList.isEmpty()) {
-			xzfy = new XzfyBuwei();
-		} else {
-			xzfy = dataList.get(0);
-		}
-		return xzfy;
-	}*/
-	
-	/*public XzfyRecieve getRecieveById(String entityId){
-		String HQL = "";
-		HQL += " from XzfyRecieve xzfy";
-		HQL += " where 1 = 1";
-		HQL += " and xzfy.id = '" + entityId+"'";
-		List<XzfyRecieve> dataList = super.find(HQL);
-		XzfyRecieve xzfy = new XzfyRecieve();
-		if (dataList.isEmpty()) {
-			xzfy = new XzfyRecieve();
-		} else {
-			xzfy = dataList.get(0);
-		}
-		return xzfy;
-	}*/
-	
-	
-	/*public List getShenpiById(String xzfyId,String status){
-		String sql = " from XzfyShenpi shenpi where 1=1 and shenpi.xzfyInfo.id='"+xzfyId+"'";
-		sql += " and shenpi.check_type='"+status+"'"+" and shenpi.check_result in ('1','2')";
-		List<XzfyShenpi> shenpiList = super.find(sql);
-		return shenpiList;
-	}*/
 	
 	public List getAgentListById(String entityId) {
 		String HQL = "";
@@ -195,50 +160,7 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 	}
 	
 
-   /* public PaginationSupport getTiquBuweiListByName(int pageNumber, int pageSize,XzfyBuwei xzfyBuwei,String un){
-    	String sql="";
-		sql+="from XzfyBuwei buwei where 1=1 and buwei.status='1' and userName='"+un+"'";
-		if(xzfyBuwei!=null){
-			if(xzfyBuwei.getShouLiJiGuan()!=null && !xzfyBuwei.getShouLiJiGuan().equals("")){
-				sql+=" and buwei.shouLiJiGuan like '%"+xzfyBuwei.getShouLiJiGuan()+"%'";
-			}
-			if(xzfyBuwei.getReceiveDate()!=null && !xzfyBuwei.getReceiveDate().equals("")){
-				sql+=" and buwei.receiveDate like '%"+xzfyBuwei.getReceiveDate()+"%'";
-			}
-		}
-		sql+="order by buwei.receiveDate desc";
-		return super.find(sql, pageNumber, pageSize);	
-    }*/
-	/*public PaginationSupport getTiquBuweiList(int pageNumber, int pageSize,XzfyBuwei xzfyBuwei){
-		String sql="";
-		sql+="from XzfyBuwei buwei where 1=1 and buwei.status='1'";
-		if(xzfyBuwei!=null){
-			if(xzfyBuwei.getShouLiJiGuan()!=null && !xzfyBuwei.getShouLiJiGuan().equals("")){
-				sql+=" and buwei.shouLiJiGuan like '%"+xzfyBuwei.getShouLiJiGuan()+"%'";
-			}
-			if(xzfyBuwei.getReceiveDate()!=null && !xzfyBuwei.getReceiveDate().equals("")){
-				sql+=" and buwei.receiveDate like '%"+xzfyBuwei.getReceiveDate()+"%'";
-			}
-		}
-		sql+="order by buwei.receiveDate desc";
-		return super.find(sql, pageNumber, pageSize);	
-	}*/
-	
-
-	/*public PaginationSupport getBuweiEndList(int pageNumber, int pageSize,XzfyBuwei xzfyBuwei){
-		String sql="";
-		sql+="from XzfyBuwei buwei where 1=1 and buwei.status='2'";
-		if(xzfyBuwei!=null){
-			if(xzfyBuwei.getShouLiJiGuan()!=null && !xzfyBuwei.getShouLiJiGuan().equals("")){
-				sql+=" and buwei.shouLiJiGuan like '%"+xzfyBuwei.getShouLiJiGuan()+"%'";
-			}
-			if(xzfyBuwei.getReceiveDate()!=null && !xzfyBuwei.getReceiveDate().equals("")){
-				sql+=" and buwei.receiveDate like '%"+xzfyBuwei.getReceiveDate()+"%'";
-			}
-		}
-		sql+="order by buwei.receiveDate desc";
-		return super.find(sql, pageNumber, pageSize);	
-	}*/
+   
 	
 	public PaginationSupport getTiquXzfyList(int pageNumber, int pageSize,XzfyInfo xzfyInfo,User user) {
 		String orqSql="from Org org where org.id="+user.getOrg().getId();
@@ -269,22 +191,8 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 		String hql = "from XzfyInfo where STATUS < '" + 10 +"' order by receive_date desc";
 		return super.find(hql, pageNumber, pageSize);
 	}
-	/*
-	public XzfyShenpi getShenpiById(int entityId){
-		String HQL = "";
-		HQL += " from XzfyShenpi shenpi";
-		HQL += " where 1 = 1";
-		HQL += " and shenpi.id = " + entityId;
-		List<XzfyShenpi> dataList = super.find(HQL);
-		XzfyShenpi shenpi = new XzfyShenpi();
-		if (dataList.isEmpty()) {
-			shenpi = new XzfyShenpi();
-		} else {
-			shenpi = dataList.get(0);
-		}
-		return shenpi;
-    }
-    */
+	
+	
 	   public PaginationSupport getShenpiListById(int pageNumber, int pageSize,String entityId,String user_id){
 			String HQL = "";
 			HQL += " from XzfyInfo xzfy";
@@ -293,21 +201,8 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 			return super.find(HQL, pageNumber, pageSize);
 	    }
 	   
-	    /*public XzfyShenpi getShenpiById(int entityId){
-			String HQL = "";
-			HQL += " from XzfyShenpi shenpi";
-			HQL += " where 1 = 1";
-			HQL += " and shenpi.id = " + entityId;
-			List<XzfyShenpi> dataList = super.find(HQL);
-			XzfyShenpi shenpi = new XzfyShenpi();
-			if (dataList.isEmpty()) {
-				shenpi = new XzfyShenpi();
-			} else {
-				shenpi = dataList.get(0);
-			}
-			return shenpi;
-	    }
-*/
+	   
+	   
 	    public List<ArticleInfo> getArticleInfoList(int type) throws SQLException{
 	    	String sql = "";
 	    	if (type == 1){
@@ -609,60 +504,6 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
     
 
 	
-		/*public XzssInfo getShen1XzssByXzfyId(String xzfyid) {
-			// TODO Auto-generated method stub
-			String HQL="";
-			HQL+="from XzssInfo xzssInfo";
-			HQL+=" where 1=1";
-			HQL+=" and xzssInfo.fuyi_id='"+xzfyid+"'";
-			HQL+=" and xzssInfo.shen_level='1'";
-			List<XzssInfo> list=super.find(HQL);
-			XzssInfo xzssInfo=new XzssInfo();
-			if (list.isEmpty()) {
-				xzssInfo=new XzssInfo();
-			}else {
-				xzssInfo=list.get(0);
-			}
-			return xzssInfo;
-		}*/
-
-	
-		/*public XzssInfo getShen2XzssByXzfyId(String xzfyid) {
-			// TODO Auto-generated method stub
-			String HQL="";
-			HQL+="from XzssInfo xzssInfo";
-			HQL+=" where 1=1";
-			HQL+=" and xzssInfo.fuyi_id='"+xzfyid+"'";
-			HQL+=" and xzssInfo.shen_level='2'";
-			List<XzssInfo> list=super.find(HQL);
-			XzssInfo xzssInfo=new XzssInfo();
-			if (list.isEmpty()) {
-				xzssInfo=new XzssInfo();
-			}else {
-				xzssInfo=list.get(0);
-			}
-			return xzssInfo;
-		}
-*/
-	
-		/*public XzssInfo getShen3XzssByXzfyId(String xzfyid) {
-			// TODO Auto-generated method stub
-			String HQL="";
-			HQL+="from XzssInfo xzssInfo";
-			HQL+=" where 1=1";
-			HQL+=" and xzssInfo.fuyi_id='"+xzfyid+"'";
-			HQL+=" and xzssInfo.shen_level='3'";
-			List<XzssInfo> list=super.find(HQL);
-			XzssInfo xzssInfo=new XzssInfo();
-			if (list.isEmpty()) {
-				xzssInfo=new XzssInfo();
-			}else {
-				xzssInfo=list.get(0);
-			}
-			return xzssInfo;
-		}*/
-
-		
 		public PaginationSupport getDiv52List_2(int pageNumber, int pageSize,
 				String startDate, String endDate, String users) {
 			
@@ -691,6 +532,91 @@ public class XzfyServiceImpl extends CoreServiceImpl implements XzfyService {
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public  List getXzfyByTB_flag(String TBflag) {
+		//	String sql = "from XzfyInfo where (XzfyInfo.tbflag = '" + TBflag + "' ) ";
+			String sql = "from XzfyInfo  xzfyinfo where  xzfyinfo.id <> '' ";
+		List<XzfyInfo> r = (List<XzfyInfo>) this.find(sql);
+			
+			return r;
+		}
+		public  List finddogs(String TBflag) {
+			//	String sql = "from XzfyInfo where (XzfyInfo.tbflag = '" + TBflag + "' ) ";
+				String sql = "from dogs  ";
+				return this.find(sql);
+				
+				
+			}
+		
+		
+		 public List<List<String>> getXzfyInfoList(int type) throws SQLException{
+		    	String sql = "";
+		    
+		    		//sql="from ArticleInfo where isRelease ='1' and subColumn='11' order by isTop desc,RELEASEDATE desc and rownum<6";
+		    		sql="SELECT * FROM Xzfy_Info t WHERE t.id <>  '' ";
+		    	
+		    	
+		    	Connection connection = JdbcUtil.getConnByHibernateConfig(); 
+		    	Statement selectStatement = connection.createStatement();
+		    	ResultSet resultSet = null;
+		    	List<List<String>> r = new ArrayList<List<String>>();
+		    	try{
+		    		resultSet = selectStatement.executeQuery(sql);
+		    		while(resultSet.next()){
+		    			
+		    			List<String> list=new ArrayList<String>();
+		    			list.add(0, resultSet.getString(9));
+		    			list.add(1, resultSet.getString(1));
+		    			list.add(2, resultSet.getString(2));
+		    			list.add(3, resultSet.getString(3));
+		    			list.add(4, resultSet.getString(4));
+		    			list.add(5, resultSet.getString(5));
+		    			list.add(6, resultSet.getString(6));
+		    			list.add(7, resultSet.getString(7));
+		    			list.add(8, resultSet.getString(8));
+		    			
+		    			r.add(list);
+		    		}
+		    	}finally {
+					try {
+						if (selectStatement != null) {
+							selectStatement.close();
+							selectStatement = null;
+						}
+						if (connection != null) {
+							connection.close();
+							connection = null;
+						}
+					} catch (SQLException e) {
+						System.out.println(e.getMessage());
+						e.printStackTrace();
+					}
+				}
+		    	
+		    	return r;
+		    }
+
+		@Override
+		public dogs findog() {
+			// TODO Auto-generated method stub
+			String HQL = "";
+			HQL += " from dogs dog";
+		
+			List<dogs> doglist = this.find(HQL);
+			dogs dog = new dogs();
+			if (doglist.isEmpty()) {
+				dog = new dogs();
+			} else {
+				dog =  doglist.get(0);
+			}
+			return dog;
+			
+			
+			
+		}
+		
+		
 		
 	
 }
