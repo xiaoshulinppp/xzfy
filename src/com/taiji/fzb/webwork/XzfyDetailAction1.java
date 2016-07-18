@@ -1,6 +1,7 @@
 package com.taiji.fzb.webwork;
 
 import java.io.File;
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import com.taiji.fzb.service.XzfyService;
 import com.taiji.user.domain.Org;
 import com.taiji.user.domain.User;
 
+import _1._0._0._127.webIscp.services.dateTransfer_nei.DateTransfer_neiProxy;
+import _1._0._0._127.zxfy.services.datesent.DatesentProxy;
 import net.sf.json.JSONObject;
 
 
@@ -229,7 +232,7 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 	private String jiansuom="";
 	private String fasongsj="";
 	
-	public String saveFace() {
+	public String saveFace()   {
 		// 取得localbm
 		String locbm =sljg;//受理机构“0000”北京市人民政府
 		// 取得最大流水号
@@ -310,14 +313,11 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 				xzfyInfo.setReceive_date(xzfyInfo.getTiaojie_to());//调解日期止,接受调解则将接受日期变为调解截止日期
 			}
 		}
-		// 申请人拆分存储
-		if (xzfyInfo.getId().length()>10) {
-			xzfyInfo = this.setInfo(xzfyInfo);
-			if (xzfyInfo.getDbrDetail() != null//DbrDetail代表人明细
-					&& !xzfyInfo.getDbrDetail().equals("")) {//大于5人选择代表人
-				this.saveDeputy(xzfyInfo.getDbrDetail());
-			}
-		}
+		
+		
+		
+		
+
 		
 		xzfyInfo.setCaseorg(sljg);
 		
@@ -353,9 +353,36 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 		String shoujihao=xzfyInfo.getYanzhengsj();
 		xzfyInfo.setJiansuom(shoujihao+jiequ);
 		 jiansuom=shoujihao+jiequ;
-		xzfyService.update(xzfyInfo);
-		//xzfyService.update(xr);
-		return SUCCESS;
+		
+		 JSONObject json = JSONObject.fromObject(xzfyInfo);//将java对象转换为json对象
+    	 String str = json.toString();//将json对象转换为字符串
+    	
+    	 
+    	 DateTransfer_neiProxy da =new DateTransfer_neiProxy();  
+    		//   Dogs d=new Dogs();
+    		//    String ob=da.sendname("20160513134807639437");
+    			
+    			//String aa=da.test("neiwang");
+    		//	String  bb=da.saveJSON(str);
+    			try {
+					
+    				String ss= da.saveJSON(str);
+					if(ss.equals("success")){
+						xzfyInfo.setTb_flag("1");//同步成功
+						
+					}else{
+						xzfyInfo.setTb_flag("0");//同步失败
+					}
+				
+    			} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    				
+    			xzfyService.update(xzfyInfo);
+    				
+	         	//xzfyService.update(xr);
+		        return SUCCESS;
 		
 		
 	}

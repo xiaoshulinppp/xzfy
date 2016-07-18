@@ -382,12 +382,12 @@
 		ob1=ob1.cloneNode(true);
 		var handleList=ob1.getElementsByTagName("input");
 		handleList.item(0).value="";
-		handleList.item(1).value="";
-		handleList.item(2).value="";
+		handleList.item(1).name="appsex"+j;
+		handleList.item(2).name="appsex"+j;
 		handleList.item(3).value="";
 		
-		var handleList1=ob1.getElementsByTagName("select");
-		handleList1.item(0).value="";		
+		//var handleList1=ob1.getElementsByTagName("select");
+		//handleList1.item(0).value="";		
 		
 		var taList=ob1.getElementsByTagName("textarea");
 		taList.item(0).value="";
@@ -560,11 +560,11 @@ function check_pc(cv){
 	   <th><font color="red">*</font>申请人类别a：</th>
 	   <td>
 	   
-	 <!--  <input name="xzfyInfo.app_type" id="applicationtype"  value="1" onclick="checksqr()" type="radio" checked><label for="isdlr_y">公民</label>
-        <input name="xzfyInfo.app_type" id="applicationtype"  value="0" onclick="checksqr()" type="radio"  ><label for="isdlr_n">法人或其他组织</label>
-     -->
-	   <@ww.select  name="'xzfyInfo.app_type'" id="applicationtype" headerKey="''" headerValue=""  list="getDictMap('sqrlb')" value="" onchange="'checksqr()'"/>
-	   
+	 <input name="xzfyInfo.app_type" id="applicationtype1"  value="1" onclick="checksqr(1)" type="radio" checked><label for="applicationtype1">公民</label>
+     <input name="xzfyInfo.app_type" id="applicationtype2"  value="2" onclick="checksqr(2)" type="radio"  ><label for="applicationtype2">法人或其他组织</label>
+    
+	  <!-- <@ww.select  name="'xzfyInfo.app_type'" id="applicationtype" headerKey="''" headerValue=""  list="getDictMap('sqrlb')" value="" onchange="'checksqr()'"/>
+	   -->
 	   <#--
 	   <select name="app_face.applicationtype" id="applicationtype" class="selectStyleNormal" ischeck="y" altname="申请人类别" onchange="checksqr()">
 		   <option value="1" selected>公民</option>
@@ -643,7 +643,7 @@ function check_pc(cv){
    <th><font color="red">*</font>是否有代理人：</th>
     <td>
      <input name="xzfyInfo.agent" id="isdlr_y"  value="1" onclick="checkdlr(1)" type="radio" ><label for="isdlr_y">有</label>
-        <input name="xzfyInfo.agent" id="isdlr_n"  value="0" onclick="checkdlr(0)" type="radio"  checked><label for="isdlr_n">无</label>
+     <input name="xzfyInfo.agent" id="isdlr_n"  value="0" onclick="checkdlr(0)" type="radio"  checked><label for="isdlr_n">无</label>
         
      <input type="hidden" id="isdlr" value="0">
      
@@ -659,10 +659,16 @@ function check_pc(cv){
     </td>
     </tr>
     <tr>
-    <!--
-    <th>代理人：</td>
-	<td><input class="input2" name="app_face.TAgent"  type="text"  altname="代理人" maxlength="50" value='无'></td>
-  -->
+    <tr id="jddlr" style="display:none">
+    
+    <th>委托代理人姓名a：</th>
+    
+    <td>
+    <input name="xzfyInfo.agent_name" type="text" id="dlrname"  ischeck="y" class="input2" ischeck="y" 
+     altname="委托代理人姓名项"   onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999999" ></td>
+    </td>
+    
+    </tr>
 <th><font color="red">*</font>是否申请行政赔偿：</td>
   <td  >
  <input type="radio" name="xzfyInfo.ismoney" value="是" id="peichang_y" ischeck="y" altname="是否行政赔偿" onclick="check_pc(1)">
@@ -690,16 +696,7 @@ function check_pc(cv){
    
     
   
-   <tr id="jddlr" style="display:none">
-    
-    <th>委托代理人姓名a：</th>
-    
-    <td>
-    <input name="xzfyInfo.agent_name" type="text" id="dlrname"  ischeck="y" class="input2" ischeck="y" 
-     altname="委托代理人姓名项"   onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999999" ></td>
-    </td>
-    
-    </tr>
+  
    <tr class="trwhite" id="jddlr1" style="display:none">
     <th>委托时间：</th>
     <td>
@@ -887,7 +884,7 @@ function check_pc(cv){
 	    <td>
 	   
 	  
-	    <textarea name="xzfyInfo.is_prof_detail" id="mingque" class="textarea" ></textarea>
+	    <textarea name="xzfyInfo.is_prof_detail" id="is_prof_detail" class="textarea" ></textarea>
 	      </td>
 	    </tr>
 	    </tr>   
@@ -976,17 +973,23 @@ function check_pc(cv){
    
     <td >
     
-    <input type="radio" name="xzfyInfo.xzfy_requset" nbzcheck="y" altname="对规范性文件审查" value="1撤销该具体行政行为" id="q_3_1" checked>
-	        <label for="gfsc_y"><font  id="font1">撤销该具体行政行为</font></label><br>
-	<input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="2变更该具体行政行为" nbzcheck="y"  id="q_3_2" >
-	        <label for="gfsc_n"><font id="font1">变更该具体行政行为</font></label><br>
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="3确认该具体行政行为违法" nbzcheck="y"  id="q_3_3" >
-	        <label for="gfsc_n"><font id="font1">确认该具体行政行为违法</font></label><br>
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="4责令被申请人履行法定职责" nbzcheck="y"  id="h_2_1" disabled="disabled">
-	        <label for="gfsc_n"><font id="font1" color="darkgray">责令被申请人履行法定职责</font></label><br>
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="5确认被申请人不履行法定职责违法" nbzcheck="y"  id="h_2_2"  disabled="disabled">
-	        <label for="gfsc_n"><font id="font1" color="darkgray">确认被申请人不履行法定职责违法</font></label><br>
+    <div id="sq_y" >
     
+    <input type="radio" name="xzfyInfo.xzfy_requset" nbzcheck="y" altname="对规范性文件审查" value="1撤销该具体行政行为" id="q_3_1" checked>
+	        <label for="q_3_1">  <font  id="font1">撤销该具体行政行为a</font></label><br>
+	<input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="2变更该具体行政行为" nbzcheck="y"  id="q_3_2" >
+	        <label for="q_3_2"><font id="font1">变更该具体行政行为a</font></label><br>
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="3确认该具体行政行为违法" nbzcheck="y"  id="q_3_3" >
+	        <label for="q_3_3"><font id="font1">确认该具体行政行为违法a</font></label><br>
+	        
+	  </div>  
+	      
+	  <div id="sq_n"  style="display:none">      
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="4责令被申请人履行法定职责" nbzcheck="y"  id="h_2_1" >
+	        <label for="h_2_1"><font id="font1" >责令被申请人履行法定职责a</font></label><br>
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="5确认被申请人不履行法定职责违法" nbzcheck="y"  id="h_2_2"  >
+	        <label for="h_2_2"><font id="font1" >确认被申请人不履行法定职责违法a</font></label><br>
+    </div>
     <!--<select name="xzfyInfo.xzfy_requset" id="request2yiban"     onchange="ryq();closeBzw1()" >
       
       <option   value="0">--请选择--</option>
@@ -1066,7 +1069,7 @@ function check_pc(cv){
 	        <input type="radio" name="xzfyInfo.ischeck" altname="对规范性文件审查" value="否" nbzcheck="y"  id="gfsc_n" checked onclick="check_shencha('2')">
 	        <label for="gfsc_n">否</label>
 			<span id="shencha" style="display:none">
-			规范文件：<textarea name="xzfyInfo.check_file" class='textarea' id="post2"  class="input2"></textarea>
+			规范文件：<textarea name="xzfyInfo.check_file" class='textarea' id="check_file"  class="input2"></textarea>
 			</span>
 	    </td>
 		
@@ -1238,14 +1241,14 @@ function check_pc(cv){
    <th>请填写事实与理由(2500字以内)：</td>
    <td>
 
-  <textarea class="textarea" name="xzfyInfo.shishiyuly" id="bzwbc" style="overflow-y:visible;"></textarea>
+  <textarea class="textarea" name="xzfyInfo.shishiyuly" id="shishiyuly" style="overflow-y:visible;"></textarea>
   </span>
   </td>
 	</tr>   
 <tr>
 <th>请输入联系手机号码：</th>
 
-<td><input name="xzfyInfo.yanzhengsj" type="text" id="annum"    altname="手机号" >
+<td><input name="xzfyInfo.yanzhengsj" type="text" id="yanzhengsj"    altname="手机号" >
    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  onclick="">获取验证码</button>
 </td>
 </tr>	   
@@ -1253,13 +1256,19 @@ function check_pc(cv){
 <th>请输入验证码：</th>
 
 <td>
-<input name="yanzhenma" type="text" id="annum"    altname="手机号" >
+<input name="yanzhenma" type="text" id="yanzhenma"    altname="手机号" >
 
 
    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  onclick="">确认</button>
 </td>
 </tr>		   
- 
+ <tr>
+<th>请输入邮箱：</th>
+
+<td><input name="xzfyInfo.checkMail" type="text" id="annum"    altname="请输入邮箱" >
+   &nbsp;&nbsp;&nbsp;&nbsp;<font> * 该邮箱将用于找回案件码,请确认邮箱正确</font>
+</td>
+</tr>	
  <!--
  <tr>
  <th>上传申请书、申请人<br>身份证明、委托手续：</th>
@@ -2085,14 +2094,14 @@ function check_pc(cv){
 <div class="btn">
 <div class="fl">
 <#if localBm == '0000'>
-<a href="javascript:addAppManually()" title="点击手动继续添加">继续添加</a>
+<a href="javascript:addAppManually()" title="点击手动继续添加">继续添加x</a>
 <#else>
-<a href="javascript:addApp()" title="点击继续添加">继续添加</a>
+<a href="javascript:addApp()" title="点击继续添加">继续添加x1</a>
 </#if>
 </div>
 <div class="fr">
-<a href="javascript:addApp:closeApp_w()" id="appEnd">完成</a>
-<a href="javascript:addUser:closeDivById('appDiv')">关闭</a>
+<a href="javascript:addApp:closeApp_w()" id="appEnd">完成x2</a>
+<a href="javascript:addUser:closeDivById('appDiv')">关闭x2</a>
 </div>
 
 	<#if localBm == '0000'>
@@ -2112,20 +2121,26 @@ function check_pc(cv){
 	<#if localBm == '0000'>
 	<th>性别：</th>
 	<td>
-		<select name="appsex" isUser="true" retSelect="1" style="display:block">
+		<!--<select name="appsex" isUser="true" retSelect="1" style="display:block">
 			<option value=""></option>
 			<option value="男">男</option>
 			<option value="女">女</option>
-		</select>
-				
+		</select>-->
+		<input name="appsex" id="appsex"  value="男" isUser="true" type="radio" checked><label for="isdlr_y">男</label>
+       <input name="appsex" id="appsex"  value="女" isUser="true" type="radio"  ><label for="isdlr_n">女</label>
+    		
 	</td>	
 	<#else>
 		<th>性别：</th>
 		<td>
-			<select name="appsex" isUser="true" retSelect="1" style="display:block">
+			<!--<select name="appsex" isUser="true" retSelect="1" style="display:block">
 				<option value="男">男</option>
 				<option value="女">女</option>
 			</select>
+			-->
+			<input name="appsex" id="appsex"  value="男" isUser="true" type="radio" checked><label for="isdlr_y">男</label>
+       <input name="appsex" id="appsex"  value="女" isUser="true" type="radio"  ><label for="isdlr_n">女</label>
+    	
 		</td>
 	</#if>
 </tr>
@@ -2583,7 +2598,7 @@ function opendg(dgurl,dgw,dgh)
 function szfyqq(a){
 	
 
-	if(a=="2"){
+	if(a=="2"){  //在线申请为 是 hou 2
 		document.getElementById("requestrrr").value="2";
 		document.getElementById("requesttype2").style.display="block";
 		document.getElementById("requesttype3").style.display="block";
@@ -2594,17 +2609,16 @@ function szfyqq(a){
 		document.getElementById("jutixingzheng").style.display="none";
 		document.getElementById("jutixingzheng1").style.display="none";
 		
-		document.getElementById("q_3_1").disabled="disabled";
-		document.getElementById("q_3_2").disabled="disabled";
-		document.getElementById("q_3_3").disabled="disabled";
-        document.getElementById("h_2_1").disabled="";
-		document.getElementById("h_2_2").disabled="";
 		
 		
-		//document.getElementByClassName("q_3").style.display="none";
-		//document.getElementByClassName("h_2").style.display="block";
+		
+		document.getElementById("sq_y").style.display="none";
+		document.getElementById("sq_n").style.display="block";
+		document.getElementById("h_2_1").checked=true;
+		
+		
 	}
-	if(a=="0")
+	if(a=="0") //在线申请为   否
 	{
 		document.getElementById("requestrrr").value="0";
 		document.getElementById("requesttype2").style.display="none";
@@ -2616,11 +2630,12 @@ function szfyqq(a){
 		document.getElementById("jutixingzheng").style.display="block";
 		document.getElementById("jutixingzheng1").style.display="block";
 		
-		document.getElementById("q_3_1").disabled="";
-		document.getElementById("q_3_2").disabled="";
-		document.getElementById("q_3_3").disabled="";
-        document.getElementById("h_2_1").disabled="disabled";
-		document.getElementById("h_2_2").disabled="disabled";
+		
+		document.getElementById("sq_y").style.display="block";
+		 document.getElementById("q_3_1").checked=true;
+		
+		document.getElementById("sq_n").style.display="none";
+		
 		
 		
 	}
@@ -2844,59 +2859,75 @@ function check_remark(){
 
 function checknull()
 {	
-	//if(document.getElementById("user").value==""){alert("请填写被接待人!");return;}
-	if (document.getElementById("applicationtype").value==1){
-		if(document.getElementById("shenqingren").value==""){alert("请填写申请人!");return;}
-	} else {
-		if(document.getElementById("appname").value==""){alert("请填写申请人!");return;}
-	}
-	var intReg=/^[0-9]*[1-9][0-9]*$/;
-	//if(!intReg.test(document.getElementById("applicationsum").value)){alert("请填写接待人人数");return;}
-	if(!intReg.test(document.getElementById("rencount").value)){alert("请填写申请人人数");return;}
-	var a=document.getElementsByTagName("input");	
-	for(var i=0;i<a.length;i++)
-		if(a.item(i).ischeck)
-		{
-		    if(a.item(i).type=="radio")
-			{
-			if(!(((document.getElementsByName(a.item(i).name)[0]).checked)||((document.getElementsByName(a.item(i).name)[1]).checked)))
-				{
-					alert("请填写1:"+document.getElementsByName(a.item(i).name)[0].altname+"!");return false;
-				}			
-			}
-			else if(a.item(i).value=="")
-				{
-					alert("请填写2:"+a.item(i).altname+"!");return false;
-				}
-		}	
-	
-	
-	//if(document.getElementById("xzfyqq1").value==""){alert("请填写行政复议请求!");return;}
-	if(document.getElementById("beapptype").value==0) {alert("请填写被申请人种类!");return false;}
-	
-	if(!checkfysx()){
-		alert("请填写申请复议事项!");
-		return;	
-	}
 
-	var a=document.getElementsByTagName("select");
-	for(var i=0;i<a.length;i++)
-	{
-		if(a.item(i).ischeck)
-		{
-			if(a.item(i).value=="0"){alert("请您填写3:"+a.item(i).altname+"!");return false;	}			
-		}
-	}
-
-	//if(document.getElementById("requestrrr").value=="0"){
-	//	if(document.getElementById("xingwei1").value==""){alert("请填写要求复议的具体行政行为情况!");return;}
-	//}
+   
+	if (document.getElementById("applicationtype1").checked){
 	
-	//if(document.getElementById("zhidaosj").value==""){
-	//alert("3");
-	//	alert("请填写知道该行政行为时间!");return;
+		if(document.getElementById("shenqingren").value==""){alert("请填写申请人!");return false;}
+	
+	} else if(document.getElementById("applicationtype2").checked) {
+	
+		if(document.getElementById("appname").value==""){alert("请填写申请人!");return false;}
+	}
+	if (document.getElementById("isdlr_y").checked){
+	
+	if(document.getElementById("dlrname").value==""){alert("请填写代理人姓名!");return false;}
+	
+	
+	}if (document.getElementById("peichang_y").checked){
+	if(document.getElementById("peichang_count").value==""){alert("请填写赔偿金额!");return false;}
+	
+	}
+	  
+	
+	if(document.getElementById("peichang_file").value==""){alert("请填写受损证明材料!");return false;}
+	
+	if(document.getElementById("beapptype").value=="0"){alert("请填写被申请人种类!");return false;}
+	if(document.getElementById("beappname").value=="0"){alert("请填写被申请人名称!");return false;}
 		
-	//}
+	if (document.getElementById("requestrrr_y").checked){
+	
+	
+	   if(document.getElementById("is_prof_detail").value==""){alert("请填写曾要求被申请人履行何种法定职责!");return false;}
+	   
+	    if(document.getElementById("knowy12").value=="0"||document.getElementById("knowm12").value=="0"){alert("请填写要求被申请人履行日期!");return false;}
+	
+	   
+	  
+	}else{  //要求复议的具体行政行为情况
+	
+	 if(document.getElementById("require_fy").value==""){alert("请填写要求复议的具体行政行为情况!");return false;}
+	  
+	}
+	if (document.getElementById("gfsc_y").checked){//是否规范性检查
+	
+	
+	if(document.getElementById("check_file").value==""){alert("请填写规范性文件附带审查检查!");return false;}
+	
+	
+	}
+	if(document.getElementById("shishiyuly").value==""){alert("请填写事实与理由!");return false;}
+	
+	if(document.getElementById("yanzhengsj").value==""){
+	alert("请输入联系手机号码!");return false;
+	}else{
+	
+	if(isMob.test(document.getElementById("yanzhengsj").value)||isPhone.test(document.getElementById("yanzhengsj").value)){ 
+	    	       
+	    	    }else{
+	    	    	
+	    	    	alert("请输入正确的联系手机号码！");return;
+	    	    	
+	    	    }
+	
+	}
+	
+	if(document.getElementById("yanzhenma").value==""){alert("请输入验证码!");return false;}
+	
+	
+	
+	
+	
 	return true;
 }
 
@@ -2953,15 +2984,13 @@ function getUser1(){
 -->
 
 function saveNew(id){ 
-	//setCountAppname('shenqingren','rencount');
-   // if(checknull()){
-    
-    //if(true){
+      if(checknull()){
+        // checknull();
 		listForm_= document.getElementById("form1");
 		listForm_.action="../xzfy/saveFace.action?funcCode=${funcCode}&&xzfyId=" + id;
 			if(confirm("您确认提交吗?"))
 			listForm_.submit();
-	//}
+       }
 }
 
 function saveJD(){ 

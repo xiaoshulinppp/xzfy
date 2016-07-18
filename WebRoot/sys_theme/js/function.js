@@ -1160,8 +1160,9 @@ function setAq(ck){
 	}
 }
 
-function checksqr(){
-	if(document.getElementById("applicationtype").value==2){
+function checksqr(a){
+	//alert("11");
+	if(a==2){
 		document.getElementById("sqr").style.display="block";
 		document.getElementById("shenqingren1").style.display="none";
 		document.getElementById("daibiaorendiv").style.display="none";
@@ -1580,7 +1581,6 @@ function closeApp_w(){//gongmin
 	document.getElementById("appDiv").style.display="none";
 	var tuser=document.getElementById("tapp");
 	var bjdr1=document.getElementsByName("appsqr");
-	var bsex=document.getElementsByName("appsex");
 	var bnum=document.getElementsByName("appnum");
 	var baddress=document.getElementsByName("appaddress");
 	var bpost=document.getElementsByName("apppost");
@@ -1591,12 +1591,20 @@ function closeApp_w(){//gongmin
 	var reg = new RegExp("^[0-9]*$");  
 	
 	for(var i=0;i<bjdr1.length;i++){
+		if(i==0){
+			var bsex=document.getElementsByName("appsex");
+			
+		}else{
+			var bsex=document.getElementsByName("appsex"+i);
+
+			
+		}
 		if(bjdr1.item(i).value==""){
 			alert("请填写被申请人姓名！");return;
 		}
-		if(bsex.item(i).value==""){
-			alert("请填写被申请人性别！");return;
-		}
+	//	if(bsex.item(i).value==""){
+	//		alert("请填写被申请人性别！");return;
+	//	}
 		if(bnum.item(i).value==""){
 			alert("请填写被申请人身份证号！");return;
 		}else{
@@ -1631,8 +1639,16 @@ function closeApp_w(){//gongmin
 	    	    	
 	    	    }
 	    }
-		userString=userString+"( "+(i+1)+" )"+bjdr1.item(i).value+"，"+bsex.item(i).value;
-		userString_cang=userString_cang+bjdr1.item(i).value+"$"+bsex.item(i).value;
+		var sex="";
+		
+		if (bsex.item(0).checked==true){
+			sex="男"
+		}else{
+			sex="女"
+		}
+		
+		userString=userString+"( "+(i+1)+" )"+bjdr1.item(i).value+"，"+sex;
+		userString_cang=userString_cang+bjdr1.item(i).value+"$"+sex;
 		if(bnum.item(i).value==""){
 		
 			userString=userString+"，";
@@ -2617,7 +2633,29 @@ function checkXw_w(){//外网页面用
 			if(frsqr.length==1){ //一个案子的时候
 					if(frsqr.item(i).value=="") {  //为空验证
 						alert("被复议的具体行为-名称");
-						return false;;
+						return false;
+					}if(fuzeren.item(i).value==""){  //为空验证
+						alert("被复议的具体行为-文号");
+						return false;
+					}
+					
+					if(zd1.item(i).value=="0") {  //为空验证
+						alert("请填写知道年份");
+						return false;
+					}if(zd2.item(i).value=="0") {  //为空验证
+						alert("请填写知道时间月份");
+						return false;
+					}if(zd3.item(i).value=="0") {  //为空验证
+						alert("请填写知道时间日期");
+						return false;
+					}
+					
+					
+					
+					
+					if(tujing.item(i).value=="") {  //为空验证
+						alert("知道该行为的具体途径");
+						return false;
 					}
 					userString=userString+frsqr.item(i).value;
 					userString1=userString1+frsqr.item(i).value+"；";
@@ -2627,7 +2665,7 @@ function checkXw_w(){//外网页面用
 						userString=userString+"（"+fuzeren.item(i).value+"）";
 						userStringAll=userStringAll+"（"+fuzeren.item(i).value+"）；";
 						
-						jianshu=fuzeren.item(i);
+						jianshu=fuzeren.length;
 						userStringAll_cang=userStringAll_cang+"$"+fuzeren.item(i).value+"$";
 						userString2=userString2+fuzeren.item(i).value+"；";
 					} 
@@ -2664,6 +2702,28 @@ function checkXw_w(){//外网页面用
 					if(frsqr.item(i).value=="") {
 						alert("被复议的具体行为-名称");
 						return false;
+					}if(fuzeren.item(i).value==""){  //为空验证
+						alert("被复议的具体行为-文号");
+						return false;
+					}
+					
+					if(zd1.item(i).value=="0") {  //为空验证
+						alert("请填写知道年份");
+						return false;
+					}if(zd2.item(i).value=="0") {  //为空验证
+						alert("请填写知道时间月份");
+						return false;
+					}if(zd3.item(i).value=="0") {  //为空验证
+						alert("请填写知道时间日期");
+						return false;
+					}
+					
+					
+					
+					
+					if(tujing.item(i).value=="") {  //为空验证
+						alert("知道该行为的具体途径");
+						return false;
 					}
 					userString=userString+"（"+n+"）"+frsqr.item(i).value;
 					userString1=userString1+"（"+n+"）"+frsqr.item(i).value+"；";
@@ -2673,6 +2733,9 @@ function checkXw_w(){//外网页面用
 					if(fuzeren.item(i).value!=""){
 						userString=userString+"（"+fuzeren.item(i).value+"）";
 						userString2=userString2+n+fuzeren.item(i).value+"；";
+						
+						
+						jianshu=fuzeren.length;
 						userStringAll=userStringAll+fuzeren.item(i).value+"；";
 						userStringAll_cang=userStringAll_cang+fuzeren.item(i).value+"$";
 					}
