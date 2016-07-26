@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://localhost:8080/webIscp/services/dateTransfer_nei" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://localhost:8080/webIscp/services/dateTransfer_nei" xmlns:intf="http://localhost:8080/webIscp/services/dateTransfer_nei" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+
+   <wsdl:message name="saveJSONRequest">
+
+      <wsdl:part name="cc" type="xsd:string">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveTestResponse">
+
+      <wsdl:part name="saveTestReturn" type="xsd:string">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveTestRequest">
+
+      <wsdl:part name="cc" type="xsd:string">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveJSONResponse">
+
+      <wsdl:part name="saveJSONReturn" type="xsd:string">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="dateTransfer_nei">
+
+      <wsdl:operation name="saveJSON" parameterOrder="cc">
+
+         <wsdl:input message="impl:saveJSONRequest" name="saveJSONRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:saveJSONResponse" name="saveJSONResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="saveTest" parameterOrder="cc">
+
+         <wsdl:input message="impl:saveTestRequest" name="saveTestRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:saveTestResponse" name="saveTestResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="dateTransfer_neiSoapBinding" type="impl:dateTransfer_nei">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="saveJSON">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="saveJSONRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://waiwangTB.taiji.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="saveJSONResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8080/webIscp/services/dateTransfer_nei" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="saveTest">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="saveTestRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://waiwangTB.taiji.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="saveTestResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8080/webIscp/services/dateTransfer_nei" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="dateTransfer_neiService">
+
+      <wsdl:port binding="impl:dateTransfer_neiSoapBinding" name="dateTransfer_nei">
+
+         <wsdlsoap:address location="http://localhost:8080/webIscp/services/dateTransfer_nei"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

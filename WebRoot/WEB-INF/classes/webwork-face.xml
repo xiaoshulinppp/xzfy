@@ -6,11 +6,14 @@
 	<package name="xzfy" extends="default" namespace="/xzfy">
 		<default-interceptor-ref name="autowireDefault" />
 
-       <action name="appFYfaceInsert" class="com.taiji.fzb.webwork.XzfyDetailAction1"
+      <!--  <action name="appFYfaceInsert" class="com.taiji.fzb.webwork.XzfyDetailAction1"
 			method="gotoCreate">
      		<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2_3.ftl</result>
+		</action> -->
+		<action name="appFYfaceInsert" class="com.taiji.fzb.webwork.WordAction"
+			method="createWord">
+     		<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2_3.ftl</result>
 		</action>
-		
 		
 		
 		 <!--  class="com.taiji.fzb.webwork.XzfyDetailAction1"

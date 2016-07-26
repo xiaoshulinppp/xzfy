@@ -256,6 +256,11 @@
 	<classpathentry kind="lib" path="D:/搜狗高速下载/apache-cxf-2.7.18/lib/xmlsec-1.5.8.jar"/>
 	<classpathentry kind="lib" path="D:/搜狗高速下载/apache-cxf-2.7.18/lib/xmltooling-1.4.1.jar"/>
 	<classpathentry kind="lib" path="D:/搜狗高速下载/apache-cxf-2.7.18/lib/xsdlib-2010.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/axis-ant-1.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/axis-ant-1.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4-sources.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/wsdl4j.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -301,12 +301,30 @@ public class XzfyInfo implements Serializable{
 	private String jiansuom;
 	private String tb_flag;
 	private String tb_time;
+	private String checkMail;
 	
+	private String zl_time;
 	private String  agentDetail_cang;
 	private String appdetail_cang;
 	private String  require_fy_cang;
 	
 	
+	public String getZl_time() {
+		return zl_time;
+	}
+
+	public void setZl_time(String zl_time) {
+		this.zl_time = zl_time;
+	}
+
+	public String getCheckMail() {
+		return checkMail;
+	}
+
+	public void setCheckMail(String checkMail) {
+		this.checkMail = checkMail;
+	}
+
 	public String getAgentDetail_cang() {
 		return agentDetail_cang;
 	}

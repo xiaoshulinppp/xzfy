@@ -1,59 +1,59 @@
 /**
- * DatesentServiceLocator.java
+ * DateTransfer_neiServiceLocator.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package _1._0._0._127.zxfy.services.datesent;
+package localhost.webIscp.services.dateTransfer_nei;
 
-public class DatesentServiceLocator extends org.apache.axis.client.Service implements _1._0._0._127.zxfy.services.datesent.DatesentService {
+public class DateTransfer_neiServiceLocator extends org.apache.axis.client.Service implements localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiService {
 
-    public DatesentServiceLocator() {
+    public DateTransfer_neiServiceLocator() {
     }
 
 
-    public DatesentServiceLocator(org.apache.axis.EngineConfiguration config) {
+    public DateTransfer_neiServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
 
-    public DatesentServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
+    public DateTransfer_neiServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
         super(wsdlLoc, sName);
     }
 
-    // Use to get a proxy class for datesent
-    private java.lang.String datesent_address = "http://127.0.0.1:8787/zxfy/services/datesent";
+    // Use to get a proxy class for dateTransfer_nei
+    private java.lang.String dateTransfer_nei_address = "http://localhost:8080/webIscp/services/dateTransfer_nei";
 
-    public java.lang.String getdatesentAddress() {
-        return datesent_address;
+    public java.lang.String getdateTransfer_neiAddress() {
+        return dateTransfer_nei_address;
     }
 
     // The WSDD service name defaults to the port name.
-    private java.lang.String datesentWSDDServiceName = "datesent";
+    private java.lang.String dateTransfer_neiWSDDServiceName = "dateTransfer_nei";
 
-    public java.lang.String getdatesentWSDDServiceName() {
-        return datesentWSDDServiceName;
+    public java.lang.String getdateTransfer_neiWSDDServiceName() {
+        return dateTransfer_neiWSDDServiceName;
     }
 
-    public void setdatesentWSDDServiceName(java.lang.String name) {
-        datesentWSDDServiceName = name;
+    public void setdateTransfer_neiWSDDServiceName(java.lang.String name) {
+        dateTransfer_neiWSDDServiceName = name;
     }
 
-    public _1._0._0._127.zxfy.services.datesent.Datesent getdatesent() throws javax.xml.rpc.ServiceException {
+    public localhost.webIscp.services.dateTransfer_nei.DateTransfer_nei getdateTransfer_nei() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
-            endpoint = new java.net.URL(datesent_address);
+            endpoint = new java.net.URL(dateTransfer_nei_address);
         }
         catch (java.net.MalformedURLException e) {
             throw new javax.xml.rpc.ServiceException(e);
         }
-        return getdatesent(endpoint);
+        return getdateTransfer_nei(endpoint);
     }
 
-    public _1._0._0._127.zxfy.services.datesent.Datesent getdatesent(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public localhost.webIscp.services.dateTransfer_nei.DateTransfer_nei getdateTransfer_nei(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            _1._0._0._127.zxfy.services.datesent.DatesentSoapBindingStub _stub = new _1._0._0._127.zxfy.services.datesent.DatesentSoapBindingStub(portAddress, this);
-            _stub.setPortName(getdatesentWSDDServiceName());
+            localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiSoapBindingStub _stub = new localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiSoapBindingStub(portAddress, this);
+            _stub.setPortName(getdateTransfer_neiWSDDServiceName());
             return _stub;
         }
         catch (org.apache.axis.AxisFault e) {
@@ -61,8 +61,8 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
         }
     }
 
-    public void setdatesentEndpointAddress(java.lang.String address) {
-        datesent_address = address;
+    public void setdateTransfer_neiEndpointAddress(java.lang.String address) {
+        dateTransfer_nei_address = address;
     }
 
     /**
@@ -72,9 +72,9 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (_1._0._0._127.zxfy.services.datesent.Datesent.class.isAssignableFrom(serviceEndpointInterface)) {
-                _1._0._0._127.zxfy.services.datesent.DatesentSoapBindingStub _stub = new _1._0._0._127.zxfy.services.datesent.DatesentSoapBindingStub(new java.net.URL(datesent_address), this);
-                _stub.setPortName(getdatesentWSDDServiceName());
+            if (localhost.webIscp.services.dateTransfer_nei.DateTransfer_nei.class.isAssignableFrom(serviceEndpointInterface)) {
+                localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiSoapBindingStub _stub = new localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiSoapBindingStub(new java.net.URL(dateTransfer_nei_address), this);
+                _stub.setPortName(getdateTransfer_neiWSDDServiceName());
                 return _stub;
             }
         }
@@ -94,8 +94,8 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
             return getPort(serviceEndpointInterface);
         }
         java.lang.String inputPortName = portName.getLocalPart();
-        if ("datesent".equals(inputPortName)) {
-            return getdatesent();
+        if ("dateTransfer_nei".equals(inputPortName)) {
+            return getdateTransfer_nei();
         }
         else  {
             java.rmi.Remote _stub = getPort(serviceEndpointInterface);
@@ -105,7 +105,7 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
     }
 
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://127.0.0.1:8787/zxfy/services/datesent", "datesentService");
+        return new javax.xml.namespace.QName("http://localhost:8080/webIscp/services/dateTransfer_nei", "dateTransfer_neiService");
     }
 
     private java.util.HashSet ports = null;
@@ -113,7 +113,7 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://127.0.0.1:8787/zxfy/services/datesent", "datesent"));
+            ports.add(new javax.xml.namespace.QName("http://localhost:8080/webIscp/services/dateTransfer_nei", "dateTransfer_nei"));
         }
         return ports.iterator();
     }
@@ -123,8 +123,8 @@ public class DatesentServiceLocator extends org.apache.axis.client.Service imple
     */
     public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
         
-if ("datesent".equals(portName)) {
-            setdatesentEndpointAddress(address);
+if ("dateTransfer_nei".equals(portName)) {
+            setdateTransfer_neiEndpointAddress(address);
         }
         else 
 { // Unknown Port Name

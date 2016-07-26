@@ -536,7 +536,7 @@ public class XzfyServiceImpl extends  CoreServiceImpl implements XzfyService {
 		@Override
 		public  List getXzfyByTB_flag(String TBflag) {
 		//	String sql = "from XzfyInfo where (XzfyInfo.tbflag = '" + TBflag + "' ) ";
-			String sql = "from XzfyInfo  xzfyinfo where  xzfyinfo.id <> '' ";
+			String sql = "from XzfyInfo  xzfyInfo where  xzfyInfo.id ='"+TBflag+"' ";
 		List<XzfyInfo> r = (List<XzfyInfo>) this.find(sql);
 			
 			return r;

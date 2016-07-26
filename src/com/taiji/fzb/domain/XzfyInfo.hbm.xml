@@ -600,8 +600,12 @@
             <property name="tb_time" type="java.lang.String" column="tb_time"
 			length="20" />
 
-
-	
+           <property name="checkMail" type="java.lang.String" column="checkMail"
+			length="50" />
+	    
+	    <property name="zl_time" type="java.lang.String" column="zl_time"
+			length="50" />
+			
 	 <property name="agentDetail_cang" type="java.lang.String" column="agentDetail_cang"
 			length="500" />
             <property name="appdetail_cang" type="java.lang.String" column="appdetail_cang"

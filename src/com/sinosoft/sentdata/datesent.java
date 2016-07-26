@@ -1,5 +1,6 @@
 package com.sinosoft.sentdata;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import com.taiji.fzb.service.XzfyService;
 import com.taiji.user.domain.Org;
 import com.taiji.user.domain.User;
 
+import localhost.webIscp.services.dateTransfer_nei.DateTransfer_neiProxy;
 import net.sf.json.JSONObject;
 
 public class datesent  extends  CoreServiceImpl{
@@ -101,9 +103,24 @@ public class datesent  extends  CoreServiceImpl{
 		Gson gson=new Gson(); 
 		String json=gson.toJson(dog3);  
 		
-		
 		return json;
 		
+	}
+	
+	public String updateStatus( String ID,String status) {
+		
+		
+		XzfyInfo xzfy=null;
+		xzfy=xzfyService.getXzfyById(ID);
+		
+		xzfy.setStatus(status);
+		//String sql = " update XzfyInfo s set s.status='"+status+"' where s.id='"+ID+"');  ";
+		xzfyService.update(xzfy);
+		//this.find(sql);
+		//this.updateAll(sql);
+		return "SUCCESS";
+
+	
 	}
 	
 	public String test( String name) {
@@ -188,6 +205,33 @@ public class datesent  extends  CoreServiceImpl{
 			// 调用插入数据库记录方法，将获得的用户信息以及用户的角色信息插入数据库中
 			//this.userService.saveOrUpdate(user);
 			
+		
+	}
+	
+        public void check_tb_flag (  ) throws RemoteException {//定时检查修补同步遗漏
+		
+         List<XzfyInfo> xzfyInfo1=	xzfyService.getXzfyByTB_flag("0");
+		
+         DateTransfer_neiProxy da =new DateTransfer_neiProxy();  
+	     for(XzfyInfo xzfyInfo :xzfyInfo1){
+
+			 JSONObject json = JSONObject.fromObject(xzfyInfo);//将java对象转换为json对象
+	    	 String str = json.toString();//将json对象转换为字符串
+	    	
+	    				String ss= da.saveJSON(str);
+	    	            System.out.println(ss);
+						if(ss.equals("SUCCESS")){
+							xzfyInfo.setTb_flag("1");//同步成功
+						}else{
+							xzfyInfo.setTb_flag("0");//同步失败
+						}
+	    				
+	    			xzfyService.update(xzfyInfo);
+	    	 
+	    	 
+	     }
+		
+		
 		
 	}
 	
