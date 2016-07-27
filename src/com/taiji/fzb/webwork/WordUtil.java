@@ -3,14 +3,22 @@ package com.taiji.fzb.webwork;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.opensymphony.webwork.ServletActionContext;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 public class WordUtil {
 	   
 /**
@@ -33,7 +41,7 @@ public static void createWord(Map dataMap,String templateName,String filePath,St
             
             //ftl模板文件统一放至 com.lun.template 包下面
             //D:\work_eclipse\apache-tomcat-6.0.30(2)\webapps\zxfy-zaixianfuyi\pages/zxfy/sqsmuban/
-            configuration.setClassForTemplateLoading(WordUtil.class,ServletActionContext.getServletContext().getRealPath("/")+"pages\\");
+            configuration.setClassForTemplateLoading(WordUtil.class,ServletActionContext.getServletContext().getRealPath("/")+"template");
             
             //获取模板 
             Template template = configuration.getTemplate(templateName);
@@ -60,6 +68,45 @@ public static void createWord(Map dataMap,String templateName,String filePath,St
             e.printStackTrace();
         }
     }
+    
+    public static void createWord(Map<String,Object> dataMap,HttpServletRequest request,HttpServletResponse response) throws IOException{  
+        Configuration configuration = new Configuration();  
+        configuration.setDefaultEncoding("utf-8");   
+//        configuration.setClassForTemplateLoading(this.getClass(), "/com");  //FTL文件所存在的位置  
+//        File outPath = new File(path+"/output");
+//        Writer out = null;  
+//        if(!outPath.exists())
+//        	outPath.mkdirs();
+//            File outFile = new File(outPath+"/"+sdf.format(now)+r.nextInt(1000)+".doc");  
+//            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile),"UTF-8"));  //这里utf-8必须加，否则生成的word会因为中文字符问题打不开，报错xml格式错误
+//            t.process(dataMap, out);  
+        Template t=null;  
+        String path = request.getRealPath("/");
+        File inPath = new File(path+"/template");
+        Writer os = null;
+        if(!inPath.exists())
+        	inPath.mkdirs();
+        try {   
+        	configuration.setDirectoryForTemplateLoading(inPath);
+            t = configuration.getTemplate("muban4.ftl"); //文件名 
+            Date now = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Random r = new Random();
+            response.setContentType("application/msword");
+            response.setHeader("Content-Disposition", "attachment; filename="+sdf.format(now)+r.nextInt(1000)+".doc"); 
+            os = response.getWriter();
+            t.process(dataMap, os);
+           
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } catch (TemplateException e) {  
+            e.printStackTrace();  
+        } finally{
+        	 os.close();
+        }
+        
+    }  
+
 }
 
  

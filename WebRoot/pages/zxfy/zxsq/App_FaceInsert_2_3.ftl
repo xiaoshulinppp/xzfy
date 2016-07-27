@@ -975,19 +975,19 @@ function check_pc(cv){
     
     <div id="sq_y" >
     
-    <input type="radio" name="xzfyInfo.xzfy_requset" nbzcheck="y" altname="对规范性文件审查" value="1撤销该具体行政行为" id="q_3_1" checked>
+    <input type="radio" name="xzfyInfo.xzfy_requset" nbzcheck="y" altname="对规范性文件审查" value="撤销该具体行政行为" id="q_3_1" checked>
 	        <label for="q_3_1">  <font  id="font1">撤销该具体行政行为a</font></label><br>
-	<input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="2变更该具体行政行为" nbzcheck="y"  id="q_3_2" >
+	<input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="变更该具体行政行为" nbzcheck="y"  id="q_3_2" >
 	        <label for="q_3_2"><font id="font1">变更该具体行政行为a</font></label><br>
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="3确认该具体行政行为违法" nbzcheck="y"  id="q_3_3" >
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="确认该具体行政行为违法" nbzcheck="y"  id="q_3_3" >
 	        <label for="q_3_3"><font id="font1">确认该具体行政行为违法a</font></label><br>
 	        
 	  </div>  
 	      
 	  <div id="sq_n"  style="display:none">      
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="4责令被申请人履行法定职责" nbzcheck="y"  id="h_2_1" >
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="责令被申请人履行法定职责" nbzcheck="y"  id="h_2_1" >
 	        <label for="h_2_1"><font id="font1" >责令被申请人履行法定职责a</font></label><br>
-    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="5确认被申请人不履行法定职责违法" nbzcheck="y"  id="h_2_2"  >
+    <input type="radio" name="xzfyInfo.xzfy_requset" altname="对规范性文件审查" value="确认被申请人不履行法定职责违法" nbzcheck="y"  id="h_2_2"  >
 	        <label for="h_2_2"><font id="font1" >确认被申请人不履行法定职责违法a</font></label><br>
     </div>
     <!--<select name="xzfyInfo.xzfy_requset" id="request2yiban"     onchange="ryq();closeBzw1()" >

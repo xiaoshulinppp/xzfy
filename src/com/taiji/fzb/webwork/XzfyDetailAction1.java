@@ -514,6 +514,8 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 		
 		public String saveFace1(){
 		        
+			
+			
 			return "success";
 			
 		}

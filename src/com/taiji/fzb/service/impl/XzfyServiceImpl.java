@@ -49,6 +49,24 @@ public class XzfyServiceImpl extends  CoreServiceImpl implements XzfyService {
 		HQL += " where 1 = 1";
 		return super.find(HQL, pageNumber, pageSize);
 	}
+	
+	
+	
+	public Org getRootOrg(String locBM){
+		String hql="from Org org where org.locbm='"+locBM+"' order by org.id asc";
+		List<Org> list1=super.find(hql);
+		if(list1.size()>0){
+			
+			Org org=(Org)list1.get(0);
+			return org;
+		}else{
+			 Org  org=new Org();
+			return org;
+		}
+		
+	}
+	
+	
 
 	/*
 	 * 通过ID获取模板对象

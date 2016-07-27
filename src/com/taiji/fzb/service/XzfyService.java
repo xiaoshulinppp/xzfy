@@ -12,6 +12,7 @@ import com.taiji.fzb.domain.XzfyAgent;
 import com.taiji.fzb.domain.XzfyApp;
 //import com.taiji.fzb.domain.XzfyBuwei;
 import com.taiji.fzb.domain.XzfyInfo;
+import com.taiji.user.domain.Org;
 //import com.taiji.fzb.domain.XzfyRecieve;
 //import com.taiji.fzb.domain.XzfyShenpi;
 //import com.taiji.fzb.domain.XzssInfo;
@@ -30,6 +31,8 @@ public interface XzfyService extends ICoreService {
 	 *            每页显示条数
 	 * @return 分页的列表
 	 */
+	public Org getRootOrg(String locBM);
+	
 	public PaginationSupport getXzfyList(int pageNumber, int pageSize);
 
 	/**

@@ -39,13 +39,13 @@
 因此，您在“行政复议信息服务平台”保存信息，不能视为已经向行政复议机关提出了行政复议申请
 </p>
 
-     
+    
      </div>
         <br>
         
         
     
-<font size="4"  style="text-align:center"><a href="">下载申请书</a></font>
+<font size="4"  style="text-align:center"><a href="../xzfy/download.action?funcCode=${funcCode}&xzfyId=${xzfyId}">下载申请书</a></font>
      
      
  <br>
