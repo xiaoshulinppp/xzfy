@@ -20,6 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.taiji.core.webwork.action.ProtectedDetailAction;
 import com.taiji.fzb.domain.XzfyInfo;
 import com.taiji.fzb.service.XzfyService;
+import com.taiji.fzb.util.Word2Pdf;
 
 /**
  * @Desc：生成word
@@ -38,7 +39,9 @@ public class WordAction  extends ProtectedDetailAction{
  private XzfyInfo xzfyInfo; //文件路径
  private XzfyService xzfyService = null; // 模板业务层方法
  
- /**
+
+
+/**
   * @Desc：生成word文档
   * @Author：张轮
   * @Date：2014-1-22下午07:29:58
@@ -76,9 +79,34 @@ public class WordAction  extends ProtectedDetailAction{
         //ismanage   2是，0，否
         if(xzfyInfo.getIsmanage().equals("2")){//
         	dataMap.put("qingqiu","1");
+        	
+        	
         }else{//为否的时候才会有循环list
         	
         	dataMap.put("qingqiu","2");
+        	 List<Map<String, Object>> listfy  =new ArrayList<Map<String,Object>>();
+             //require_fy_cang
+             
+             String fuyi=xzfyInfo.getRequire_fy_cang();
+             String fy[]=fuyi.split("&");
+             for(int i=0;i<=fy.length-1;i++){
+             	
+             	//名称（文号）；知道时间：2013年3月18日（途径是偷偷知道的）；共1件
+             	//名称$文号$2013-3-18$途径是偷偷知道的&
+             	
+              Map<String, Object> map=new HashMap<String, Object>();
+              //撒旦法$2131$2013-1-18$撒旦法
+              String bb[]=fy[i].split("\\$");
+              String shujiawh="";
+              shujiawh=bb[0]+"("+bb[1]+")";
+              map.put("mcjiawh", shujiawh);
+              map.put("nianyue", bb[2]);
+              map.put("moufs", bb[3]);
+              listfy.add(map);
+             }
+             dataMap.put("listfy",listfy);
+           	
+        	
         }
         
         
@@ -93,17 +121,15 @@ public class WordAction  extends ProtectedDetailAction{
         	sqr=xzfyInfo.getAppdetail_cang();
         	String aa[]=sqr.split("&");
         	
-        	for(int i=0;i<aa.length-1;i++){
+        	for(int i=0;i<aa.length;i++){
         		
                 Map<String, Object> map=new HashMap<String, Object>();
                 //"刘全成（由董事会以股份制企业名义提出申请），主要负责人是：张三，送达地址北京海淀，邮编333333，电话3333333；")
-                map.put("sqr", aa[i].replaceAll("$", ","));
-                
+                map.put("sqr", aa[i].replaceAll("\\$", ","));
+                //刘全成$男$身份证号130627198912084613$送达地址盛大发售$邮编121212$电话12121212
                 listsqr.add(map);
                }
                dataMap.put("listsqr",listsqr );
-        	
-        	
         	
         	
         }else{
@@ -115,12 +141,12 @@ public class WordAction  extends ProtectedDetailAction{
         	//(1)刘全成（由董事会以股份制企业名义提出申请），执行合伙事务的合伙人是：张代表，送达地址北京海淀，邮编333222，电话44443333；  共1 人
         	//(1)刘全成（由董事会以股份制企业名义提出申请），执行合伙事务的合伙人是：张代表，送达地址北京海淀，邮编333222，电话44443333；(2)刘全成2（由董事会以股份制企业名义提出申请），法定代表人是：张代表，送达地址河北保定，邮编333222，电话44443333；  共2 人
         	//刘全成$由董事会以股份制企业名义提出申请$执行合伙事务的合伙人$张代表$北京海淀$333222$44443333&刘全成2$由董事会以股份制企业名义提出申请$法定代表人$张代表$河北保定$333222$44443333&刘全成$0$法定代表人$张代表$南京$333222$44443333&
-        	for(int i=0;i<aa.length-1;i++){
+        	for(int i=0;i<aa.length;i++){
         		
                 Map<String, Object> map=new HashMap<String, Object>();
                 //"刘全成（由董事会以股份制企业名义提出申请），主要负责人是：张三，送达地址北京海淀，邮编333333，电话3333333；")
                 String faren="";
-                String bb[]=aa[i].split("$");
+                String bb[]=aa[i].split("\\$");
                 String gudong="";
                 if(bb[1].equals("0")){
                 	gudong="";
@@ -134,41 +160,15 @@ public class WordAction  extends ProtectedDetailAction{
                 listsqr.add(map);
                }
                dataMap.put("listsqr",listsqr );
-        	
-        	
-        	
-        	
-        	
+       	
         }
         
         		
        //拆分从组。
         
         
-        List<Map<String, Object>> listfy  =new ArrayList<Map<String,Object>>();
-        //require_fy_cang
-        
-        String fuyi=xzfyInfo.getRequire_fy_cang();
-        String fy[]=fuyi.split("&");
-        for(int i=0;i<=fy.length-1;i++){
-        	
-        	//名称（文号）；知道时间：2013年3月18日（途径是偷偷知道的）；共1件
-        	//名称$文号$2013-3-18$途径是偷偷知道的&
-        	
-         Map<String, Object> map=new HashMap<String, Object>();
-         String shujiawh="";
-         shujiawh=fy[0]+"("+fy[1]+")";
-         map.put("mcjiawh", shujiawh);
-         map.put("nianyue", fy[2]);
-         map.put("moufs", fy[3]);
-         listfy.add(map);
-        }
-        dataMap.put("listfy",listfy);
-        
-        
-        
-        
-        
+       
+         
         //dataMap.put("content","这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容这是其它内容");
     //    newList 
         
@@ -188,12 +188,22 @@ public class WordAction  extends ProtectedDetailAction{
         fileOnlyName = "用freemarker导出的Word文档_"+sb+".doc";
         
         //文件名称
-        fileName="用freemarker导出的Word文档.doc";
-        
+        fileName="申请书.doc";
+      String   fileName2="申请书.pdf";
         /** 生成word */
-       // WordUtil.createWord(dataMap, "muban4.ftl", filePath, fileOnlyName);
+        WordUtil.createWord(this.getRequest(),dataMap,  filePath, fileOnlyName);
         
-        WordUtil.createWord(dataMap,this.getRequest(),ServletActionContext.getResponse());
+      //  WordUtil.createWord(dataMap,this.getRequest(),ServletActionContext.getResponse());
+        
+        
+        boolean f = Word2Pdf.word2PDF(filePath+File.separator+fileName, filePath +File.separator+ fileName2,"诚信创建");
+        if(f){
+        	System.out.println("chenggong");
+        }else{
+        	System.out.println("shibai");
+        	
+        }
+        
         
         return "createWordSuccess";
     }
@@ -294,5 +304,25 @@ public Class getPersistentClass() {
 	// TODO Auto-generated method stub
 	return null;
 }
+
+public XzfyInfo getXzfyInfo() {
+	return xzfyInfo;
+}
+
+
+public void setXzfyInfo(XzfyInfo xzfyInfo) {
+	this.xzfyInfo = xzfyInfo;
+}
+
+
+public XzfyService getXzfyService() {
+	return xzfyService;
+}
+
+
+public void setXzfyService(XzfyService xzfyService) {
+	this.xzfyService = xzfyService;
+}
+
 
 }

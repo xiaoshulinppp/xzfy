@@ -361,20 +361,26 @@ public class XzfyDetailAction1 extends ProtectedListAction{
     			//String aa=da.test("neiwang");
     		//	String  bb=da.saveJSON(str);
     		
-					
-    				String ss= da.saveJSON(str);
-    				
-    		
-    	            System.out.println(ss);
-					if(ss.equals("success333")){
+		try{			
+    	 
+				String ss= da.saveJSON(str);
+				
+				 System.out.println(ss);
+					if(ss.equals("SUCCESS")){
 						xzfyInfo.setTb_flag("1");//同步成功
 						
 					}else{
 						xzfyInfo.setTb_flag("0");//同步失败
 					}
-				
-    			
-    				
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			
+		}finally{
+			
+			xzfyInfo.setTb_flag("0");//同步失败
+			
+		}			
+   				
     			xzfyService.update(xzfyInfo);
     				
 	         	//xzfyService.update(xr);

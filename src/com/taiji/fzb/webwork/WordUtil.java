@@ -31,20 +31,28 @@ public class WordUtil {
 * @param fileName 生成的文件名称，例如：test.doc
 */
     @SuppressWarnings("unchecked")
-public static void createWord(Map dataMap,String templateName,String filePath,String fileName){
+public static void createWord(HttpServletRequest request,Map dataMap,String filePath,String fileName){
         try {
         //创建配置实例 
-        Configuration configuration = new Configuration();
-        
-        //设置编码
-            configuration.setDefaultEncoding("UTF-8");
-            
+        	Configuration configuration = new Configuration();  
+            configuration.setDefaultEncoding("utf-8");   
             //ftl模板文件统一放至 com.lun.template 包下面
             //D:\work_eclipse\apache-tomcat-6.0.30(2)\webapps\zxfy-zaixianfuyi\pages/zxfy/sqsmuban/
-            configuration.setClassForTemplateLoading(WordUtil.class,ServletActionContext.getServletContext().getRealPath("/")+"template");
+           // configuration.setClassForTemplateLoading(WordUtil.class,ServletActionContext.getServletContext().getRealPath("/")+"template");
             
             //获取模板 
-            Template template = configuration.getTemplate(templateName);
+          //  Template template = configuration.getTemplate(templateName);
+            
+            
+            Template template=null;  
+            String path = request.getRealPath("/");
+            File inPath = new File(path+"/template");
+            Writer os = null;
+            if(!inPath.exists())
+            	inPath.mkdirs();
+            configuration.setDirectoryForTemplateLoading(inPath);
+            template = configuration.getTemplate("muban4.ftl"); //文件名 
+            
             
             //输出文件
             File outFile = new File(filePath+File.separator+fileName);

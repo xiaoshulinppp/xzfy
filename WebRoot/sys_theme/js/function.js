@@ -1167,11 +1167,17 @@ function checksqr(a){
 		document.getElementById("shenqingren1").style.display="none";
 		document.getElementById("daibiaorendiv").style.display="none";
 		document.getElementById("shenqingren").value="";
+		
+		document.getElementById("applicationtype").value="2";
+		
 		document.getElementById("deputy").value="";
 	}else{
 		document.getElementById("sqr").style.display="none";
 		document.getElementById("shenqingren1").style.display="block";
 		document.getElementById("appname").value="";
+		
+		document.getElementById("applicationtype").value="1";
+		
 		document.getElementById("deputy").value="";
 		renCount();
 	}

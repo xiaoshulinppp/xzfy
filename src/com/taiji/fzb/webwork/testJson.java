@@ -10,7 +10,23 @@ import net.sf.json.JSONObject;
 public class testJson {
 
 	public static void main(String[] args) throws RemoteException {
-		 DateTransfer_neiProxy da =new DateTransfer_neiProxy();  
+		
+		//撒旦法$2131$2013-1-18$撒旦法
+		
+		String fy[]={"撒旦法$2131$2013-1-18$撒旦法&撒旦法$2131$2013-1-18$撒旦法"};
+		
+		 String bb[]=fy[0].split("&");
+        String bb4[]=bb[0].split("\\$");
+		
+        String aa[]={"刘全成$男$身份证号130627198912084613$送达地址盛大发售$邮编121212$电话12121212"};
+         String bb2= aa[0].replaceAll("\\$", ",");
+        //刘全成$男$身份证号130627198912084613$送达地址盛大发售$邮编121212$电话12121212
+		
+		
+		
+		
+		
+		DateTransfer_neiProxy da =new DateTransfer_neiProxy();  
 	    	
 		// String ss=da.saveTest("ssssssssss");
 		// System.out.println(ss);
