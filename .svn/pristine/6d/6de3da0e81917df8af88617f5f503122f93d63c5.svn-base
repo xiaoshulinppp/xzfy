@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<middlegen>
-   <plugin name="webwork" class-name="com.taiji.core.generator.plugingen.plugins.webwork.WebworkPlugin"/>
-</middlegen>

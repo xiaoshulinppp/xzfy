@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<middlegen>
-   <plugin name="infoGatherWebwork" class-name="com.taiji.core.generator.plugingen.plugins.infoGatherWebwork.InfoGatherWebworkPlugin"/>
-</middlegen>
