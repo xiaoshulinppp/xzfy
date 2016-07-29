@@ -191,9 +191,10 @@ public class WordAction  extends ProtectedDetailAction{
         fileName="申请书.doc";
       String   fileName2="申请书.pdf";
         /** 生成word */
+      //该方法路径找不到
         WordUtil.createWord(this.getRequest(),dataMap,  filePath, fileOnlyName);
-        
-      //  WordUtil.createWord(dataMap,this.getRequest(),ServletActionContext.getResponse());
+        //该方法直接弹窗下载
+       // WordUtil.createWord(dataMap,this.getRequest(),ServletActionContext.getResponse());
         
         
         boolean f = Word2Pdf.word2PDF(filePath+File.separator+fileName, filePath +File.separator+ fileName2,"诚信创建");
@@ -203,6 +204,8 @@ public class WordAction  extends ProtectedDetailAction{
         	System.out.println("shibai");
         	
         }
+        
+        WordUtil.download(filePath +File.separator+ fileName2, ServletActionContext.getResponse());
         
         
         return "createWordSuccess";
