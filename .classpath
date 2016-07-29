@@ -262,8 +262,8 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/wsdl4j.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jacob.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itext-2.1.7.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itext-rtf-2.1.7.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jacob.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
