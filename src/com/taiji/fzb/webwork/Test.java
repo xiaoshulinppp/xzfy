@@ -20,7 +20,7 @@ import com.jacob.com.Variant;
   
 public class Test {  
     static final int wdFormatPDF = 17;// PDF 格式    
-    public void wordToPDF(String sfileName,String toFileName){    
+    public static void wordToPDF(String sfileName,String toFileName){    
             
         System.out.println("启动Word...");      
         long start = System.currentTimeMillis();      
@@ -59,12 +59,73 @@ public class Test {
     }  
     public static void main(String[] args) {  
         Test d = new Test();  
-        d.wordToPDF("d:\\ftp\\aaa.docx", "d:\\ftp\\aaa.pdf");  
+      //  d.wordToPDF("d:\\ftp\\aaa.docx", "d:\\ftp\\aaa.pdf");  
         //System.exit(0);
-        
+        d.word2PDF("d:\\ftp\\aaa.docx", "d:\\ftp\\ffd.pdf", "");
         
     }  
-    
+    public static boolean word2PDF(String filename, String toFilename,
+			String waterMarkStr) {
+		boolean f = true;
+		System.out.println("启动Word");
+		long start = System.currentTimeMillis();
+		ActiveXComponent app = null;
+		Dispatch doc = null;
+		try {
+			ComThread.InitSTA();// 
+			app = new ActiveXComponent("Word.Application");
+			app.setProperty("Visible", false);
+
+			Dispatch docs = app.getProperty("Documents").toDispatch();
+			System.out.println("打开文档" + filename);
+			doc = Dispatch.call(docs,//
+					"Open", //
+					filename,// FileName
+					false,// ConfirmConversions
+					true // ReadOnly
+					).toDispatch();
+
+			/**
+			 * 添加水印
+			 */
+			// 取得窗口活动体
+			// Dispatch activeWindow = app.getProperty("ActiveWindow")
+			// .toDispatch();
+			// Dispatch docSelection = Dispatch.get(app,
+			// "Selection").toDispatch();
+			// setWaterMark(activeWindow, docSelection, waterMarkStr);
+			System.out.println("转换文档到PDF" + toFilename);
+			File tofile = new File(toFilename);
+			if (tofile.exists()) {
+				tofile.delete();
+			}
+			Dispatch.call(doc,//
+					"SaveAs", //
+					toFilename, // FileName
+					wdFormatPDF);
+
+//			Dispatch.call(doc, "Close", false);
+//			if (app != null)      
+//                app.invoke("Quit", new Variant[] {});      
+//           
+//			ComThread.Release();//
+			long end = System.currentTimeMillis();
+			System.out.println("转换完成..用时：" + (end - start) + "ms.");
+		} catch (Exception e) {
+			f = false;
+			System.out.println("Error:文档转换失败：" + e.getMessage());
+			e.printStackTrace();
+		}finally {  
+            Dispatch.call(doc,"Close",false);  
+            System.out.println("关闭文档");  
+            if (app != null)      
+                app.invoke("Quit", new Variant[] {});      
+            //如果没有这句话,winword.exe进程将不会关闭  
+            ComThread.Release();     
+        }  
+		return f;
+	}
+
     public HttpServletResponse download(String path, HttpServletResponse response) {
     	try {
     		
@@ -94,6 +155,10 @@ public class Test {
     	}
     	return response;
     	}
+	public static void wdFormatPDF(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
     
   
 }  

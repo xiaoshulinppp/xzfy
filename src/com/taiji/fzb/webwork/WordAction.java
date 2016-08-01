@@ -196,15 +196,16 @@ public class WordAction  extends ProtectedDetailAction{
         //该方法直接弹窗下载
        // WordUtil.createWord(dataMap,this.getRequest(),ServletActionContext.getResponse());
         
-        
-        boolean f = Word2Pdf.word2PDF(filePath+File.separator+fileName, filePath +File.separator+ fileName2,"诚信创建");
+        /*boolean f = Word2Pdf.word2PDF(filePath+File.separator+fileName, filePath +File.separator+ fileName2,"诚信创建");
         if(f){
         	System.out.println("chenggong");
         }else{
         	System.out.println("shibai");
         	
         }
-        
+        */
+        System.out.println(filePath+File.separator+fileOnlyName+"   "+ filePath +File.separator+ fileName2);
+        Test.wordToPDF(filePath+File.separator+fileOnlyName, filePath +File.separator+ fileName2);
         WordUtil.download(filePath +File.separator+ fileName2, ServletActionContext.getResponse());
         
         
