@@ -4,7 +4,7 @@
           "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 <xwork>
 	<package name="zxsq" extends="default" namespace="/zxsq">
-		<default-interceptor-ref name="autowireDefault" />
+		<default-interceptor-ref name="autowireValidationNoSession" />
 		
 			<!-- 跳转  在线申请 -->
 		<action name="zxsq" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="zxsq" >
@@ -14,26 +14,26 @@
 			<!-- 新的申请 -->
 		<action name="newsq" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="newsq" >
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 			<!-- 跳转  公民 -->
 		<action name="gotoGmSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="gotoGmSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 			<!-- 跳转  法人或组织 -->
 		<action name="gotoFrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="gotoFrSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -44,17 +44,17 @@
 		<action name="sqrList" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="sqrList">
 			<result name="success">/pages/zxfy/zxsq/sqr_list.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 			<!-- 添加申请人 -->
 		<action name="runSqrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrSave" >
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 校验申请人身份证   查重 -->
@@ -67,38 +67,38 @@
 			<!--  修改信息  -->
 		<action name="runSqrUpdate" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrUpdate">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 			<!-- 删除 申请人 -->
 		<action name="runSqrDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 			<!-- 添加 代表人 -->
 		<action name="runSqrDbrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrDbrSave" >
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 			<!-- 申请人 下一步 -->
 		<action name="sqrNext" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="sqrNext" >
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -108,16 +108,16 @@
 		<action name="dlrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="dlrSave">
 			<result name="success">/pages/zxfy/zxsq/aj_dlr_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 			<!-- 添加 代理人 -->
 		<action name="runDlrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runDlrSave" >
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -125,7 +125,7 @@
 		<action name="zylxrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="zylxrSave">
 			<result name="success">/pages/zxfy/zxsq/sqr_zylxr_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 发送案件申请码 -->
@@ -140,16 +140,16 @@
 		<action name="bsqrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="bsqrSave">
 			<result name="success">/pages/zxfy/zxsq/bsqr_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 添加被申请人 -->
 		<action name="runBsqrSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runBsqrSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -181,17 +181,17 @@
 		<action name="isNotXzzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="isNotXzzwSave" >
 			<result name="success">/pages/zxfy/zxsq/isnot_xzzw_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 行政是否作为 -->
 		<action name="runIsNotXzzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runIsNotXzzwSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -199,17 +199,17 @@
 		<action name="xzzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="xzzwSave">
 			<result name="success">/pages/zxfy/zxsq/xzzw_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 添加作为案件  -->
 		<action name="runXzzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runXzzwSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -217,17 +217,17 @@
 		<action name="xzbzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="xzbzwSave">
 			<result name="success">/pages/zxfy/zxsq/xzbzw_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 添加不作为案件  -->
 		<action name="runXzbzwSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runXzbzwSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -235,25 +235,25 @@
 		<action name="sslySave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="sslySave">
 			<result name="success">/pages/zxfy/zxsq/ssly_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 事实理由上一步 -->
 		<action name="sslyBefore" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="sslyBefore">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 添加  事实理由  -->
 		<action name="runSslySave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSslySave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -261,31 +261,31 @@
 		<action name="sqrSfzmSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="sqrSfzmSave">
 			<result name="success">/pages/zxfy/zxsq/sqr_sfzm_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runUploadSqrSfzmSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runUploadSqrSfzmSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runSqrSfzmDelAll" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrSfzmDelAll">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runSqrSfzmDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runSqrSfzmDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -301,10 +301,10 @@
 		<!-- 申请人身份证明 下一步 -->
 		<action name="sqrSfzmNext" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="sqrSfzmNext">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -312,23 +312,23 @@
 		<action name="dlsxSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="dlsxSave">
 			<result name="success">/pages/zxfy/zxsq/dlsx_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runDlsxSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runDlsxSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runDlsxDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runDlsxDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<!-- 下一步之前校验 -->
@@ -336,10 +336,10 @@
 		</action>
 		<action name="runDlsxNext" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runDlsxNext">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -347,33 +347,33 @@
 		<action name="xzzwClSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="xzzwClSave">
 			<result name="success">/pages/zxfy/zxsq/xzzw_cl_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 添加    -->
 		<action name="runXzzwClSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runXzzwClSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runUploadXzzwClSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runUploadXzzwClSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runXzzwClDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runXzzwClDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -382,43 +382,43 @@
 		<action name="xzbzwClSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="xzbzwClSave">
 			<result name="success">/pages/zxfy/zxsq/xzbzw_cl_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 添加    -->
 		<action name="runXzbzwClSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runXzbzwClSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="xzbzwClDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="xzbzwClDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="xzbzwClAllDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="xzbzwClAllDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 案件材料上一步 -->
 		<action name="ajclBefore" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="ajclBefore">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -432,34 +432,34 @@
 		<action name="otherSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqListAction" method="otherSave">
 			<result name="success">/pages/zxfy/zxsq/qiTaCl_save.ftl</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<!-- 添加  其他材料    -->
 		<action name="runOtherSave" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runOtherSave">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}&amp;otherValue=${otherValue}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		<action name="runQtclDel" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="runQtclDel">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
 		<action name="tiJiaoShenQing" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="tiJiaoShenQing">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="pageOldError" type="redirect">
-				pageOldError.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				pageOldError.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 		</action>
 		
@@ -484,7 +484,7 @@
 			<!-- 继续申请 -->
 		<action name="proceedSq" class="com.taiji.zxfy.zxsq.webwork.action.ZxsqDetailAction" method="proceedSq">
 			<result name="success" type="redirect">
-				${actionName}.action?funcCode=${funcCode}&amp;caseIndex=${caseIndex}&amp;infoId=${infoId}
+				${actionName}.action?caseIndex=${caseIndex}&amp;infoId=${infoId}
 			</result>
 			<result name="sqmError">/pages/zxfy/zxsq/jxsq.ftl</result>
 		</action>

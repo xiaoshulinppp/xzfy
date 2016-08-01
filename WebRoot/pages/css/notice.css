@@ -1,0 +1,35 @@
+@charset "utf-8";
+body {
+    background: #f5f5f5 url(../img/topbg.png) no-repeat top center;
+}
+.main{width:1000px;margin:0px auto;}
+.logo{margin:40px 0 0 80px;}
+.logo img{display:block;width:400px;height:60px;}
+.content{width:100%;margin-top:30px;background:#fff;border-top:solid 2px #afcce4;}
+.top_title{width:100%;height:50px;border-bottom:solid 2px #ddd;}
+.top_title p{width:80%;float:left;line-height:50px;font-size:21px;color:#000;padding-left:30px;}
+.top_title a{display:block;float:right;width:80px;height:30px;line-height:30px;margin:10px 10px 0 0;background:#dfdfdf;color:#333;text-align:center;text-decoration:none;}
+.top_title a:hover{background:#0c4aa8;color:#fff;}
+.mian_cont{width:100%;padding-bottom:50px;}
+.xztitle{margin:30px auto;font-size:30px;font-weight:bold;color:#666;text-align:center;}
+.yd{display:block;width:810px;margin:20px auto;overflow:hidden;}
+.yd li{width:195px;height:200px;float:left;margin-right:10px;}
+.yd li a{display:block;width:130px;padding:20px 20px 0 30px;height:180px;font-size:21px;line-height:30px;background:#2e85cd;color:#cffffd;float:left;position:relative;border-radius:10px;text-decoration:none;}
+.yd li .main_text{padding:50px 20px 0 30px;height:150px;}
+.yd li .main_textpad{padding:40px 20px 0 30px;height:160px;}
+.yd li a .lfsj{width:13px;height:26px;position:absolute;z-index:10;left:0;top:85px;background:url(../img/sjwhite.png) no-repeat center;}
+.yd li .ydbg{width:13px;height:26px;float:left;margin-top:85px;background:url(../img/sjblue.png) no-repeat center;}
+.yd  .marnone{margin-right:0px;}
+.jd{clear:both;width:820px;margin:30px auto 40px;padding:10px 0;font-size:24px;font-weight:bold;color:#2e85cd;background:#b0dbfb;overflow:hidden;}
+.jdsite{height:35px;line-height:35px;padding-left:40px;margin-bottom:10px;background:url(../img/jddd.png) no-repeat left center;border-left:solid 20px #b0dbfb;}
+.jdtime{height:35px;line-height:35px;padding-left:40px;background:url(../img/jdsj.png) no-repeat left center;border-left:solid 20px #b0dbfb;}
+.xian{width:100%;height:3px;border-top:dashed 1px #ccc;border-bottom:dashed 1px #ccc;}
+.content_text{width:86%;margin:0 auto;}
+.tophead{font-size:16px;font-weight:bold;color:#333;margin:50px 0 10px 0;}
+.contentwz{font-size:16px;color:#333;padding:10px 0;line-height:30px;}
+.contentwz span{font-size:18px;font-weight:bold;color:#cc0000;}
+.ybutton{width:100%;padding-bottom:50px;background:#e8e8e8;overflow:hidden}
+label{display:block;padding:20px 0 10px 50px;}
+.cor{color:#cc0000;}
+.tj{width:160px;height:40px;line-height:40px;margin:0px auto;font-size:16px;color:#fff;text-align:center;cursor:pointer;background:#2e85cd;}
+.tj:hover{background:#0c4aa8;}

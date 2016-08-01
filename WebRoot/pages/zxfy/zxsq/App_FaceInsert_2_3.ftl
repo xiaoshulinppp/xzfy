@@ -492,7 +492,6 @@ function check_pc(cv){
 
 
 <body onload="HideActiveX()">
-<#include "../website/header.ftl">
 <#--第一步：加载CAB包OCX控件-->
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	  id="CVR_IDCard" name="CVR_IDCard" width="0" height="0" >
@@ -525,7 +524,6 @@ function check_pc(cv){
 <!-- 状态 -->
 <input type="hidden" name="sta" id="sta" value="11" />
 <input id="xzfyId" name="xzfyInfo.id" value="${xzfyId}" type="hidden">
-<input type="hidden" name="funcCode" value="${funcCode}" />
 <input type="hidden" name="yuedusj" value="${yuedusj}" />
 
 <input type="hidden" name="xzfyInfo.receive_type" value="1" />
@@ -534,7 +532,7 @@ function check_pc(cv){
 <input type="hidden" id="buzheng_from" name="xzfyInfo.buzheng_from" value=""> 
 
 <div class="wal pageNow2">
-      <div class="fl">当前位置：&nbsp;&nbsp;<a href="../xzfy/gotoIndex.action?funcCode=${funcCode}">首页  </a> >&nbsp;&nbsp;  <a href="../xzfy/openReceive.action?funcCode=${funcCode}">接收/新增案件</a>  >&nbsp;&nbsp; 当面接收复议申请</div>
+      <div class="fl">当前位置：&nbsp;&nbsp;<a href="../xzfy/gotoIndex.action">首页  </a> >&nbsp;&nbsp;  <a href="../xzfy/openReceive.action">接收/新增案件</a>  >&nbsp;&nbsp; 当面接收复议申请</div>
 
 </div>
 
@@ -550,7 +548,7 @@ function check_pc(cv){
 	 <div border="0" >
 	<div class="btn" >
 	<div class="fl" >
-		<!--<a href="../xzfy/tiquFaceList.action?funcCode=${funcCode}" title="案件提取"  >案件提取</a>-->
+		<!--<a href="../xzfy/tiquFaceList.action" title="案件提取"  >案件提取</a>-->
 	</div>
 	</div>
 </div>
@@ -586,8 +584,8 @@ function check_pc(cv){
     <tr  id="shenqingren1">
   	<th><font color="red">*</font>申请人：</th>
     <td colspan=3>
-    <a href="javascript:opendg('xzfy/addApp.action?xzfyId=${xzfyId}&funcCode=${funcCode}&protype=1&textId=shenqingren&countId=rencount',900,600)"  style="display:block" id="appspan1">添加</a>
-    <a href="javascript:opendg('xzfy/addLegal.action?xzfyId=${xzfyId}&funcCode=${funcCode}&protype=2&textId=shenqingren&countId=rencount',900,600)"  style="display:none" id="appspan2">添加</a>
+    <a href="javascript:opendg('xzfy/addApp.action?xzfyId=${xzfyId}&protype=1&textId=shenqingren&countId=rencount',900,600)"  style="display:block" id="appspan1">添加</a>
+    <a href="javascript:opendg('xzfy/addLegal.action?xzfyId=${xzfyId}&protype=2&textId=shenqingren&countId=rencount',900,600)"  style="display:none" id="appspan2">添加</a>
     <textarea name="xzfyInfo.appdetail" type="text" class="textarea" id="shenqingren" ischeck="y" altname="申请人" ></textarea>
     </td>
    </tr>
@@ -638,7 +636,7 @@ function check_pc(cv){
 	<th>代表人：</th>
 	<td  colspan=3>
 		    <a href="javascript:setDeputy('#deputyDiv',1)" style="display:block" id="deputyspan">添加</a>
-		<#--<a href="javascript:opendg('xzfy/addDeputy.action?xzfyId=${xzfyId}&funcCode=${funcCode}&protype=1&textId=deputy&deputy=1',900,600)"  style="display:block" id="appspan1">添加</a>
+		<#--<a href="javascript:opendg('xzfy/addDeputy.action?xzfyId=${xzfyId}&protype=1&textId=deputy&deputy=1',900,600)"  style="display:block" id="appspan1">添加</a>
 		-->
     	<textarea name="xzfyInfo.dbrDetail" type="text" class="textarea"  id="deputy" ischeck="y" altname="代表人" style="overflow-y:visible;" readonly></textarea>
 	</td>	    
@@ -2993,7 +2991,7 @@ function saveNew(id){
       if(checknull()){
         // checknull();
 		listForm_= document.getElementById("form1");
-		listForm_.action="../xzfy/saveFace.action?funcCode=${funcCode}&&xzfyId=" + id;
+		listForm_.action="../xzfy/saveFace.action?xzfyId=" + id;
 			if(confirm("您确认提交吗?"))
 			listForm_.submit();
        }
@@ -3715,7 +3713,7 @@ function check_shencha(idValue){
 		return false;
 	}
 
- 	url="anNumConfirm.action?funcCode=${funcCode}&xwNum="+encodeURI(num)+"&xwName="+encodeURI(name)+"&dname="+encodeURI(dname);
+ 	url="anNumConfirm.action?xwNum="+encodeURI(num)+"&xwName="+encodeURI(name)+"&dname="+encodeURI(dname);
                   var myAjax = 	new Ajax.Request(
                   url, // 请求的URL
                 {
@@ -3740,7 +3738,7 @@ function anNumConfirmReturn(response) {
 	var n = response.responseText.split(",");
 	var n1 = n[0];
 	var n2 = n[1];
-	window.open ("openXw.action?funcCode=${funcCode}&xwNum="+encodeURI(num)+"&xwName="+encodeURI(name)+"&dname="+encodeURI(dname)+"&n1="+n1+"&n2="+n2,'newwindow','height=300,width=400,top=300,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=yes'); 
+	window.open ("openXw.action?xwNum="+encodeURI(num)+"&xwName="+encodeURI(name)+"&dname="+encodeURI(dname)+"&n1="+n1+"&n2="+n2,'newwindow','height=300,width=400,top=300,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=yes'); 
  
 }
 
@@ -3758,7 +3756,7 @@ function saveDoc(){
 }
 
 function callbackfun1(){
-	var url ="../fzb_default_dafutongzhi.jsp?action=new&d_filetype=doc&d_templateid=20131014160005&d_username=${Session['_USER_LOGIN_'].id}&caseId=${xzfyId}&mstype=shouju";
+	var url ="../fzb_default_dafutongzhi.jsp?action=new&d_filetype=doc&d_templateid=20131014160005&caseId=${xzfyId}&mstype=shouju";
 	window.open(url,'mainwindow2','location=no,resizable=yes');
 }
 
@@ -3773,7 +3771,7 @@ function saveDoc2(){
 }
 
 function callbackfun2(){
-	var url ="../fzb_default_dafutongzhi.jsp?&d_filetype=doc&d_username=${Session['_USER_LOGIN_'].id}&caseId=${xzfyId}&mstype=jiedaibilu";
+	var url ="../fzb_default_dafutongzhi.jsp?&d_filetype=doc&caseId=${xzfyId}&mstype=jiedaibilu";
 	window.open(url,'mainwindow1','location=no,resizable=yes');
 }
 
@@ -3829,7 +3827,7 @@ function saveDoc3(){
 }
 
 function callbackfun3(){
-	var url ="../fzb_default_dafutongzhi.jsp?action=read&d_filetype=doc&d_templateid=20131021132019&d_username=${Session['_USER_LOGIN_'].id}&caseId=${xzfyId}&mstype=songdadizhiquerenshu";
+	var url ="../fzb_default_dafutongzhi.jsp?action=read&d_filetype=doc&d_templateid=20131021132019&caseId=${xzfyId}&mstype=songdadizhiquerenshu";
 	window.open(url,'mainwindow3','location=no,resizable=yes');
 }
 <#--
@@ -3912,11 +3910,11 @@ function depChange(){
 }
 	
 	function dangmian(){
-		window.location.href("../xzfy/appFYfaceInsert.action?funcCode=${funcCode}");
+		window.location.href("../xzfy/appFYfaceInsert.action");
 	}
 	
 	function laixin() {
-		window.location.href("../xzfy/appPaperInsert.action?funcCode=${funcCode}");
+		window.location.href("../xzfy/appPaperInsert.action");
 	}
 	
 	function sqfysx(){

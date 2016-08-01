@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <title>法制办</title>
-    <link rel="stylesheet" type="text/css" href="../pages/zxfy/css/base.css" >
-    <link rel="stylesheet" type="text/css" href="../pages/zxfy/css/index.ts.css" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<link href="../pages/css/base.css" rel="stylesheet" type="text/css">
+<link href="../pages/css/index.css" rel="stylesheet" type="text/css">
+
+<script src="js/jquery-1.10.1.min.js"></script>
+<title>教育培训中心</title>
 </head>
+
 <body>
-
-    <ul class="index-box fn-clear">
-        <li><a href="../zxsq/zxsq.action?funcCode=${funcCode}&fyjg=${fyjg?default('0000')}"  class="index-xzfy" title="点击进入行政复议在线申请"></a> </li>
-        <li><a href="../zxcx/zxcxSearch.action?funcCode=${funcCode}"  class="index-ajbl" title="点击进入案件办理查询"></a> </li>
-        <li><a href="../zxbz/zxbzListAction.action?funcCode=${funcCode}"  class="index-zjcl" title="点击进入在线补充证据材料"></a> </li>
-        <li><a href="../zxyj/searchList.action?funcCode=${funcCode}"  class="index-zxyj" title="点击进入在线阅卷"></a> </li>
-    </ul>
-
+		<div href="#"  class="top_logo"></div>
+        <div class="main">
+        	<a href="../zxsq/zxsq.action?fyjg=${fyjg?default('1403')}"  class="xzfyxx">在线填写<br/>行政复议信息</a>
+            <a href="../zxcx/zxcxSearch.action"  class="ajbl">案件办理<br/>进程查询</a>
+        </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
           "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 <xwork>
 	<package name="xzfy" extends="default" namespace="/xzfy">
-		<default-interceptor-ref name="autowireDefault" />
+		<default-interceptor-ref name="autowireValidationNoSession" />
 
        <action name="appFYfaceInsert" class="com.taiji.fzb.webwork.XzfyDetailAction1"
 			method="gotoCreate">

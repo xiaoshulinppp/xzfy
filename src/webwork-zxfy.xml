@@ -1,7 +1,7 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 <xwork>
 	<package name="zxfy" extends="default" namespace="/zxfy">
-		<default-interceptor-ref name="autowireDefault" />
+		<default-interceptor-ref name="autowireValidationNoSession" />
 		<action name="mainPage" class="com.taiji.zxfy.zxyj.webwork.action.ZxyjListAction" method="searchList">
 			<result name="success">
 				/pages/common/zxfy_mainpage.ftl

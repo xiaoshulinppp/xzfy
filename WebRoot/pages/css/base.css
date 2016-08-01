@@ -1,0 +1,101 @@
+﻿@charset "utf-8";
+
+/*
+	@公共样式 请勿修改
+	@重定义浏览器默认样式
+	@全局常用样式
+	@lasted modify by lizm
+*/
+
+body, ul, li, ol, dl, dt, dd, form, input, textarea, img, p, h1, h2, h3, h4, h5, h6, fieldset, button,label {margin:0;padding:0;}
+body {width:100%;height:100%;font-size:14px;color:#333;font-family:"Microsoft YaHei", '微软雅黑', '宋体';line-height:26px;}
+ol, ul, li {list-style:none;}
+img {border:0;}
+h1 {font-size:24px;}
+h2 {font-size:18px;}
+h3 {font-size:14px;}
+h4{ font-size:14px;}
+h5, h6 {font-size:12px; font-weight:normal;}
+em, cite, i {font-style: normal;}
+a {color:#333;text-decoration:none}
+a:hover {text-decoration:underline;}
+a:focus {outline:none;}
+input{font-family:"Microsoft YaHei", '微软雅黑', '宋体'; font-size:14px;}
+
+/* 去掉各Table  cell 的边距并让其边重合 */
+table{border-collapse:collapse;border-spacing:0;}
+
+ /*清除浮动*/
+.clearfix:after {visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix {zoom:1;}
+
+/*解除浮动*/
+.clearfix_none {clear:none;}
+
+/*元素不显示*/
+.none {display:none;}
+
+/*无背景*/
+.bg_none {background:none;}
+
+/*左浮动*/
+.f_l {float:left;}
+
+/*右浮动*/
+.f_r {float:right;}
+
+/*块状元素*/
+.dpb {display:block;}
+
+/*内联元素*/
+.dpi {display:inline;}
+
+/*文本缩进*/
+.ti2 {text-indent:2em;}
+
+/*常用字体样式 字体颜色*/
+.fc0 {color:#000;}
+.fc3 {color:#333;}
+.fc6 {color:#666;}
+.fc9 {color:#999;}
+.fwb {font-weight:bold;}
+.fwn {font-weight:normal;}
+.fs12{ font-size:12px;}
+.fs14{ font-size:14px;}
+.fs16{ font-size:16px;}
+.fs18{ font-size:18px;}
+.fs24{ font-size:24px;}
+/*常用字体样式 字体颜色*/
+
+
+/* 横向留白 */
+.blank_3{height:3px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_5{height:5px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_7{height:7px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_8{height:8px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_10{height:10px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_15{height:15px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+.blank_20{height:20px;line-height:0;font-size:0; clear:both; overflow:hidden;}
+/* 横向留白 */
+
+/* 边距 */
+.mg{margin:0 auto;}
+.mg_0{margin:0;}
+.mg_a{margin:10px;}
+.mg-t{margin-top:5px;}
+.mg-t1{margin-top:10px;}
+.mg-t2{margin-top:20px;}
+.mg-t3{margin-top:32px;}
+.mg-t4{margin-top:40px;}
+.mg-l{margin-left:10px;}
+.mg-l1{margin-left:15px;}
+.mg-l2{margin-left:20px;}
+.mg-l3{margin-left:30px;}
+.mg-r{margin-right:10px;}
+.mg-r1{margin-right:5px;}
+.mg-r2{margin-right:20px;}
+.mg-r3{margin-right:30px;}
+.mg_b0{margin-bottom:0;}
+.mg_b1{margin-bottom:10px;}
+/* 边距 End */
+

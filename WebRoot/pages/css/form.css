@@ -1,0 +1,27 @@
+@charset "utf-8";
+body {
+    background: #f5f5f5 url(../img/topbg.png) no-repeat top center;
+}
+.main{width:100%}
+.jxtj{padding:5px 20px;margin:20px 0 0 20px;border:solid 1px #ddd;background:#fff;color:#333;display: inline-block;font-size:16px;cursor:pointer;}
+.jxtj:hover{background:#2e85cd;color:#fff;}
+.tab{margin:20px;padding:20px 5px;height:auto;background:#fff;display:block;}
+.tab tr td{padding:20px 0;overflow:hidden;}
+.lf_wid{width:150px;font-size:14px;text-align:right;padding-right:20px;color:#2e85cd;}
+.tab .borrf{font-size:14px;padding-left:20px;}
+.tab .borno{border:none;background:#fff;}
+.tab .mid_wid{width:350px;background:#fff;font-size:14px;}
+.mid_wid input{width:200px;display:block;padding:5px 10px;margin-left:20px;}
+.mid_wid .puthg{resize:none;padding:15px 30px 0;margin:10px 0 0 20px;}
+.mid_wid select{margin-left:20px;padding:5px 30px;}
+.tab tr td label{padding-left:50px;}
+.mid_wid .lbpad{padding-left:10px;}
+.tab tr td label input{display:inline-block;width:30px;}
+.mid_wid .data{width:90px;display:inline-block;}
+.mid_wid .datamar{margin-left:0px;}
+.mid_wid span{width:10px;height:5px;margin-top:10px;border-top:solid 1px #999;display:inline-block;}
+.phone{float:left;}
+.clear{float:left;font-size:16px;color:#F44118;padding-left:20px;cursor:pointer;}
+.hint{margin-left:20px;padding:10px 30px;background:#ccc;}
+.tj{width:160px;height:40px;line-height:40px;margin:20px auto;font-size:16px;color:#fff;text-align:center;background:#2e85cd;cursor:pointer;}
+.tj:hover{background:#0c4aa8;}

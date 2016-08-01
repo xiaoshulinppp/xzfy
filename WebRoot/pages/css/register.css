@@ -1,0 +1,38 @@
+@charset "utf-8";
+body {
+    background: #f5f5f5 url(../img/topbg.png) no-repeat top center;
+}
+.main{width:1000px;margin:0px auto;}
+.logo{margin:40px 0 0 80px;}
+.logo img{display:block;width:400px;height:60px;}
+.content{width:100%;margin-top:30px;background:#fff;border-top:solid 2px #afcce4;}
+.top_title{width:100%;height:50px;border-bottom:solid 2px #ddd;}
+.top_title p{width:80%;float:left;line-height:50px;font-size:21px;color:#000;padding-left:30px;}
+.top_title a{display:block;float:right;width:80px;height:30px;line-height:30px;margin:10px 10px 0 0;background:#dfdfdf;color:#333;text-align:center;text-decoration:none;}
+.top_title a:hover{background:#0c4aa8;color:#fff;}
+.mian_cont{width:90%;margin:0 auto;padding-bottom:50px;}
+.tab{width:85%;margin:50px auto 0;display:block;}
+.tab tr td{padding:10px;width:auto;min-width:230px;font-size:14px;}
+.tab tr td .xh{display:block;color:#FB575A;float:right;font-size:18px;line-height:0;padding:16px 5px 0 5px;}
+.tab tr .lf_wid{text-align:right;color:#2e85cd;}
+.btn{width:80px;height:30px;line-height:30px;text-align:center;background:#eee;color:#333;cursor:pointer;}
+.tdxtx{border:solid 1px #ddd;padding:10px;}
+.tdtxtpad{margin-top:10px;}
+select{width:180px;padding:4px 0;}
+textarea{font-size:14px;}
+.mid_wid label{display:inline-block;}
+.mid_wid label input{float:left;display:block;margin-top:5px;}
+.mid_wid .labspf{padding-left:20px;}
+.mid_wid .labspfont{color:#999;}
+.mid_wid .labsp{float:left;display:inline-block;padding-left:5px;line-height:23px;}
+.mid_wid .labsty{display:block;overflow: hidden;margin-top:10px;}
+.tel{float:left;padding:3px 5px;}
+.yzmbtn{float:left;padding:3px 20px;background:#eee;margin:3px 0 0 10px;cursor:pointer;}
+.yzmbtn:hover,.btn:hover{background:#2e85cd;color:#fff;}
+.yzm{padding:3px 5px;}
+.ybutton{clear:both;padding-top:50px;width:40%;margin:0 auto;overflow:hidden;}
+.tj,.fh{width:160px;height:40px;line-height:40px;float:left;font-size:16px;color:#fff;text-align:center;cursor:pointer;}
+.tj{background:#2e85cd;}
+.fh{margin-left:20px;background:#e59e65;}
+.tj:hover{background:#0c4aa8;}
+.fh:hover{background:#f38227;}

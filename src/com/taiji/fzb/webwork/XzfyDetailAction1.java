@@ -45,12 +45,13 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 	private Number userid;
 	private String upName = "";
 	private String todate;
-	private User user;
 	private List<Beishenqingren> zlList = new ArrayList<Beishenqingren>();
 	private List<Beishenqingren> bList = new ArrayList<Beishenqingren>();
 	
 	private String yuedusj;
 	private List keywordList;
+	
+	private String fyjg;
 	
 	
 	
@@ -87,10 +88,9 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 			xzfyId = currentTime + random.nextInt(1000);
 			Date dt = new Date();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String bumen=recordService.getOrg().getLocbm();
-			Org org=this.recordService.getRootOrg(bumen);
+			Org org=this.recordService.getRootOrg(fyjg);
 			
-			xzfyCom=this.recordService.getXzfyComById(bumen,org.getName());
+			xzfyCom=this.recordService.getXzfyComById(fyjg,org.getName());
 			localBm = org.getLocbm();//0000
 			localName = org.getName();//北京市人民政府
 			if (localBm.substring(2).equals("00")){
@@ -101,11 +101,6 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 			Org rootOrg=this.recordService.getRootOrg(upBm);
 			upName=rootOrg.getName();
 			todate = df.format(dt);
-			user = new User();
-			user = (User) ActionContext.getContext().getSession()
-					.get("_USER_LOGIN_");
-			admit_name = user.getName();
-			setUserid(user.getId());
 			
 			//设置被申请人种类与被申请人名称
 			//北京市法制办
@@ -710,14 +705,6 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 		this.todate = todate;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<Beishenqingren> getZlList() {
 		return zlList;
 	}
@@ -804,6 +791,12 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 	public Class getPersistentClass() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public String getFyjg() {
+		return fyjg;
+	}
+	public void setFyjg(String fyjg) {
+		this.fyjg = fyjg;
 	}
 
 	
