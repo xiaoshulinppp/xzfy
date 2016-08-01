@@ -1516,16 +1516,21 @@ function setApp1(divName,type){
 	//userspan.style.display="none";
 //	}
 }
+var sex=0;
 function addApp(){
-	
+	sex++;
 	var ob1=document.getElementById("appapp");
 	var ins=document.getElementById("insapp");
 	var tuser=document.getElementById("tapp");
 	ob1=ob1.cloneNode(true);
 	var handleList=ob1.getElementsByTagName("input");
 	handleList.item(0).value="";
-	handleList.item(1).value="";
-	handleList.item(2).value="";
+	
+	handleList.item(1).id="appsex"+sex;
+	handleList.item(2).id="appsex"+sex;
+	handleList.item(1).name="appsex"+sex;
+	handleList.item(2).name="appsex"+sex;
+	
 	handleList.item(3).value="";
 	var taList=ob1.getElementsByTagName("textarea");
 	taList.item(0).value="";
