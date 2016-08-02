@@ -10,6 +10,18 @@
 			method="gotoCreate">
      		<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2_3.ftl</result>
 		</action>
+		<action name="addSqrFR" class="com.taiji.fzb.webwork.XzfyDetailAction1"
+			method="addSqrFR">
+     		<result name="success">/pages/zxfy/zxsq/sqrfr.ftl</result>
+		</action>
+		<action name="addSqrOther" class="com.taiji.fzb.webwork.XzfyDetailAction1"
+			method="addSqrFR">
+     		<result name="success">/pages/zxfy/zxsq/sqrother.ftl</result>
+		</action>
+		<action name="addXwqk" class="com.taiji.fzb.webwork.XzfyDetailAction1"
+			method="addSqrFR">
+     		<result name="success">/pages/zxfy/zxsq/addxwqk.ftl</result>
+		</action>
 		<!-- <action name="appFYfaceInsert" class="com.taiji.fzb.webwork.WordAction"
 			method="createWord">
      		<result name="success">/pages/zxfy/zxsq/App_FaceInsert_2_3.ftl</result>

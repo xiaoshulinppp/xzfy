@@ -1616,10 +1616,7 @@ function closeApp_w(){//gongmin
 		}else{
 			if(!IdCardValidate(bnum.item(i).value)){
 				alert("请输入正确格式的身份证号！");return;
-				
 			}
-			
-			
 		}
 		if(baddress.item(i).value==""){
 			alert("请填写被申请人送达地址！");return;
