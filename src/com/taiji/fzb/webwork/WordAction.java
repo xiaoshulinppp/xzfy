@@ -13,14 +13,12 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.taiji.core.webwork.action.ProtectedDetailAction;
 import com.taiji.fzb.domain.XzfyInfo;
 import com.taiji.fzb.service.XzfyService;
-import com.taiji.fzb.util.Word2Pdf;
+import com.taiji.fzb.util.Word2PDF;
 
 /**
  * @Desc：生成word
@@ -124,8 +122,14 @@ public class WordAction  extends ProtectedDetailAction{
         	for(int i=0;i<aa.length;i++){
         		
                 Map<String, Object> map=new HashMap<String, Object>();
-                //"刘全成（由董事会以股份制企业名义提出申请），主要负责人是：张三，送达地址北京海淀，邮编333333，电话3333333；")
-                map.put("sqr", aa[i].replaceAll("\\$", ","));
+                
+                String sqr22="";
+            String  bb3[]= aa[i].split("\\$");
+          //刘全成$男$身份证号130627198912084613$送达地址是打发点$邮编072358$电话99999999&
+           
+            sqr22="姓名:"+bb3[0]+"，性别:"+bb3[1]+"，身份证号:"+bb3[2]+"，送达地址:"+bb3[3]+"，邮编:"+bb3[4]+"，电话:"+bb3[5];
+            
+                map.put("sqr",sqr22);
                 //刘全成$男$身份证号130627198912084613$送达地址盛大发售$邮编121212$电话12121212
                 listsqr.add(map);
                }
@@ -175,21 +179,20 @@ public class WordAction  extends ProtectedDetailAction{
         
         /** 文件名称，唯一字符串 */
         Random r=new Random();
-        SimpleDateFormat sdf1=new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
+        SimpleDateFormat sdf1=new SimpleDateFormat("yyyyMMddHHmmssSSS");
         StringBuffer sb=new StringBuffer();
         sb.append(sdf1.format(new Date()));
-        sb.append("_");
         sb.append(r.nextInt(100));
         
         //文件路径
         filePath=ServletActionContext.getServletContext().getRealPath("/")+"upload";
         //ServletActionContext.getServletContext().getRealPath("/")+"upload
         //文件唯一名称
-        fileOnlyName = "用freemarker导出的Word文档_"+sb+".doc";
+        fileOnlyName =sb+".doc";
         
         //文件名称
-        fileName="申请书.doc";
-      String   fileName2="申请书.pdf";
+      //  fileName="申请书.doc";
+      String   fileName2=sb+".pdf";
         /** 生成word */
       //该方法路径找不到
         WordUtil.createWord(this.getRequest(),dataMap,  filePath, fileOnlyName);
@@ -201,14 +204,14 @@ public class WordAction  extends ProtectedDetailAction{
         	System.out.println("chenggong");
         }else{
         	System.out.println("shibai");
-        	
         }
         */
         System.out.println(filePath+File.separator+fileOnlyName+"   "+ filePath +File.separator+ fileName2);
-        Test.wordToPDF(filePath+File.separator+fileOnlyName, filePath +File.separator+ fileName2);
+        Word2PDF.wordToPDF(filePath+File.separator+fileOnlyName, filePath +File.separator+ fileName2);
         WordUtil.download(filePath +File.separator+ fileName2, ServletActionContext.getResponse());
         
-        
+        WordUtil.DeleteFolder(filePath+File.separator+fileOnlyName);
+        WordUtil.DeleteFolder(filePath +File.separator+ fileName2);
         return "createWordSuccess";
     }
     

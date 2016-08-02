@@ -56,17 +56,6 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 		return "success" ;
 	}
 	
-	public String gotoCreate1() {
-		String sql=" from XzfyInfo";
-	//	List <XzfyInfo > aa = xzfyService.("");
-		XzfyInfo  aa = xzfyService.getXzfyById("20160513134807639437");
-		
-		List a=xzfyService.getXzfyByTB_flag("20160513134807639437");
-		
-		return "success" ;
-		
-		
-	}
 	public String gotoCreate() {
 		
 		try {
@@ -216,7 +205,6 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 	
 
 	public String saveFace(){
-
 
 		// 取得localbm
 		String locbm =fyjg;//受理机构“0000”北京市人民政府

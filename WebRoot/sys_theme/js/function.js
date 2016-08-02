@@ -1516,16 +1516,21 @@ function setApp1(divName,type){
 	//userspan.style.display="none";
 //	}
 }
+var sex=0;
 function addApp(){
-	
+	sex++;
 	var ob1=document.getElementById("appapp");
 	var ins=document.getElementById("insapp");
 	var tuser=document.getElementById("tapp");
 	ob1=ob1.cloneNode(true);
 	var handleList=ob1.getElementsByTagName("input");
 	handleList.item(0).value="";
-	handleList.item(1).value="";
-	handleList.item(2).value="";
+	
+	handleList.item(1).id="appsex"+sex;
+	handleList.item(2).id="appsex"+sex;
+	handleList.item(1).name="appsex"+sex;
+	handleList.item(2).name="appsex"+sex;
+	
 	handleList.item(3).value="";
 	var taList=ob1.getElementsByTagName("textarea");
 	taList.item(0).value="";
@@ -1660,7 +1665,7 @@ function closeApp_w(){//gongmin
 		else{
 		
 			userString=userString+"，身份证号："+bnum.item(i).value;
-			userString_cang=userString_cang+"$身份证号"+bnum.item(i).value;
+			userString_cang=userString_cang+"$"+bnum.item(i).value;
 			
 		}
 			
@@ -1671,7 +1676,7 @@ function closeApp_w(){//gongmin
 		else{
 			
 			userString=userString+"，送达地址："+baddress.item(i).value;
-			userString_cang=userString_cang+"$送达地址"+baddress.item(i).value;
+			userString_cang=userString_cang+"$"+baddress.item(i).value;
 		}
 			
 		if(bpost.item(i).value==""){
@@ -1679,7 +1684,7 @@ function closeApp_w(){//gongmin
 			}
 		else {
 			userString=userString+"，邮编："+bpost.item(i).value;
-			userString_cang=userString_cang+"$邮编"+bpost.item(i).value;
+			userString_cang=userString_cang+"$"+bpost.item(i).value;
 			}
 		
 		if(bphone.item(i).value==""){
@@ -1688,7 +1693,7 @@ function closeApp_w(){//gongmin
 		else{ 
 			
 			userString=userString+"，电话："+bphone.item(i).value;
-			userString_cang=userString_cang+"$电话"+bphone.item(i).value;
+			userString_cang=userString_cang+"$"+bphone.item(i).value;
 			
 		}
 		

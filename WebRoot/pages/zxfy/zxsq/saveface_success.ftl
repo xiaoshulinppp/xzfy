@@ -15,7 +15,7 @@
 	<body>
 	
 <script type="text/javascript">
-window.location.href="../xzfy/saveFace1.action?funcCode=${funcCode}&jiansuom=${jiansuom}&fasongsj=${xzfyInfo.yanzhengsj}&xzfyId=${xzfyInfo.id}";
+window.location.href="../xzfy/saveFace1.action?jiansuom=${jiansuom}&fasongsj=${xzfyInfo.yanzhengsj}&xzfyId=${xzfyInfo.id}";
 
 
  alert("提交成功");

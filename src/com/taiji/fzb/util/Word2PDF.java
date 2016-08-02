@@ -1,4 +1,4 @@
-package com.taiji.fzb.webwork;
+package com.taiji.fzb.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -10,15 +10,12 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.protocol.HttpContext;
-import org.apache.tools.ant.taskdefs.Length.FileMode;
-
-import com.jacob.activeX.ActiveXComponent;  
-import com.jacob.com.ComThread;  
-import com.jacob.com.Dispatch;  
-import com.jacob.com.Variant;  
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
   
-public class Test {  
+public class Word2PDF {  
     static final int wdFormatPDF = 17;// PDF 格式    
     public static void wordToPDF(String sfileName,String toFileName){    
             
@@ -58,7 +55,7 @@ public class Test {
            ComThread.Release();     
     }  
     public static void main(String[] args) {  
-        Test d = new Test();  
+        Word2PDF d = new Word2PDF();  
       //  d.wordToPDF("d:\\ftp\\aaa.docx", "d:\\ftp\\aaa.pdf");  
         //System.exit(0);
         d.word2PDF("d:\\ftp\\aaa.docx", "d:\\ftp\\ffd.pdf", "");
