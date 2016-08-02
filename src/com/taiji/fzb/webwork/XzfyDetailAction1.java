@@ -287,11 +287,11 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 				xzfyInfo.setXwname("行政不作为("+xzfyInfo.getMatter_detail()+")");
 			xzfyInfo.setXwnum("");
 		} else {
-			xzfyInfo.setMatter_type("0");//不作为事项
+			xzfyInfo.setMatter_type("0"); //不作为事项
 			xzfyInfo.setMatter_detail("");//不作为事项明细
-			xzfyInfo.setDuty("");//申请人曾经要求被申请人履行何种法定职责
-			xzfyInfo.setExecute_date("");//要求被申请人履行日期
-			xzfyInfo.setIs_prof("0");//是否有曾要求履责而未履行的证明材料
+			xzfyInfo.setDuty("");         //申请人曾经要求被申请人履行何种法定职责
+			xzfyInfo.setExecute_date(""); //要求被申请人履行日期
+			xzfyInfo.setIs_prof("0");      //是否有曾要求履责而未履行的证明材料
 			xzfyInfo.setIs_prof_detail("");//是否有曾要求履责而未履行的证明材料明细
 		}
 		
@@ -317,18 +317,11 @@ public class XzfyDetailAction1 extends ProtectedListAction{
 				xzfyInfo.setReceive_date(xzfyInfo.getTiaojie_to());//调解日期止,接受调解则将接受日期变为调解截止日期
 			}
 		}
-//<<<<<<< HEAD
-//=======
-		
-		
-		
-		
 
-//>>>>>>> branch 'master' of ssh://git@124.205.50.55:12589/liuqc/fzb_zaixianfuwu.git
 		
 		xzfyInfo.setCaseorg(sljg);
 		
-		xzfyInfo.setCurrentuser(this.recordService.getOrg().getLocbm()); //存储接收案件机关LOCALBM
+//  xzfyInfo.setCurrentuser(this.recordService.getOrg().getLocbm()); //存储接收案件机关LOCALBM
 		String sl1=sljg.substring(0,2);
 		String sl2=sljg.substring(2);
 		int sl1i = Integer.parseInt(sl1);

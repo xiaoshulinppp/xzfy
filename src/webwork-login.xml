@@ -3,6 +3,7 @@
 	<package name="login" extends="default" namespace="/login">
 		<default-interceptor-ref name="autowireDefault" />
 		<action name="viewLogin" class="com.taiji.login.action.LoginAction" method="viewLogin">
+			
 			<interceptor-ref name="noSession" />
 			<result name="success">
 				/pages/login/viewLogin.ftl

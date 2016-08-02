@@ -1668,7 +1668,7 @@ function closeApp_w(){//gongmin
 		else{
 		
 			userString=userString+"，身份证号："+bnum.item(i).value;
-			userString_cang=userString_cang+"$身份证号"+bnum.item(i).value;
+			userString_cang=userString_cang+"$"+bnum.item(i).value;
 			
 		}
 			
@@ -1679,7 +1679,7 @@ function closeApp_w(){//gongmin
 		else{
 			
 			userString=userString+"，送达地址："+baddress.item(i).value;
-			userString_cang=userString_cang+"$送达地址"+baddress.item(i).value;
+			userString_cang=userString_cang+"$"+baddress.item(i).value;
 		}
 			
 		if(bpost.item(i).value==""){
@@ -1687,7 +1687,7 @@ function closeApp_w(){//gongmin
 			}
 		else {
 			userString=userString+"，邮编："+bpost.item(i).value;
-			userString_cang=userString_cang+"$邮编"+bpost.item(i).value;
+			userString_cang=userString_cang+"$"+bpost.item(i).value;
 			}
 		
 		if(bphone.item(i).value==""){
@@ -1696,7 +1696,7 @@ function closeApp_w(){//gongmin
 		else{ 
 			
 			userString=userString+"，电话："+bphone.item(i).value;
-			userString_cang=userString_cang+"$电话"+bphone.item(i).value;
+			userString_cang=userString_cang+"$"+bphone.item(i).value;
 			
 		}
 		
