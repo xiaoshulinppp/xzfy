@@ -7,14 +7,14 @@
 <link href="../pages/css/index.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery-1.10.1.min.js"></script>
-<title>教育培训中心</title>
+<title>在线填写行政复议信息</title>
 </head>
 
 <body>
 		<div href="#"  class="top_logo"></div>
         <div class="main">
         	<a href="../zxsq/zxsq.action?fyjg=${fyjg?default('1403')}"  class="xzfyxx">在线填写<br/>行政复议信息</a>
-            <a href="../zxcx/zxcxSearch.action"  class="ajbl">案件办理<br/>进程查询</a>
+            <a href="../zxcx/zxcxSearch.action?fyjg=${fyjg?default('1403')}"  class="ajbl">案件办理<br/>进程查询</a>
         </div>
 </body>
 </html>

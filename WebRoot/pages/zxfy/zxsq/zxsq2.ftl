@@ -7,7 +7,7 @@
 <link href="../pages/css/notice.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="js/lhgdialog.min.js"></script>
-<title>教育培训中心</title>
+<title>>在线填写行政复议信息</title>
 </head>
 <body>
 	<div class="main">
@@ -74,7 +74,7 @@ function checkAgreement(){
 	
 }
 function gotoIndexPage(){
-	if(confirm("你确定要返回首页吗？你可以在三天内通过提供“案件代码”在“在线申请-继续填写”来完成复议申请的填写。")){
+	if(confirm("你确定要返回首页吗？")){
     	window.location.href="../zxfy/mainPage.action?fyjg=${fyjg}";
     }
 }

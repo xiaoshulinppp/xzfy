@@ -6,15 +6,16 @@
 	<link rel="stylesheet" type="text/css" href="../pages/zxfy/css/base.css" >
 	<title>在线查询</title>
 </head>
-<link href="../${Session['_USER_STYLE_'].cssPath}/style.css" rel="stylesheet" type="text/css">
+<link href="../16B}/style.css" rel="stylesheet" type="text/css">
 <body>
 	<div class="xzfy mh-700 pos-rel">
         <div class="xzfy-hd fn-clear">
-            <a class="xzfy-hd-r fhsy fn-right" href="../zxfy/mainPage.action?funcCode=${funcCode}""></a>
+            <a class="xzfy-hd-r fhsy fn-right" href="../zxfy/mainPage.action"></a>
             <div class="xzfy-hd-bg fn-left"></div>
         </div>
         <div class="xzfy-table xzfy1-table">
         	<form class="xzfy-form" name="updateForm" action=""  method="post">
+        		<input type="hidden" name="fyjg" value="${fyjg}"/>
         		<div class="bd-b fn-clear">
                     <label class="label-r">请输入案件代码</label>
                     <input name="caseIndex" class="bd-i wd-300 pd-4" type="text"><a style="color:#FF0000">${message?default('')}</a>
@@ -28,7 +29,7 @@
     </div>
 	<script>
 		function submitIndex(){
-			window.updateForm.action="../zxcx/zxcxByCaseIndex.action?funcCode=${funcCode}";
+			window.updateForm.action="../zxcx/zxcxByCaseIndex.action";
 			window.updateForm.submit();
 		}
 	</script>

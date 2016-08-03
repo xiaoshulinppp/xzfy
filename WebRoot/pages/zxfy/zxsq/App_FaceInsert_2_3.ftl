@@ -7,7 +7,7 @@
 <link href="../pages/css/register.css" rel="stylesheet" type="text/css">
 <script src="../pages/js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="../pages/js/lhgdialog.min.js"></script>
-<title>教育培训中心</title>
+<title>在线填写行政复议信息</title>
 </head>
 <body>
 <form action="''" name="form1" id="form1" method="post" ENCTYPE="multipart/form-data">
@@ -23,7 +23,7 @@
         <div class="content">
         	<div class="top_title">
             	<p>信息填写</p>
-                <a href="">返回首页</a>
+                <a href="javascript:gotoIndexPage();">返回首页</a>
             </div>
             <div class="mian_cont">
             	<table class="tab tabmar">
@@ -128,7 +128,7 @@
                     	<td class="mid_wid">
                         	<div class="btn" id="sqrtj" onclick="javascript:addXwqk();">添加</div>
                             <div class="tdxtx tdtxtpad" id="xw_an_cang_div"></div>
-                            <input type="text" value="" name="xzfyInfo.require_fy_cang" id="xw_an_cang">
+                            <input type="hidden" value="" name="xzfyInfo.require_fy_cang" id="xw_an_cang">
                             <input type="hidden" id="require_fy_input" name="xzfyInfo.require_fy" value="">
                       	</td>
                     </tr>
@@ -345,6 +345,11 @@ function changesqrzl() {
                 } 
            }
 	}
+}
+function gotoIndexPage(){
+	if(confirm("你确定要返回首页吗？")){
+    	window.location.href="../zxfy/mainPage.action?fyjg=${fyjg}";
+    }
 }
 </script>
 </body>

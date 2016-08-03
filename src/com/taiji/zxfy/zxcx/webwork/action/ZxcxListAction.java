@@ -27,6 +27,7 @@ public class ZxcxListAction extends ProtectedListAction {
 	private String appName;// 申请人名称
 	private String appDeputyName;// 主要代表人名称
 	private String appLinkName;// 主要联系人
+	private String fyjg;
 
 	/**
 	 * 跳转到案件代码登陆页面
@@ -44,34 +45,15 @@ public class ZxcxListAction extends ProtectedListAction {
 	 */
 	@SuppressWarnings("unchecked")
 	public String zxcxByCaseIndex() {
-		String hql = "from XzfyInfo";
-		boolean flag = false;// 判断是否跳转成功的标识符
-		List<XzfyInfo> list = zxcxService.findBySql(hql);
-		if (caseIndex.equals("")) {
-			message = "申请码不能为空！";
-			return ERROR;
-		} else {
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getJiansuom().equals(caseIndex)) {
-					flag = true;
-					break;
-				} else {
-					flag = false;
-				}
-			}
-		}
-		if (flag == true) {
-			String hqlInfo = "from XzfyInfo i where i.jiansuom='" + caseIndex+"'";
-			List<XzfyInfo> infoModels = zxcxService.findBySql(hqlInfo);
+		String hqlInfo = "from XzfyInfo i where i.jiansuom='" + caseIndex+"'";
+		List<XzfyInfo> infoModels = zxcxService.findBySql(hqlInfo);
+		if(infoModels!=null&&infoModels.size()>0){
 			xzfyInfo = infoModels.get(0);
-			
 			return SUCCESS;
-		}
-		if (flag == false) {
+		}else{
 			message = "申请码不存在！";
 			return ERROR;
 		}
-		return ERROR;
 	}
 
 	public XzfyInfo getXzfyInfo() {
@@ -150,4 +132,13 @@ public class ZxcxListAction extends ProtectedListAction {
 	public void setAppLinkName(String appLinkName) {
 		this.appLinkName = appLinkName;
 	}
+
+	public String getFyjg() {
+		return fyjg;
+	}
+
+	public void setFyjg(String fyjg) {
+		this.fyjg = fyjg;
+	}
+	
 }

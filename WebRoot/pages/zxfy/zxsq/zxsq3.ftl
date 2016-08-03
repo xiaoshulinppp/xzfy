@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <title>法制办</title>
+    <title>在线填写行政复议信息</title>
     <link rel="stylesheet" type="text/css" href="../pages/zxfy/css/base.css" >
     <link rel="stylesheet" type="text/css" href="../pages/zxfy/css/xzfy.ts.css" >
 </head>
@@ -73,29 +73,9 @@
 </body>
 </html>
 <script type="text/javascript">
-	function checkAgreement()
-{
-    if (document.getElementById("agreement").checked == false)
-	{
-		alert("请先阅读协议并勾选已阅读！");
-		document.getElementById("agreement").focus();
-		return false;
-	}else{
-	
-	//window.location.href="../zxsq/newsq.action?fyjg=${fyjg?default('0000')}";
-	window.location.href="../xzfy/appFYfaceInsert.action?";
-	//<a href="../xzfy/appFYfaceInsert.action?">
-	}
-	
+function gotoIndexPage(){
+	if(confirm("你确定要返回首页吗？")){
+    	window.location.href="../zxfy/mainPage.action?";
+    }
 }
-	
-	
-	function gotoIndexPage()
-	{
-		if(confirm("你确定要返回首页吗？你可以在三天内通过提供“案件代码”在“在线申请-继续填写”来完成复议申请的填写。"))  
-	    {
-	    	window.location.href="../zxfy/mainPage.action?";
-	    }
-	}
-	
 </script>
